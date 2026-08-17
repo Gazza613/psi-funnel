@@ -42,6 +42,17 @@
   /* one vertical rhythm for the whole page, so no section invents its own */
   --sec:clamp(58px,6.2vw,88px);
   --head-gap:clamp(32px,3.6vw,46px);
+  /* the hero CTA floats on equal air: one value drives both the gap to the
+     chips above and the gap to the reassurance pill below, so the two can
+     never drift apart at any viewport */
+  --wa-float:clamp(20px,2.1vw,28px);
+  /* the nav is fixed and overlays the hero, so anything that needs to clear
+     it reads this one value instead of hardcoding a guess */
+  --nav-h:70px;
+  /* the hero's breathing room, applied equally top and bottom. The top adds
+     --nav-h on top of it, so the air the eye actually sees above the headline
+     matches the air below the last element. */
+  --hero-air:clamp(40px,3.8vw,54px);
   --ease:cubic-bezier(.22,.9,.24,1);
   --disp:'Archivo',sans-serif;
   --body:'Instrument Sans',sans-serif;
@@ -55,7 +66,7 @@ a{color:inherit;text-decoration:none}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 section{padding:var(--sec) 0;position:relative}
 /* fixed nav is 70px, so anchored sections stop clear of it instead of tucking under */
-section[id],header[id]{scroll-margin-top:100px}
+section[id],header[id]{scroll-margin-top:calc(var(--nav-h) + 30px)}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--g-amber);display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
 .eyebrow::before{content:"";width:26px;height:2px;background:var(--g-grad)}
 h1,h2,h3{font-family:var(--disp);line-height:1.02;letter-spacing:-.01em}
@@ -73,7 +84,7 @@ h2{font-size:clamp(34px,4.6vw,58px);font-weight:800;font-stretch:88%;text-transf
 
 /* ---------- nav ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);background:rgba(9,9,11,.72);border-bottom:1px solid var(--line)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h)}
 .logo{font-family:var(--disp);font-weight:900;font-stretch:80%;font-size:20px;letter-spacing:.02em;display:flex;align-items:center;gap:12px}
 .psi-mark{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.16em;color:#2B0A02;background:var(--g-grad);padding:5px 9px;border-radius:7px;box-shadow:0 4px 14px -6px rgba(255,106,31,.85),inset 0 1px 0 rgba(255,255,255,.5)}
 .brand-group{display:flex;align-items:center;gap:14px}
@@ -125,7 +136,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);b
 @keyframes icspin{to{transform:rotate(360deg)}}
 
 /* ---------- hero ---------- */
-.hero{padding:clamp(100px,9.2vw,128px) 0 clamp(54px,6vw,82px);overflow:hidden;position:relative}
+.hero{padding:calc(var(--nav-h) + var(--hero-air)) 0 var(--hero-air);overflow:hidden;position:relative}
 .orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.22;pointer-events:none;z-index:0}
 .orb-1{width:560px;height:560px;background:var(--g-orange);top:-160px;right:-120px;animation:drift1 16s ease-in-out infinite alternate}
 .orb-2{width:420px;height:420px;background:#2A4DA8;bottom:-180px;left:-140px;animation:drift2 20s ease-in-out infinite alternate;opacity:.16}
@@ -603,11 +614,10 @@ body.scrolled .nav-inner{height:60px}
    ============================================================ */
 .wa-block{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin-top:26px;max-width:540px}
 .wa-block.wa-mid{align-items:center;margin:32px auto 0;text-align:center}
-/* no draft bubble above the button, so the block carries its own air:
-   a little more clearance from the chips row, and a wider gap so the
-   reassurance line reads as a caption to the button, not a second line
-   of the same object. */
-.wa-block.wa-solo{gap:17px;margin-top:32px}
+/* no draft bubble above the button, so the block carries its own air.
+   The button floats: identical clearance to the chips row above and to
+   the reassurance pill below, both off --wa-float. */
+.wa-block.wa-solo{gap:var(--wa-float);margin-top:var(--wa-float)}
 
 /* --- the opener, drafted in front of them ---------------------
    The single biggest hesitation on a chat button is "what do I
@@ -664,8 +674,7 @@ body.scrolled .nav-inner{height:60px}
 .btn-wa:hover{transform:translateY(-2px);box-shadow:0 16px 34px -12px rgba(37,211,102,.78),inset 0 1px 0 rgba(255,255,255,.52)}
 .btn-wa::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 32%,rgba(255,255,255,.4) 50%,transparent 68%);transform:translateX(-120%);transition:transform .6s ease}
 .btn-wa:hover::after{transform:translateX(120%)}
-.btn-wa .dot{position:relative;z-index:1;width:7px;height:7px;border-radius:50%;flex:none;background:#F4FFF8;box-shadow:0 0 0 3px rgba(255,255,255,.26);animation:pulse 1.8s infinite}
-.btn-wa .ic,.btn-wa span:not(.dot){position:relative;z-index:1}
+.btn-wa .ic,.btn-wa span{position:relative;z-index:1}
 .btn-wa:hover .ic{transform:translateX(-2px)}
 
 /* --- the dock: the chat is never more than one tap away ------ */
@@ -716,6 +725,20 @@ body.scrolled .nav-inner{height:60px}
   .wa-msg .caret,.wa-fab::before{display:none}
   html{scroll-behavior:auto}
 }
+/* ---------- hero: the visual column matches the copy column ----------
+   Above the stacking breakpoint the phone takes its length from the copy
+   beside it. The script at the foot of this file measures that column and
+   publishes it as --visual-h, so the two columns start and end on the same
+   line at every width — the mismatch used to flip sign as the viewport grew,
+   because the headline scales with vw while the phone did not.
+   With no JS it falls back to the natural centred layout. */
+@media (min-width:981px){
+  .hero-visual{height:var(--visual-h,auto);display:flex;flex-direction:column}
+  .hero-visual .phone{flex:1;min-height:0;display:flex;flex-direction:column}
+  .hero-visual .phone-screen{flex:1;min-height:0;display:flex;flex-direction:column}
+  .hero-visual .wa-body{flex:1;min-height:0;height:auto}
+}
+
 @media (max-width:980px){
   .hero-grid{grid-template-columns:1fr;gap:56px}
   .grid-3,.eng-grid{grid-template-columns:1fr 1fr}
@@ -736,7 +759,6 @@ body.scrolled .nav-inner{height:60px}
   .ad-slot{max-width:100%}
   .grid-3,.eng-grid{grid-template-columns:1fr}
   .wa-block{max-width:100%}
-  .wa-block.wa-solo{gap:15px;margin-top:28px}
   .wa-launch{padding:12px 20px;font-size:14px}
   .wa-dock{right:15px;bottom:16px}
   .wa-fab{width:54px;height:54px}
@@ -754,8 +776,7 @@ body.scrolled .nav-inner{height:60px}
 }
 @media (max-width:480px){
   h1{font-size:clamp(40px,13.5vw,60px)}
-  .hero{padding:92px 0 52px}
-  .nav-inner{height:62px}
+  :root{--nav-h:62px}
   .logo{font-size:17px;gap:8px}
   .gas-mark{width:28px;height:28px}
   .btn-sm{padding:9px 14px;font-size:12.5px}
@@ -848,7 +869,7 @@ body.scrolled .nav-inner{height:60px}
       <a href="#start">Getting started</a>
     </div>
     <div class="nav-cta">
-      <a class="btn btn-wa btn-sm magnetic" href="https://wa.me/" data-wa="Hi GAS, I want to talk to PSI about our lead quality"><span class="dot" aria-hidden="true"></span><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>Chat to us</a>
+      <a class="btn btn-wa btn-sm magnetic" href="https://wa.me/" data-wa="Hi GAS, I want to talk to PSI about our lead quality"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>Chat to us</span></a>
     </div>
   </div>
 </nav>
@@ -876,7 +897,7 @@ body.scrolled .nav-inner{height:60px}
           <span>Chat to us on WhatsApp</span>
           <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
         </a>
-        <p class="wa-assure"><span class="wa-live"><i aria-hidden="true"></i>PSI on duty 24/7</span> No forms, no call-back queue. PSI answers, qualifies, and hands our team the conversation.</p>
+        <p class="wa-assure"><span class="wa-live"><i aria-hidden="true"></i>PSI on duty 24/7</span></p>
       </div>
     </div>
     <div class="hero-visual">
@@ -905,8 +926,8 @@ body.scrolled .nav-inner{height:60px}
 </header>
 
 <!-- ============ FANS LOGO MARQUEE ============ -->
-<!-- To show real logos: create a /logos folder next to this file and drop in the
-     files named below (PNG or SVG, transparent background, roughly 200px tall).
+<!-- To show real logos: drop the files named below into assets/logos/
+     (PNG or SVG, transparent background, roughly 200px tall).
      Each logo renders greyscale automatically and reveals full colour on hover.
      If a file is missing, a styled grey wordmark shows in its place. -->
 <div class="fans" aria-label="Some of our biggest fans">
@@ -1426,6 +1447,31 @@ body.scrolled .nav-inner{height:60px}
      ============================================================ */
   var WA_NUMBER = '';
   var WA_HOLD = 'Our PSI WhatsApp line is switching on. It goes live here shortly.';
+
+  /* ============================================================
+     The hero's visual column takes its length from the copy column, so
+     the phone starts and ends on the same line as the headline block.
+     Measured rather than hardcoded: the headline scales with the
+     viewport, so any fixed phone height is only ever right at one width.
+     ============================================================ */
+  (function heroColumnMatch(){
+    var grid = document.querySelector('.hero-grid');
+    if(!grid || !window.ResizeObserver) return;
+    var copy = grid.children[0];
+    var visual = grid.querySelector('.hero-visual');
+    if(!copy || !visual) return;
+    var wide = window.matchMedia('(min-width:981px)');
+
+    function sync(){
+      if(!wide.matches){ visual.style.removeProperty('--visual-h'); return; }
+      /* a floor so the chat never squashes to nothing on short copy */
+      visual.style.setProperty('--visual-h', Math.max(copy.offsetHeight, 520) + 'px');
+    }
+
+    new ResizeObserver(sync).observe(copy);
+    wide.addEventListener('change', sync);
+    sync();
+  })();
 
   (function whatsapp(){
     var live = /^[1-9]\d{7,14}$/.test(WA_NUMBER);
