@@ -475,6 +475,31 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .final .lede{margin-left:auto;margin-right:auto;margin-top:18px}
 .final .gas-mark{width:82px;height:82px;margin:0 auto 20px}
 
+/* ---------- presence / credibility ---------- */
+.presence-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:var(--head-gap)}
+.p-lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px}
+.presence address{font-style:normal;font-size:17px;line-height:1.75;color:var(--text)}
+.p-mail{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-family:var(--mono);
+  font-size:14px;color:var(--g-amber);border-bottom:1px solid rgba(255,162,77,.35);padding-bottom:3px;
+  transition:color .2s ease,border-color .2s ease}
+.p-mail:hover{color:var(--text);border-color:var(--text)}
+.office-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.office-list li{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px dashed var(--line);
+  font-size:17px;color:var(--text)}
+.office-list li:last-child{border-bottom:0}
+.office-list i{width:7px;height:7px;border-radius:50%;background:var(--g-grad);flex:none}
+.office-list b{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+  color:var(--text-3);font-weight:500}
+@media (max-width:820px){
+  .presence-grid{grid-template-columns:1fr}
+}
+/* the DMA mark sits with the sign-off rather than competing with the logo */
+.f-badges{display:flex;align-items:center;gap:16px}
+/* the badge artwork is #4d4d4d/#808080, invisible on the navy footer, so it
+   is flattened to white and dimmed back — monochrome, so nothing is lost */
+.f-badges img{height:54px;width:auto;display:block;filter:brightness(0) invert(1);
+  opacity:.45;transition:opacity .25s ease}
+.f-badges img:hover{opacity:.75}
 footer{border-top:1px solid var(--line);padding:34px 0;font-size:14px;color:var(--text-3)}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 footer .f-sign{font-family:var(--mono);font-size:12px}
@@ -1307,8 +1332,8 @@ body.scrolled .nav-inner{height:60px}
           <div class="dt-row">
             <div class="dt-name"><b>Greg V.</b><span>Sales team overloaded · wants a walkthrough</span></div>
             <div class="dt-src">LinkedIn · CTWA</div>
-            <div class="score-pill">78<span class="sp-bar"><i style="width:78%;background:var(--g-orange)"></i></span></div>
-            <span class="tier-pill hot">HOT</span>
+            <div class="score-pill">78<span class="sp-bar"><i style="width:78%;background:var(--warm)"></i></span></div>
+            <span class="tier-pill warm">WARM</span>
           </div>
           <div class="dt-row">
             <div class="dt-name"><b>Unknown user</b><span>Single message · no fit</span></div>
@@ -1463,13 +1488,47 @@ body.scrolled .nav-inner{height:60px}
   </div>
 </section>
 
+<!-- ============ PRESENCE ============ -->
+<section class="presence" id="presence">
+  <div class="wrap">
+    <div class="eyebrow">Where We Work</div>
+    <h2 class="rvw">Four Offices. <span class="accent">Two Continents.</span></h2>
+    <div class="presence-grid rv">
+      <div class="card">
+        <div class="p-lbl">Head Office</div>
+        <address>
+          78 Corlett Drive<br>
+          Melrose North<br>
+          Johannesburg, 2196<br>
+          South Africa
+        </address>
+        <a class="p-mail" href="mailto:grow@gasmarketing.co.za">
+          <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>grow@gasmarketing.co.za
+        </a>
+      </div>
+      <div class="card">
+        <div class="p-lbl">Offices</div>
+        <ul class="office-list">
+          <li><i aria-hidden="true"></i>Johannesburg<b>HEAD OFFICE</b></li>
+          <li><i aria-hidden="true"></i>Durban</li>
+          <li><i aria-hidden="true"></i>Cape Town</li>
+          <li><i aria-hidden="true"></i>Portugal<b>EUROPE</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div>
       <div class="logo" style="font-size:17px;margin-bottom:6px"><span class="gas-mark" style="width:26px;height:26px"></span>GAS<span class="psi-mark">PSI</span></div>
       <div>GAS Marketing Automation · The Agency of NOW · Johannesburg, South Africa</div>
     </div>
-    <div class="f-sign">INTENT ENGINEERS · gasmarketing.co.za</div>
+    <div class="f-badges">
+      <img src="assets/brand/dma.svg" alt="Direct Marketing Association member" width="64" height="54" loading="lazy">
+      <div class="f-sign">INTENT ENGINEERS · gasmarketing.co.za</div>
+    </div>
   </div>
 </footer>
 
