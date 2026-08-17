@@ -115,7 +115,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);b
 .psi-mark{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.16em;color:#2B0A02;background:var(--g-grad);padding:5px 9px;border-radius:7px;box-shadow:0 4px 14px -6px rgba(255,106,31,.85),inset 0 1px 0 rgba(255,255,255,.5)}
 .brand-group{display:flex;align-items:center;gap:14px}
 .nav-cta{display:flex;align-items:center;gap:10px}
-.nav-tagline{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);padding-left:14px;border-left:1px solid var(--line-2);white-space:nowrap}
+.nav-tagline{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);padding-left:14px;border-left:1px solid var(--line-2);white-space:nowrap}
 .nav-links{display:flex;gap:30px;font-size:14.5px;color:var(--text-2)}
 .nav-links a{transition:color .2s ease}
 .nav-links a:hover{color:var(--text)}
@@ -240,12 +240,12 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .marquee-slow{animation-duration:48s}
 .m-set{display:flex;align-items:center;gap:84px;padding-right:84px;white-space:nowrap}
 .logo-item{display:flex;align-items:center;height:46px;filter:grayscale(1) brightness(1.5);opacity:.45;transition:filter .35s ease,opacity .35s ease}
-.logo-item:hover{filter:none;opacity:1}
+.logo-item:hover,.logo-item.mid{filter:none;opacity:1}
 .logo-item img{height:40px;width:auto;display:block}
-.logo-item b{display:none;font-family:var(--disp);font-weight:800;font-stretch:82%;font-size:23px;color:#CFC9C2;letter-spacing:.03em}
+.logo-item b{display:none;font-family:var(--disp);font-weight:800;font-stretch:82%;font-size:23px;letter-spacing:.03em;
+  background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .logo-item.noimg img{display:none}
 .logo-item.noimg b{display:block}
-.logo-item.noimg:hover b{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 /* ---------- problem ---------- */
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -575,7 +575,7 @@ body.scrolled .nav-inner{height:60px}
 /* --- 14. marquee edges + speed on hover --- */
 .fans{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.018),transparent)}
 .logo-item{transition:filter .4s var(--ease),opacity .4s var(--ease),transform .4s var(--ease)}
-.logo-item:hover{transform:scale(1.06)}
+.logo-item:hover,.logo-item.mid{transform:scale(1.06)}
 
 /* --- 15. the ad creative sits in a real device frame --- */
 .creative-frame{position:relative;border-radius:10px;overflow:hidden;background:#0A1020;container-type:inline-size}
@@ -1503,7 +1503,54 @@ body.scrolled .nav-inner{height:60px}
       }
       marquee.style.setProperty('--set-w', setW + 'px');
       marquee.classList.add('rolling');
+      measure();
     }
+
+    /* ---- focal point: whichever wordmark is crossing the centre line
+       lights up orange, and fades back as the next one takes over.
+       Item offsets are cached because they never change once cloned, so a
+       tick costs one rect read no matter how many wordmarks there are —
+       reading every item every frame would thrash layout. */
+    var items = [], centre = 0, lit = null, raf = 0, running = false;
+
+    function measure(){
+      var mOff = marquee.offsetLeft;
+      items = Array.prototype.slice.call(marquee.querySelectorAll('.logo-item'))
+        .map(function(el){
+          return { el: el, mid: (el.offsetLeft - mOff) + el.offsetWidth / 2 };
+        });
+      var r = track.getBoundingClientRect();
+      centre = r.width / 2;
+    }
+
+    function tick(){
+      if(!running) return;
+      var left = marquee.getBoundingClientRect().left - track.getBoundingClientRect().left;
+      var best = null, bestD = Infinity;
+      for(var i=0;i<items.length;i++){
+        var d = Math.abs(left + items[i].mid - centre);
+        if(d < bestD){ bestD = d; best = items[i].el; }
+      }
+      if(best !== lit){
+        if(lit) lit.classList.remove('mid');
+        if(best) best.classList.add('mid');
+        lit = best;
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    function start(){ if(!running){ running = true; raf = requestAnimationFrame(tick); } }
+    function stop(){
+      running = false; cancelAnimationFrame(raf);
+      if(lit){ lit.classList.remove('mid'); lit = null; }
+    }
+
+    /* only run while the strip is actually on screen */
+    if(window.IntersectionObserver){
+      new IntersectionObserver(function(es){
+        es[0].isIntersecting ? start() : stop();
+      }, { threshold: 0 }).observe(track);
+    } else start();
 
     /* measure after the webfonts land, or the widths are wrong */
     if(document.fonts && document.fonts.ready) document.fonts.ready.then(build);
