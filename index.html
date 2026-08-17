@@ -371,7 +371,14 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .ad-flow{font-family:var(--mono);font-size:11.5px;color:var(--g-amber);text-align:center;margin-top:12px;letter-spacing:.12em;animation:feedglow 2.6s ease-in-out infinite}
 
 .mini-chat{display:flex;flex-direction:column;gap:7px}
-.mini-chat .bubble{opacity:1;transform:none;font-size:13px;max-width:74%}
+/* This block is drawn from the lead's side of the exchange — PSI speaks on the
+   left, she answers on the right. That is the mirror of the hero phone, which
+   is our own inbox, so the alignment and the corner notch are set explicitly
+   here rather than inherited. It is an illustration, not a UI, so no avatars. */
+.mini-chat .bubble{opacity:1;transform:none;font-size:13px;max-width:74%;margin:0}
+.mini-chat .bubble::before{display:none}
+.mini-chat .bubble.psi{align-self:flex-start;border-radius:10px;border-top-left-radius:2px}
+.mini-chat .bubble.lead{align-self:flex-end;border-radius:10px;border-top-right-radius:2px}
 .signal-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-family:var(--mono);font-size:12.5px}
 .signal-row:last-child{border-bottom:0}
 .signal-row .s-name{color:var(--text-2)}
@@ -1221,10 +1228,10 @@ body.scrolled .nav-inner{height:60px}
           </div>
           <div class="j-visual">
             <div class="mini-chat">
-              <div class="bubble in">Hi Naledi 👋 Great to hear from you. Are you running paid media at the moment, or planning to?</div>
-              <div class="bubble out">Running it now, Meta and Google</div>
-              <div class="bubble in">Good. Is the problem lead volume, or lead quality?</div>
-              <div class="bubble out">Quality. My team wastes days on bad leads</div>
+              <div class="bubble psi">Hi Naledi 👋 Great to hear from you. Are you running paid media at the moment, or planning to?</div>
+              <div class="bubble lead">Running it now, Meta and Google</div>
+              <div class="bubble psi">Good. Is the problem lead volume, or lead quality?</div>
+              <div class="bubble lead">Quality. My team wastes days on bad leads</div>
             </div>
           </div>
         </div>
