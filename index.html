@@ -75,10 +75,12 @@
   /* the nav is fixed and overlays the hero, so anything that needs to clear
      it reads this one value instead of hardcoding a guess */
   --nav-h:70px;
-  /* the hero's breathing room, applied equally top and bottom. The top adds
-     --nav-h on top of it, so the air the eye actually sees above the headline
-     matches the air below the last element. */
+  /* the hero's breathing room. --hero-air sets the space below the last
+     element; --hero-air-top sets the air the eye sees above the kicker, and
+     the fixed nav's height is added on top of it so the two are measured the
+     same way. The top runs tighter than the bottom by choice. */
   --hero-air:clamp(40px,3.8vw,54px);
+  --hero-air-top:clamp(30px,2.9vw,40px);
   --ease:cubic-bezier(.22,.9,.24,1);
   --disp:'Archivo',sans-serif;
   --body:'Instrument Sans',sans-serif;
@@ -165,7 +167,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);b
 @keyframes icspin{to{transform:rotate(360deg)}}
 
 /* ---------- hero ---------- */
-.hero{padding:calc(var(--nav-h) + var(--hero-air)) 0 var(--hero-air);overflow:hidden;position:relative}
+.hero{padding:calc(var(--nav-h) + var(--hero-air-top)) 0 var(--hero-air);overflow:hidden;position:relative}
 .orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.22;pointer-events:none;z-index:0}
 .orb-1{width:560px;height:560px;background:var(--g-orange);top:-160px;right:-120px;animation:drift1 16s ease-in-out infinite alternate}
 .orb-2{width:420px;height:420px;background:#2A4DA8;bottom:-180px;left:-140px;animation:drift2 20s ease-in-out infinite alternate;opacity:.16}
@@ -204,6 +206,23 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .bubble.show{opacity:1;transform:none}
 .bubble.in{background:var(--wa-bubble);align-self:flex-start;border-top-left-radius:2px}
 .bubble.out{background:var(--wa-bubble-out);align-self:flex-end;border-top-right-radius:2px}
+/* Who is speaking. The GAS mark sits against PSI's replies and a neutral
+   figure against the prospect's, so the two sides of the demo read at a
+   glance instead of relying on bubble colour alone. The bubbles gain a
+   matching margin, so the avatars sit in carved-out space rather than
+   overlapping the text. */
+.bubble{position:relative}
+.bubble.in{margin-left:26px}
+.bubble.out{margin-right:26px}
+.bubble.in::before,.bubble.out::before{content:"";position:absolute;bottom:0;
+  width:20px;height:20px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.10)}
+.bubble.in::before{left:-26px;background:url(assets/brand/gas-mark.png) center/cover no-repeat}
+.bubble.out::before{right:-26px;background:rgba(255,255,255,.09) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CBD5F0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>") center/12px 12px no-repeat}
+/* the typing indicator is PSI too, so it carries the same mark and offset */
+.typing{position:relative;margin-left:26px}
+.typing::before{content:"";position:absolute;left:-26px;bottom:0;width:20px;height:20px;
+  border-radius:50%;background:url(assets/brand/gas-mark.png) center/cover no-repeat;
+  box-shadow:0 0 0 1px rgba(255,255,255,.10)}
 .bubble .t{display:block;text-align:right;font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;font-family:var(--mono)}
 /* typewriter. A hidden ghost copy of the full message reserves the bubble's
    final box, so the visible characters only ever fill in left to right. Without
