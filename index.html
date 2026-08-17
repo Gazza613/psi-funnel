@@ -196,7 +196,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .wa-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.10) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CBD5F0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>") center/19px 19px no-repeat}
 /* the fallback glyph stays until a lead photo actually loads, so a missing
    or slow file degrades to the placeholder instead of an empty circle */
-.wa-avatar.has-photo{background:var(--lead-photo) center/cover no-repeat}
+.has-lead-photo .wa-avatar{background:var(--lead-photo) center/cover no-repeat}
 .wa-name{font-size:14.5px;font-weight:600;line-height:1.2}
 .wa-status{font-size:11.5px;color:var(--wa)}
 .wa-body{padding:14px 12px 16px;display:flex;flex-direction:column;gap:8px;height:470px;overflow-y:auto;scrollbar-width:none}
@@ -205,7 +205,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
    margin collapses to nothing once the conversation fills the panel. */
 .wa-body::before{content:"";margin-top:auto}
 .wa-body::-webkit-scrollbar{display:none}
-.bubble{max-width:74%;padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease}
+.bubble{max-width:68%;padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease}
 .bubble.show{opacity:1;transform:none}
 .bubble.lead{background:var(--wa-bubble);align-self:flex-start;border-top-left-radius:2px}
 .bubble.psi{background:var(--wa-bubble-out);align-self:flex-end;border-top-right-radius:2px}
@@ -215,6 +215,14 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
    lets the two sides read as a conversation rather than one column. */
 .bubble{position:relative}
 .bubble.psi{margin-right:26px}
+.bubble.lead{margin-left:26px}
+/* the lead mirrors the GAS mark: their photo once it loads, the neutral
+   figure until then */
+.bubble.lead::before{content:"";position:absolute;left:-26px;bottom:0;
+  width:20px;height:20px;border-radius:50%;
+  background:rgba(255,255,255,.09) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CBD5F0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>") center/12px 12px no-repeat;
+  box-shadow:0 0 0 1px rgba(255,255,255,.10)}
+.has-lead-photo .bubble.lead::before{background:var(--lead-photo) center/cover no-repeat}
 .bubble.psi::before{content:"";position:absolute;right:-26px;bottom:0;
   width:20px;height:20px;border-radius:50%;
   background:url(assets/brand/gas-mark.png) center/cover no-repeat;
@@ -363,7 +371,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .ad-flow{font-family:var(--mono);font-size:11.5px;color:var(--g-amber);text-align:center;margin-top:12px;letter-spacing:.12em;animation:feedglow 2.6s ease-in-out infinite}
 
 .mini-chat{display:flex;flex-direction:column;gap:7px}
-.mini-chat .bubble{opacity:1;transform:none;font-size:13px;max-width:80%}
+.mini-chat .bubble{opacity:1;transform:none;font-size:13px;max-width:74%}
 .signal-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-family:var(--mono);font-size:12.5px}
 .signal-row:last-child{border-bottom:0}
 .signal-row .s-name{color:var(--text-2)}
@@ -966,7 +974,7 @@ body.scrolled .nav-inner{height:60px}
       </div>
     </div>
     <div class="hero-visual">
-      <p class="visual-label"><i class="vl-dot" aria-hidden="true"></i><b>Live Demo</b> · our funnels running now ·</p>
+      <p class="visual-label"><i class="vl-dot" aria-hidden="true"></i><b>Live Demo</b> · How PSI Qualifies a Lead ·</p>
       <div class="phone gborder" id="heroPhone">
         <div class="phone-screen">
           <div class="wa-header">
@@ -1844,18 +1852,19 @@ body.scrolled .nav-inner{height:60px}
   var routeEl = document.getElementById('heroRoute');
   var nameEl  = document.getElementById('waName');
   var avatarEl = document.querySelector('.wa-header .wa-avatar');
+  var screenEl = document.querySelector('.phone-screen');
 
   /* Preload before showing: setting the URL directly would blank the circle
      for a frame, or leave it empty forever if the file is missing. */
   function setLeadAvatar(conv){
     if(!avatarEl) return;
-    avatarEl.classList.remove('has-photo');
+    if(screenEl) screenEl.classList.remove('has-lead-photo');
     avatarEl.setAttribute('aria-label', conv.name + ', prospect avatar');
-    if(!conv.avatar) return;
+    if(!conv.avatar || !screenEl) return;
     var img = new Image();
     img.onload = function(){
-      avatarEl.style.setProperty('--lead-photo', 'url("' + conv.avatar + '")');
-      avatarEl.classList.add('has-photo');
+      screenEl.style.setProperty('--lead-photo', 'url("' + conv.avatar + '")');
+      screenEl.classList.add('has-lead-photo');
     };
     img.src = conv.avatar;
   }
