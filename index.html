@@ -169,6 +169,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);b
 @keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(-70px,50px) scale(1.12)}}
 @keyframes drift2{from{transform:translate(0,0)}to{transform:translate(60px,-40px)}}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(38px,4.4vw,56px);align-items:center;position:relative;z-index:1}
+/* Grid items default to min-width:auto, so a child with width:max-content
+   (the live-demo label) propagated its full one-line width up and forced the
+   column past the wrap padding — clipped by .hero{overflow:hidden} on narrow
+   screens. Letting the tracks shrink lets that label wrap instead. */
+.hero-grid>*{min-width:0}
 .kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.3em;color:var(--text-3);text-transform:uppercase;margin-bottom:22px}
 .kicker b{color:var(--g-amber);font-weight:500}
 h1{font-size:clamp(52px,7.2vw,98px);font-weight:900;font-stretch:78%;text-transform:uppercase;line-height:.94}
@@ -555,7 +560,8 @@ body.scrolled .nav-inner{height:60px}
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
 .visual-label .vl-dot{width:7px;height:7px;border-radius:50%;background:var(--wa);flex:none;box-shadow:0 0 10px var(--wa);animation:pulse 1.8s infinite}
-.visual-label b{color:#fff;font-weight:600}
+/* the label phrase stays on one line; only the trailing description wraps */
+.visual-label b{color:#fff;font-weight:600;white-space:nowrap}
 .phone{transform-style:preserve-3d;transition:transform .5s var(--ease);animation:breathe 9s ease-in-out infinite}
 @keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .score-chip,.route-chip{animation:hover-a 7s ease-in-out infinite}
@@ -913,7 +919,7 @@ body.scrolled .nav-inner{height:60px}
     <div>
       <div class="kicker">PRE-SALES INTELLIGENCE · <b>BY GAS MARKETING</b></div>
       <h1><span class="line"><span>Intent</span></span><span class="line"><span class="h-hot">Engineered</span></span></h1>
-      <p class="hero-sub">Your sales team wastes hours on leads who were never going to buy. <strong style="color:var(--text)">PSI ends this.</strong> Pre-Sales Intelligence turns every ad click into a WhatsApp conversation, scores the intent behind it, and passes through only the leads ready to buy. AI does the qualifying. Your humans do the closing.</p>
+      <p class="hero-sub">PSI is <strong style="color:var(--text)">Pre-Sales Intelligence</strong>, our system that qualifies every lead before your sales team sees it. Every enquiry opens a WhatsApp chat, where PSI asks the questions your salespeople normally waste hours on: budget, timing, intent to buy. Every lead gets a score. Only the ready ones reach your team. The rest stay in the funnel until they produce high intent signals. AI does the qualifying. Humans do the closing.</p>
       <div class="chips">
         <span class="chip live"><i></i>Live prospecting now</span>
         <span class="chip"><svg class="ic"><use href="#i-radar"/></svg>Intent scored pre-sales</span>
