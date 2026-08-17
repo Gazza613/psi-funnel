@@ -777,6 +777,11 @@ body.scrolled .nav-inner{height:60px}
 }
 
 @media (max-width:980px){
+  /* Once the hero stacks, the orange bloom sits on top of the headline
+     instead of beside the phone, washing the copy brown. It is 90% of the
+     viewport at 620px against 55% on desktop. The blue orb stays, so the
+     section keeps some depth. */
+  .orb-1{display:none}
   .hero-grid{grid-template-columns:1fr;gap:56px}
   .grid-3,.eng-grid{grid-template-columns:1fr 1fr}
   .j-content{grid-template-columns:1fr}
