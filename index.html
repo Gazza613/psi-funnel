@@ -229,9 +229,14 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .fans-label{font-family:var(--mono);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--text-3);text-align:center;display:flex;align-items:center;justify-content:center;gap:16px}
 .fans-label::before,.fans-label::after{content:"";width:40px;height:1px;background:var(--line-2)}
 .fans-track{margin-top:26px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
-.marquee{display:flex;gap:0;width:max-content;animation:scroll 30s linear infinite}
+.marquee{display:flex;gap:0;width:max-content}
+/* .rolling is added by the script once it has cloned enough sets and
+   measured the repeat unit. Without JS the row simply sits still. */
+.marquee.rolling{animation:scroll 30s linear infinite}
 .marquee:hover{animation-play-state:paused}
-@keyframes scroll{to{transform:translateX(-50%)}}
+/* travel is exactly one set width, so the loop is seamless no matter how
+   many sets the script cloned. -50% is the two-set fallback. */
+@keyframes scroll{to{transform:translateX(calc(-1 * var(--set-w,50%)))}}
 .marquee-slow{animation-duration:48s}
 .m-set{display:flex;align-items:center;gap:84px;padding-right:84px;white-space:nowrap}
 .logo-item{display:flex;align-items:center;height:46px;filter:grayscale(1) brightness(1.5);opacity:.45;transition:filter .35s ease,opacity .35s ease}
@@ -968,20 +973,10 @@ body.scrolled .nav-inner{height:60px}
         <span class="logo-item noimg"><b>Learnalot</b></span>
         <span class="logo-item noimg"><b>FedEx</b></span>
         <span class="logo-item noimg"><b>Old Mutual</b></span>
-        <span class="logo-item noimg"><b>Hyundai</b></span>
-        <span class="logo-item noimg"><b>The Amber Room</b></span>
         <span class="logo-item noimg"><b>Sun International</b></span>
-      </div>
-      <div class="m-set" aria-hidden="true">
-        <span class="logo-item noimg"><b>MTN MoMo</b></span>
-        <span class="logo-item noimg"><b>WH Properties</b></span>
-        <span class="logo-item noimg"><b>Chilla</b></span>
-        <span class="logo-item noimg"><b>Learnalot</b></span>
-        <span class="logo-item noimg"><b>FedEx</b></span>
-        <span class="logo-item noimg"><b>Old Mutual</b></span>
-        <span class="logo-item noimg"><b>Hyundai</b></span>
-        <span class="logo-item noimg"><b>The Amber Room</b></span>
-        <span class="logo-item noimg"><b>Sun International</b></span>
+        <span class="logo-item noimg"><b>Psycho Bunny</b></span>
+        <span class="logo-item noimg"><b>Sea Weeds</b></span>
+        <span class="logo-item noimg"><b>Sea Storm</b></span>
       </div>
     </div>
   </div>
@@ -1474,6 +1469,51 @@ body.scrolled .nav-inner{height:60px}
      ============================================================ */
   var WA_NUMBER = '';
   var WA_HOLD = 'Our PSI WhatsApp line is switching on. It goes live here shortly.';
+
+  /* ============================================================
+     The fans marquee keeps ONE authoritative list in the markup and
+     clones it here until the row is wider than the viewport, then tells
+     the animation to travel exactly one set width. Editing the client
+     list means editing it in one place, and the loop stays seamless at
+     any width instead of only while the list happens to be long enough.
+     ============================================================ */
+  (function fansMarquee(){
+    var track = document.querySelector('.fans-track');
+    var marquee = track && track.querySelector('.marquee');
+    var seed = marquee && marquee.querySelector('.m-set');
+    if(!seed) return;
+
+    function build(){
+      marquee.classList.remove('rolling');
+      marquee.style.removeProperty('--set-w');
+      Array.prototype.slice.call(marquee.querySelectorAll('.m-set'))
+        .forEach(function(set,i){ if(i) set.parentNode.removeChild(set); });
+
+      var setW = seed.getBoundingClientRect().width;
+      var trackW = track.getBoundingClientRect().width;
+      if(!setW || !trackW) return;
+
+      /* one spare set beyond what fits, so the far edge is never exposed
+         at the moment the transform reaches a full set width */
+      var sets = Math.max(2, Math.ceil(trackW / setW) + 1);
+      for(var i=1;i<sets;i++){
+        var clone = seed.cloneNode(true);
+        clone.setAttribute('aria-hidden','true');
+        marquee.appendChild(clone);
+      }
+      marquee.style.setProperty('--set-w', setW + 'px');
+      marquee.classList.add('rolling');
+    }
+
+    /* measure after the webfonts land, or the widths are wrong */
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+    build();
+
+    var t;
+    window.addEventListener('resize', function(){
+      clearTimeout(t); t = setTimeout(build, 200);
+    });
+  })();
 
   /* ============================================================
      The hero's visual column takes its length from the copy column, so
