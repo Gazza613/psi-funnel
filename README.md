@@ -19,7 +19,7 @@ psi-funnel/
 ├── assets/
 │   ├── brand/            Logos and favicons for GAS itself
 │   │   └── gas-mark.png  Used as a CSS background in 4 places
-│   ├── logos/            Client logos for the social-proof marquee (9 files)
+│   ├── logos/            Empty by design — the marquee uses text wordmarks
 │   └── og/               Social share / Open Graph images
 ├── docs/
 │   └── DEPLOY.md         Go-live runbook and post-launch checks

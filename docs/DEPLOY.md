@@ -1,8 +1,8 @@
 # Go-live runbook
 
-## Blockers — the funnel will underperform until these are done
+## Blocker — the funnel will not convert until this is done
 
-### 1. Set the WhatsApp number
+### Set the WhatsApp number
 
 `index.html`, in the script block near the bottom:
 
@@ -20,20 +20,6 @@ Format: **country code + number, digits only, no `+`, no spaces, no leading zero
 ```js
 var WA_NUMBER = '27821234567';   // South Africa, 082 123 4567
 ```
-
-### 2. Add the nine client logos
-
-`assets/logos/` is empty. `index.html` expects these exact filenames:
-
-```
-mtn-momo.png        wh-properties.png    chilla.png
-learnalot.png       fedex.png            old-mutual.png
-hyundai.png         the-amber-room.png   sun-international.png
-```
-
-Missing files do not break the page — each `<img>` has an `onerror` handler that swaps in
-the client's name as text. But the logo marquee is the social-proof block, so it is worth
-having the real marks. Transparent PNG, roughly 200px wide, lowercase filenames.
 
 ---
 
@@ -77,7 +63,7 @@ having the real marks. Transparent PNG, roughly 200px wide, lowercase filenames.
 ## Post-launch checks
 
 - [ ] Every WhatsApp CTA opens a real chat with the pre-filled message intact
-- [ ] All nine client logos render — no text fallbacks visible
+- [ ] The social-proof marquee scrolls its wordmarks smoothly
 - [ ] The `gas-mark` background image appears in all four places it is used
 - [ ] Test on a real phone, not just a narrow desktop window
 - [ ] Sharing the link in WhatsApp shows a title, description, and preview image
