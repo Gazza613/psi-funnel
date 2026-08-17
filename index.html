@@ -258,7 +258,12 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .hero-visual{position:relative}
 .route-chip{position:absolute;bottom:20px;left:-24px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:14px;padding:12px 16px;font-family:var(--mono);font-size:12px;box-shadow:0 20px 50px -18px rgba(0,0,0,.8);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
 .route-chip.show{opacity:1;transform:none}
-.route-chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--hot);margin-right:8px;box-shadow:0 0 12px var(--hot)}
+.route-chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px}
+/* the chip states where the lead went, so its dot carries the tier that
+   decided it rather than always reading hot */
+.route-chip.hot .dot{background:var(--hot);box-shadow:0 0 12px var(--hot)}
+.route-chip.warm .dot{background:var(--warm);box-shadow:0 0 12px var(--warm)}
+.route-chip.cold .dot{background:var(--cold);box-shadow:0 0 12px var(--cold)}
 
 /* ---------- fans logo marquee ---------- */
 .fans{padding:clamp(38px,4vw,50px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
@@ -478,7 +483,7 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 
 /* ---------- final ---------- */
 .final{background:radial-gradient(ellipse at 50% 0%,rgba(247,137,24,.10),transparent 60%),var(--ink-2);border-top:1px solid var(--line);text-align:center}
-.final h2{font-size:clamp(38px,5.6vw,72px)}
+
 .final .lede{margin-left:auto;margin-right:auto;margin-top:18px}
 .final .gas-mark{width:82px;height:82px;margin:0 auto 20px}
 
@@ -1025,7 +1030,7 @@ body.scrolled .nav-inner{height:60px}
         <div class="bar"><i id="heroBar"></i></div>
         <div class="tier" id="heroTier">TIER · COLD</div>
       </div>
-      <div class="route-chip" id="heroRoute"><span class="dot"></span>ROUTED TO THE SALES TEAM WITH FULL CONTEXT</div>
+      <div class="route-chip hot" id="heroRoute"><span class="dot"></span><span class="rc-text">ROUTED TO THE SALES TEAM WITH FULL CONTEXT</span></div>
     </div>
   </div>
 </header>
@@ -1337,9 +1342,9 @@ body.scrolled .nav-inner{height:60px}
             <span class="tier-pill hot">HOT</span>
           </div>
           <div class="dt-row">
-            <div class="dt-name"><b>Greg V.</b><span>Sales team overloaded · wants a walkthrough</span></div>
+            <div class="dt-name"><b>Greg V.</b><span>Sales team overloaded · revisiting next week</span></div>
             <div class="dt-src">LinkedIn · CTWA</div>
-            <div class="score-pill">78<span class="sp-bar"><i style="width:78%;background:var(--warm)"></i></span></div>
+            <div class="score-pill">65<span class="sp-bar"><i style="width:65%;background:var(--warm)"></i></span></div>
             <span class="tier-pill warm">WARM</span>
           </div>
           <div class="dt-row">
@@ -1363,7 +1368,7 @@ body.scrolled .nav-inner{height:60px}
             <div class="feed">
               <div class="f-item now"><span class="f-time">now</span><span><b>Naledi M.</b> routed to our sales team, transcript attached</span></div>
               <div class="f-item"><span class="f-time">2m</span><span><b>Michelle S.</b> booked a strategy session, score +17</span></div>
-              <div class="f-item"><span class="f-time">9m</span><span><b>Unknown user</b> held in nurture, intent too low to route</span></div>
+              <div class="f-item"><span class="f-time">9m</span><span><b>Greg V.</b> moved to the nurture track, PSI follows up next week</span></div>
               <div class="f-item"><span class="f-time">14m</span><span>Qualified event fired to Meta CAPI</span></div>
               <div class="f-item"><span class="f-time">21m</span><span>New conversation opened · TikTok CTWA</span></div>
             </div>
@@ -1481,16 +1486,12 @@ body.scrolled .nav-inner{height:60px}
     <h2 class="rv rvw">Leads have a<br><span class="accent">Conversation that Counts.</span></h2>
     <p class="lede rv">Do not fill in a form. Send us a message instead. Tell PSI what you are spending and what your sales team is complaining about, and you will get an answer in seconds, at whatever hour you are reading this.</p>
     <div class="wa-block wa-mid rv">
-      <div class="wa-draft">
-        <span class="lbl">The message this sends</span>
-        <span class="wa-msg"><span class="wa-echo">Hi GAS, our lead quality needs work. Where do we start?</span><i class="caret" aria-hidden="true"></i></span>
-      </div>
       <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, our lead quality needs work. Where do we start?">
         <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
         <span>Chat to us on WhatsApp</span>
         <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
       </a>
-      <p class="wa-assure"><span class="wa-live"><i aria-hidden="true"></i>One tap, no forms</span> The same qualification layer we sell you is the one answering you.</p>
+      <p class="wa-assure">The same qualification layer we sell you is the one answering you.</p>
     </div>
   </div>
 </section>
@@ -1528,13 +1529,10 @@ body.scrolled .nav-inner{height:60px}
 
 <footer>
   <div class="wrap">
-    <div>
-      <div class="logo" style="font-size:17px;margin-bottom:6px"><span class="gas-mark" style="width:26px;height:26px"></span>GAS<span class="psi-mark">PSI</span></div>
-      <div>GAS Marketing Automation · The Agency of NOW · Johannesburg, South Africa</div>
-    </div>
+    <div class="logo" style="font-size:17px"><span class="gas-mark" style="width:26px;height:26px"></span>GAS<span class="psi-mark">PSI</span></div>
     <div class="f-badges">
       <img src="assets/brand/dma.svg" alt="Direct Marketing Association member" width="64" height="54" loading="lazy">
-      <div class="f-sign">INTENT ENGINEERS · gasmarketing.co.za</div>
+      <div class="f-sign">The Agency of Now · gasmarketing.co.za</div>
     </div>
   </div>
 </footer>
@@ -1916,6 +1914,7 @@ body.scrolled .nav-inner{height:60px}
   var tierEl = document.getElementById('heroTier');
   var routeEl = document.getElementById('heroRoute');
   var nameEl  = document.getElementById('waName');
+  var routeTextEl = routeEl && routeEl.querySelector('.rc-text');
   var avatarEl = document.querySelector('.wa-header .wa-avatar');
   var screenEl = document.querySelector('.phone-screen');
 
@@ -1942,7 +1941,7 @@ body.scrolled .nav-inner{height:60px}
      the starting conversation is random so two visitors arriving together do
      not see the same one. */
   var conversations = [
-    { name:'Naledi', avatar:'assets/leads/naledi.jpg', script:[
+    { name:'Naledi', avatar:'assets/leads/naledi.jpg', route:'ROUTED TO THE SALES TEAM WITH FULL CONTEXT', routeTier:'hot', script:[
       {who:'psi',  text:'Hi Naledi \u{1F44B} Thanks for tapping our PSI ad. What is going wrong with your leads at the moment?', score:12, t:'21:02'},
       {who:'lead', text:'We pay for plenty of leads but almost none of them are worth calling', score:29, t:'21:03'},
       {who:'psi',  text:'That is the usual pattern. Roughly what are you paying per lead, and how many reach a real conversation?', score:41, t:'21:03'},
@@ -1950,7 +1949,7 @@ body.scrolled .nav-inner{height:60px}
       {who:'psi',  text:'So nine in ten are paid for and never sold to. PSI scores intent before your team picks up. Free strategy session Thursday 9am?', score:85, t:'21:04'},
       {who:'lead', text:'Thursday 9am works, send the invite \u{1F64C}', score:94, t:'21:05'}
     ]},
-    { name:'James', avatar:'assets/leads/james.jpg', script:[
+    { name:'James', avatar:'assets/leads/james.jpg', route:'ROUTED TO THE SALES TEAM WITH FULL CONTEXT', routeTier:'hot', script:[
       {who:'psi',  text:'Hi James \u{1F44B} Thanks for tapping our PSI ad. What would you most want fixed in your funnel?', score:15, t:'09:12'},
       {who:'lead', text:'Our conversion rate. Traffic is fine, enquiries are fine, sales are not', score:34, t:'09:12'},
       {who:'psi',  text:'Where do people drop off, before your first reply or after it?', score:49, t:'09:13'},
@@ -1958,15 +1957,15 @@ body.scrolled .nav-inner{height:60px}
       {who:'psi',  text:'That gap is where intent dies. PSI keeps the conversation alive and scores it as it moves. Walkthrough on Tuesday?', score:81, t:'09:14'},
       {who:'lead', text:'Tuesday morning suits, send it through', score:86, t:'09:14'}
     ]},
-    { name:'Greg', avatar:'assets/leads/greg.jpg', script:[
+    { name:'Greg', avatar:'assets/leads/greg.jpg', route:'MOVED TO NURTURE · PSI FOLLOWS UP NEXT WEEK', routeTier:'warm', script:[
       {who:'psi',  text:'Hi Greg \u{1F44B} Thanks for tapping our PSI ad. What is the biggest pressure on your sales side?', score:13, t:'14:41'},
       {who:'lead', text:'My team is drowning. Too many enquiries and they are closing fewer than before', score:31, t:'14:42'},
       {who:'psi',  text:'How much of their day goes on enquiries that were never going to buy?', score:44, t:'14:42'},
       {who:'lead', text:'Most of it. They are exhausted and the good ones slip through', score:62, t:'14:43'},
       {who:'psi',  text:'PSI qualifies first, so your team only speaks to buyers. Want to see it running on your enquiries?', score:71, t:'14:43'},
-      {who:'lead', text:'Yes please, set something up for next week', score:78, t:'14:44'}
+      {who:'lead', text:'Maybe. Things are hectic right now, let me come back to you next week', score:65, t:'14:44'}
     ]},
-    { name:'Michelle', avatar:'assets/leads/michelle.jpg', script:[
+    { name:'Michelle', avatar:'assets/leads/michelle.jpg', route:'ROUTED TO THE SALES TEAM WITH FULL CONTEXT', routeTier:'hot', script:[
       {who:'psi',  text:'Hi Michelle \u{1F44B} Thanks for tapping our PSI ad. How are you managing your leads right now?', score:14, t:'10:05'},
       {who:'lead', text:'Spreadsheets and WhatsApp. We lose track of who has been contacted', score:37, t:'10:06'},
       {who:'psi',  text:'So there is no single place where a lead and its history live?', score:52, t:'10:06'},
@@ -2020,6 +2019,10 @@ body.scrolled .nav-inner{height:60px}
     var conv = conversations[convIdx];
     var script = conv.script;
     if(nameEl) nameEl.textContent = conv.name;
+    if(routeTextEl && conv.route){
+      routeTextEl.textContent = conv.route;
+      routeEl.className = 'route-chip ' + (conv.routeTier || 'hot');
+    }
     setLeadAvatar(conv);
     chat.innerHTML='';
     routeEl.classList.remove('show');
