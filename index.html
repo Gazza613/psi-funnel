@@ -1815,42 +1815,44 @@ body.scrolled .nav-inner{height:60px}
   var tierEl = document.getElementById('heroTier');
   var routeEl = document.getElementById('heroRoute');
 
-  /* Four real-shaped conversations, rotated so the "live funnel" claim holds
-     up for anyone who watches more than one cycle. Different industry, buyer
-     and numbers each time; all four qualify above 70 and route to sales.
-     The starting conversation is picked at random, so two visitors landing
-     at the same moment do not see the same one. */
+  /* Four inbound prospects who tapped the PSI ad and are now being qualified
+     by our own PSI, which is what the "live funnel" claim above the phone
+     actually means. Each one arrives with a different marketing problem:
+     lead quality, conversion, an overwhelmed sales team, and nowhere to
+     manage leads. All four qualify above 70 with distinct final scores, and
+     the starting conversation is random so two visitors arriving together do
+     not see the same one. */
   var conversations = [
     [
-      {who:'in',  text:'Hi Naledi \u{1F44B} Thanks for tapping our ad on lead quality. Are you running paid media at the moment?', score:12, t:'21:02'},
-      {who:'out', text:'Yes, Meta and Google. Volume is fine, the quality is not', score:29, t:'21:03'},
-      {who:'in',  text:'That is the usual pattern. Roughly what are you paying per lead, and how many actually reach a real conversation?', score:41, t:'21:03'},
+      {who:'in',  text:'Hi Naledi \u{1F44B} Thanks for tapping our PSI ad. What is going wrong with your leads at the moment?', score:12, t:'21:02'},
+      {who:'out', text:'We pay for plenty of leads but almost none of them are worth calling', score:29, t:'21:03'},
+      {who:'in',  text:'That is the usual pattern. Roughly what are you paying per lead, and how many reach a real conversation?', score:41, t:'21:03'},
       {who:'out', text:'About R180 a lead. Maybe 1 in 10 is worth a call', score:69, t:'21:04'},
-      {who:'in',  text:'So nine out of ten are paid for and never sold to. PSI scores intent before your team picks up. Free strategy session Thursday 9am?', score:85, t:'21:04'},
+      {who:'in',  text:'So nine in ten are paid for and never sold to. PSI scores intent before your team picks up. Free strategy session Thursday 9am?', score:85, t:'21:04'},
       {who:'out', text:'Thursday 9am works, send the invite \u{1F64C}', score:94, t:'21:05'}
     ],
     [
-      {who:'in',  text:'Hi James \u{1F44B} You tapped our ad about show-day enquiries. Are you selling units at the moment?', score:15, t:'09:12'},
-      {who:'out', text:'Yes, phase two just launched. Plenty of enquiries, few serious buyers', score:34, t:'09:12'},
-      {who:'in',  text:'Are buyers checked for bond readiness before an agent calls them?', score:49, t:'09:13'},
-      {who:'out', text:'No, agents chase everyone. Most cannot get finance', score:73, t:'09:13'},
-      {who:'in',  text:'PSI scores bond readiness first, so agents only call buyers who qualify. Walkthrough on Tuesday?', score:81, t:'09:14'},
+      {who:'in',  text:'Hi James \u{1F44B} Thanks for tapping our PSI ad. What would you most want fixed in your funnel?', score:15, t:'09:12'},
+      {who:'out', text:'Our conversion rate. Traffic is fine, enquiries are fine, sales are not', score:34, t:'09:12'},
+      {who:'in',  text:'Where do people drop off, before your first reply or after it?', score:49, t:'09:13'},
+      {who:'out', text:'After. They enquire, we reply, then it goes quiet', score:73, t:'09:13'},
+      {who:'in',  text:'That gap is where intent dies. PSI keeps the conversation alive and scores it as it moves. Walkthrough on Tuesday?', score:81, t:'09:14'},
       {who:'out', text:'Tuesday morning suits, send it through', score:86, t:'09:14'}
     ],
     [
-      {who:'in',  text:'Hi Greg \u{1F44B} Thanks for tapping our ad on test-drive bookings. Are you running campaigns at the moment?', score:13, t:'14:41'},
-      {who:'out', text:'Yes, mainly Facebook. We get enquiries but very few show up', score:31, t:'14:42'},
-      {who:'in',  text:'How quickly does someone follow up after an enquiry comes in?', score:44, t:'14:42'},
-      {who:'out', text:'Next day usually. Sometimes two', score:62, t:'14:43'},
-      {who:'in',  text:'That is where the drop-off happens. PSI replies in seconds and books the drive itself. Want to see it on your stock?', score:71, t:'14:43'},
+      {who:'in',  text:'Hi Greg \u{1F44B} Thanks for tapping our PSI ad. What is the biggest pressure on your sales side?', score:13, t:'14:41'},
+      {who:'out', text:'My team is drowning. Too many enquiries and they are closing fewer than before', score:31, t:'14:42'},
+      {who:'in',  text:'How much of their day goes on enquiries that were never going to buy?', score:44, t:'14:42'},
+      {who:'out', text:'Most of it. They are exhausted and the good ones slip through', score:62, t:'14:43'},
+      {who:'in',  text:'PSI qualifies first, so your team only speaks to buyers. Want to see it running on your enquiries?', score:71, t:'14:43'},
       {who:'out', text:'Yes please, set something up for next week', score:78, t:'14:44'}
     ],
     [
-      {who:'in',  text:'Hi Michelle \u{1F44B} You tapped our ad on enrolment enquiries. Are you filling places for the next intake?', score:14, t:'10:05'},
-      {who:'out', text:'Yes, Grade 8. Hundreds of enquiries and our office cannot keep up', score:37, t:'10:06'},
-      {who:'in',  text:'How many of those enquiries finish an application?', score:52, t:'10:06'},
-      {who:'out', text:'Maybe one in twelve. The rest go quiet', score:74, t:'10:07'},
-      {who:'in',  text:'PSI answers every enquiry in seconds and scores intent, so staff only call serious families. Free session Thursday?', score:85, t:'10:07'},
+      {who:'in',  text:'Hi Michelle \u{1F44B} Thanks for tapping our PSI ad. How are you managing your leads right now?', score:14, t:'10:05'},
+      {who:'out', text:'Spreadsheets and WhatsApp. We lose track of who has been contacted', score:37, t:'10:06'},
+      {who:'in',  text:'So there is no single place where a lead and its history live?', score:52, t:'10:06'},
+      {who:'out', text:'No. Every rep keeps their own notes on their own phone', score:74, t:'10:07'},
+      {who:'in',  text:'PSI holds every conversation, score and next step in one place. Free session Thursday?', score:85, t:'10:07'},
       {who:'out', text:'Thursday works, please send the invite', score:91, t:'10:08'}
     ]
   ];
