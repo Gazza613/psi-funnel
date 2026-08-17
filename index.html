@@ -194,6 +194,9 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .phone-screen{border-radius:24px;overflow:hidden;background:#0B141A url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" opacity="0.04"><path d="M0 40h80M40 0v80" stroke="white"/></svg>')}
 .wa-header{background:#1F2C34;padding:12px 14px;display:flex;align-items:center;gap:11px}
 .wa-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.10) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CBD5F0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>") center/19px 19px no-repeat}
+/* the fallback glyph stays until a lead photo actually loads, so a missing
+   or slow file degrades to the placeholder instead of an empty circle */
+.wa-avatar.has-photo{background:var(--lead-photo) center/cover no-repeat}
 .wa-name{font-size:14.5px;font-weight:600;line-height:1.2}
 .wa-status{font-size:11.5px;color:var(--wa)}
 .wa-body{padding:14px 12px 16px;display:flex;flex-direction:column;gap:8px;height:470px;overflow-y:auto;scrollbar-width:none}
@@ -1840,6 +1843,22 @@ body.scrolled .nav-inner{height:60px}
   var tierEl = document.getElementById('heroTier');
   var routeEl = document.getElementById('heroRoute');
   var nameEl  = document.getElementById('waName');
+  var avatarEl = document.querySelector('.wa-header .wa-avatar');
+
+  /* Preload before showing: setting the URL directly would blank the circle
+     for a frame, or leave it empty forever if the file is missing. */
+  function setLeadAvatar(conv){
+    if(!avatarEl) return;
+    avatarEl.classList.remove('has-photo');
+    avatarEl.setAttribute('aria-label', conv.name + ', prospect avatar');
+    if(!conv.avatar) return;
+    var img = new Image();
+    img.onload = function(){
+      avatarEl.style.setProperty('--lead-photo', 'url("' + conv.avatar + '")');
+      avatarEl.classList.add('has-photo');
+    };
+    img.src = conv.avatar;
+  }
 
   /* Four inbound prospects who tapped the PSI ad and are now being qualified
      by our own PSI, which is what the "live funnel" claim above the phone
@@ -1849,7 +1868,7 @@ body.scrolled .nav-inner{height:60px}
      the starting conversation is random so two visitors arriving together do
      not see the same one. */
   var conversations = [
-    { name:'Naledi', script:[
+    { name:'Naledi', avatar:'assets/leads/naledi.jpg', script:[
       {who:'psi',  text:'Hi Naledi \u{1F44B} Thanks for tapping our PSI ad. What is going wrong with your leads at the moment?', score:12, t:'21:02'},
       {who:'lead', text:'We pay for plenty of leads but almost none of them are worth calling', score:29, t:'21:03'},
       {who:'psi',  text:'That is the usual pattern. Roughly what are you paying per lead, and how many reach a real conversation?', score:41, t:'21:03'},
@@ -1857,7 +1876,7 @@ body.scrolled .nav-inner{height:60px}
       {who:'psi',  text:'So nine in ten are paid for and never sold to. PSI scores intent before your team picks up. Free strategy session Thursday 9am?', score:85, t:'21:04'},
       {who:'lead', text:'Thursday 9am works, send the invite \u{1F64C}', score:94, t:'21:05'}
     ]},
-    { name:'James', script:[
+    { name:'James', avatar:'assets/leads/james.jpg', script:[
       {who:'psi',  text:'Hi James \u{1F44B} Thanks for tapping our PSI ad. What would you most want fixed in your funnel?', score:15, t:'09:12'},
       {who:'lead', text:'Our conversion rate. Traffic is fine, enquiries are fine, sales are not', score:34, t:'09:12'},
       {who:'psi',  text:'Where do people drop off, before your first reply or after it?', score:49, t:'09:13'},
@@ -1865,7 +1884,7 @@ body.scrolled .nav-inner{height:60px}
       {who:'psi',  text:'That gap is where intent dies. PSI keeps the conversation alive and scores it as it moves. Walkthrough on Tuesday?', score:81, t:'09:14'},
       {who:'lead', text:'Tuesday morning suits, send it through', score:86, t:'09:14'}
     ]},
-    { name:'Greg', script:[
+    { name:'Greg', avatar:'assets/leads/greg.jpg', script:[
       {who:'psi',  text:'Hi Greg \u{1F44B} Thanks for tapping our PSI ad. What is the biggest pressure on your sales side?', score:13, t:'14:41'},
       {who:'lead', text:'My team is drowning. Too many enquiries and they are closing fewer than before', score:31, t:'14:42'},
       {who:'psi',  text:'How much of their day goes on enquiries that were never going to buy?', score:44, t:'14:42'},
@@ -1873,7 +1892,7 @@ body.scrolled .nav-inner{height:60px}
       {who:'psi',  text:'PSI qualifies first, so your team only speaks to buyers. Want to see it running on your enquiries?', score:71, t:'14:43'},
       {who:'lead', text:'Yes please, set something up for next week', score:78, t:'14:44'}
     ]},
-    { name:'Michelle', script:[
+    { name:'Michelle', avatar:'assets/leads/michelle.jpg', script:[
       {who:'psi',  text:'Hi Michelle \u{1F44B} Thanks for tapping our PSI ad. How are you managing your leads right now?', score:14, t:'10:05'},
       {who:'lead', text:'Spreadsheets and WhatsApp. We lose track of who has been contacted', score:37, t:'10:06'},
       {who:'psi',  text:'So there is no single place where a lead and its history live?', score:52, t:'10:06'},
@@ -1927,6 +1946,7 @@ body.scrolled .nav-inner{height:60px}
     var conv = conversations[convIdx];
     var script = conv.script;
     if(nameEl) nameEl.textContent = conv.name;
+    setLeadAvatar(conv);
     chat.innerHTML='';
     routeEl.classList.remove('show');
     setScore(0);
