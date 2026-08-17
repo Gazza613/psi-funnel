@@ -193,7 +193,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .phone{width:340px;max-width:100%;margin:0 auto;background:#0B141A;border:1px solid var(--line-2);border-radius:34px;padding:12px;box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 80px -30px rgba(247,137,24,.25)}
 .phone-screen{border-radius:24px;overflow:hidden;background:#0B141A url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" opacity="0.04"><path d="M0 40h80M40 0v80" stroke="white"/></svg>')}
 .wa-header{background:#1F2C34;padding:12px 14px;display:flex;align-items:center;gap:11px}
-.wa-avatar{width:36px;height:36px;border-radius:50%;background:url(assets/brand/gas-mark.png) center/cover no-repeat}
+.wa-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.10) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CBD5F0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>") center/19px 19px no-repeat}
 .wa-name{font-size:14.5px;font-weight:600;line-height:1.2}
 .wa-status{font-size:11.5px;color:var(--wa)}
 .wa-body{padding:14px 12px 16px;display:flex;flex-direction:column;gap:8px;height:470px;overflow-y:auto;scrollbar-width:none}
@@ -202,25 +202,23 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
    margin collapses to nothing once the conversation fills the panel. */
 .wa-body::before{content:"";margin-top:auto}
 .wa-body::-webkit-scrollbar{display:none}
-.bubble{max-width:82%;padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease}
+.bubble{max-width:74%;padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease}
 .bubble.show{opacity:1;transform:none}
-.bubble.in{background:var(--wa-bubble);align-self:flex-start;border-top-left-radius:2px}
-.bubble.out{background:var(--wa-bubble-out);align-self:flex-end;border-top-right-radius:2px}
-/* Who is speaking. The GAS mark sits against PSI's replies and a neutral
-   figure against the prospect's, so the two sides of the demo read at a
-   glance instead of relying on bubble colour alone. The bubbles gain a
-   matching margin, so the avatars sit in carved-out space rather than
-   overlapping the text. */
+.bubble.lead{background:var(--wa-bubble);align-self:flex-start;border-top-left-radius:2px}
+.bubble.psi{background:var(--wa-bubble-out);align-self:flex-end;border-top-right-radius:2px}
+/* Who is speaking. This is our PSI inbox, so the lead arrives on the left and
+   our replies go out on the right, carrying the GAS mark. The lead needs no
+   icon — the header already names them — which keeps the left edge clean and
+   lets the two sides read as a conversation rather than one column. */
 .bubble{position:relative}
-.bubble.in{margin-left:26px}
-.bubble.out{margin-right:26px}
-.bubble.in::before,.bubble.out::before{content:"";position:absolute;bottom:0;
-  width:20px;height:20px;border-radius:50%;box-shadow:0 0 0 1px rgba(255,255,255,.10)}
-.bubble.in::before{left:-26px;background:url(assets/brand/gas-mark.png) center/cover no-repeat}
-.bubble.out::before{right:-26px;background:rgba(255,255,255,.09) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CBD5F0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>") center/12px 12px no-repeat}
-/* the typing indicator is PSI too, so it carries the same mark and offset */
-.typing{position:relative;margin-left:26px}
-.typing::before{content:"";position:absolute;left:-26px;bottom:0;width:20px;height:20px;
+.bubble.psi{margin-right:26px}
+.bubble.psi::before{content:"";position:absolute;right:-26px;bottom:0;
+  width:20px;height:20px;border-radius:50%;
+  background:url(assets/brand/gas-mark.png) center/cover no-repeat;
+  box-shadow:0 0 0 1px rgba(255,255,255,.10)}
+/* PSI drafting the reply, so the indicator sits on our side too */
+.typing{position:relative;align-self:flex-end;margin-right:26px}
+.typing::before{content:"";position:absolute;right:-26px;bottom:0;width:20px;height:20px;
   border-radius:50%;background:url(assets/brand/gas-mark.png) center/cover no-repeat;
   box-shadow:0 0 0 1px rgba(255,255,255,.10)}
 .bubble .t{display:block;text-align:right;font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;font-family:var(--mono)}
@@ -233,7 +231,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .bubble .tw-live{position:absolute;left:0;top:0;width:100%}
 .bubble.tw-on .tw-live::after{content:"";display:inline-block;width:1.5px;height:1em;margin-left:1px;vertical-align:-2px;background:currentColor;animation:caret .9s steps(1) infinite}
 @keyframes caret{0%,49%{opacity:.7}50%,100%{opacity:0}}
-.typing{align-self:flex-start;background:var(--wa-bubble);border-radius:10px;padding:11px 14px;display:none;gap:4px}
+.typing{background:var(--wa-bubble);border-radius:10px;padding:11px 14px;display:none;gap:4px}
 .typing.show{display:flex}
 .typing i{width:6px;height:6px;border-radius:50%;background:var(--text-3);animation:blink 1s infinite}
 .typing i:nth-child(2){animation-delay:.2s}
@@ -362,7 +360,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .ad-flow{font-family:var(--mono);font-size:11.5px;color:var(--g-amber);text-align:center;margin-top:12px;letter-spacing:.12em;animation:feedglow 2.6s ease-in-out infinite}
 
 .mini-chat{display:flex;flex-direction:column;gap:7px}
-.mini-chat .bubble{opacity:1;transform:none;font-size:13px;max-width:88%}
+.mini-chat .bubble{opacity:1;transform:none;font-size:13px;max-width:80%}
 .signal-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-family:var(--mono);font-size:12.5px}
 .signal-row:last-child{border-bottom:0}
 .signal-row .s-name{color:var(--text-2)}
@@ -969,10 +967,10 @@ body.scrolled .nav-inner{height:60px}
       <div class="phone gborder" id="heroPhone">
         <div class="phone-screen">
           <div class="wa-header">
-            <div class="wa-avatar" role="img" aria-label="GAS PSI avatar"></div>
+            <div class="wa-avatar" role="img" aria-label="Prospect avatar"></div>
             <div>
-              <div class="wa-name">PSI · GAS Marketing</div>
-              <div class="wa-status">online · qualifying</div>
+              <div class="wa-name" id="waName">Naledi</div>
+              <div class="wa-status">new lead · PSI qualifying</div>
             </div>
           </div>
           <div class="wa-body" id="heroChat"></div>
@@ -1841,6 +1839,7 @@ body.scrolled .nav-inner{height:60px}
   var barEl = document.getElementById('heroBar');
   var tierEl = document.getElementById('heroTier');
   var routeEl = document.getElementById('heroRoute');
+  var nameEl  = document.getElementById('waName');
 
   /* Four inbound prospects who tapped the PSI ad and are now being qualified
      by our own PSI, which is what the "live funnel" claim above the phone
@@ -1850,38 +1849,38 @@ body.scrolled .nav-inner{height:60px}
      the starting conversation is random so two visitors arriving together do
      not see the same one. */
   var conversations = [
-    [
-      {who:'in',  text:'Hi Naledi \u{1F44B} Thanks for tapping our PSI ad. What is going wrong with your leads at the moment?', score:12, t:'21:02'},
-      {who:'out', text:'We pay for plenty of leads but almost none of them are worth calling', score:29, t:'21:03'},
-      {who:'in',  text:'That is the usual pattern. Roughly what are you paying per lead, and how many reach a real conversation?', score:41, t:'21:03'},
-      {who:'out', text:'About R180 a lead. Maybe 1 in 10 is worth a call', score:69, t:'21:04'},
-      {who:'in',  text:'So nine in ten are paid for and never sold to. PSI scores intent before your team picks up. Free strategy session Thursday 9am?', score:85, t:'21:04'},
-      {who:'out', text:'Thursday 9am works, send the invite \u{1F64C}', score:94, t:'21:05'}
-    ],
-    [
-      {who:'in',  text:'Hi James \u{1F44B} Thanks for tapping our PSI ad. What would you most want fixed in your funnel?', score:15, t:'09:12'},
-      {who:'out', text:'Our conversion rate. Traffic is fine, enquiries are fine, sales are not', score:34, t:'09:12'},
-      {who:'in',  text:'Where do people drop off, before your first reply or after it?', score:49, t:'09:13'},
-      {who:'out', text:'After. They enquire, we reply, then it goes quiet', score:73, t:'09:13'},
-      {who:'in',  text:'That gap is where intent dies. PSI keeps the conversation alive and scores it as it moves. Walkthrough on Tuesday?', score:81, t:'09:14'},
-      {who:'out', text:'Tuesday morning suits, send it through', score:86, t:'09:14'}
-    ],
-    [
-      {who:'in',  text:'Hi Greg \u{1F44B} Thanks for tapping our PSI ad. What is the biggest pressure on your sales side?', score:13, t:'14:41'},
-      {who:'out', text:'My team is drowning. Too many enquiries and they are closing fewer than before', score:31, t:'14:42'},
-      {who:'in',  text:'How much of their day goes on enquiries that were never going to buy?', score:44, t:'14:42'},
-      {who:'out', text:'Most of it. They are exhausted and the good ones slip through', score:62, t:'14:43'},
-      {who:'in',  text:'PSI qualifies first, so your team only speaks to buyers. Want to see it running on your enquiries?', score:71, t:'14:43'},
-      {who:'out', text:'Yes please, set something up for next week', score:78, t:'14:44'}
-    ],
-    [
-      {who:'in',  text:'Hi Michelle \u{1F44B} Thanks for tapping our PSI ad. How are you managing your leads right now?', score:14, t:'10:05'},
-      {who:'out', text:'Spreadsheets and WhatsApp. We lose track of who has been contacted', score:37, t:'10:06'},
-      {who:'in',  text:'So there is no single place where a lead and its history live?', score:52, t:'10:06'},
-      {who:'out', text:'No. Every rep keeps their own notes on their own phone', score:74, t:'10:07'},
-      {who:'in',  text:'PSI holds every conversation, score and next step in one place. Free session Thursday?', score:85, t:'10:07'},
-      {who:'out', text:'Thursday works, please send the invite', score:91, t:'10:08'}
-    ]
+    { name:'Naledi', script:[
+      {who:'psi',  text:'Hi Naledi \u{1F44B} Thanks for tapping our PSI ad. What is going wrong with your leads at the moment?', score:12, t:'21:02'},
+      {who:'lead', text:'We pay for plenty of leads but almost none of them are worth calling', score:29, t:'21:03'},
+      {who:'psi',  text:'That is the usual pattern. Roughly what are you paying per lead, and how many reach a real conversation?', score:41, t:'21:03'},
+      {who:'lead', text:'About R180 a lead. Maybe 1 in 10 is worth a call', score:69, t:'21:04'},
+      {who:'psi',  text:'So nine in ten are paid for and never sold to. PSI scores intent before your team picks up. Free strategy session Thursday 9am?', score:85, t:'21:04'},
+      {who:'lead', text:'Thursday 9am works, send the invite \u{1F64C}', score:94, t:'21:05'}
+    ]},
+    { name:'James', script:[
+      {who:'psi',  text:'Hi James \u{1F44B} Thanks for tapping our PSI ad. What would you most want fixed in your funnel?', score:15, t:'09:12'},
+      {who:'lead', text:'Our conversion rate. Traffic is fine, enquiries are fine, sales are not', score:34, t:'09:12'},
+      {who:'psi',  text:'Where do people drop off, before your first reply or after it?', score:49, t:'09:13'},
+      {who:'lead', text:'After. They enquire, we reply, then it goes quiet', score:73, t:'09:13'},
+      {who:'psi',  text:'That gap is where intent dies. PSI keeps the conversation alive and scores it as it moves. Walkthrough on Tuesday?', score:81, t:'09:14'},
+      {who:'lead', text:'Tuesday morning suits, send it through', score:86, t:'09:14'}
+    ]},
+    { name:'Greg', script:[
+      {who:'psi',  text:'Hi Greg \u{1F44B} Thanks for tapping our PSI ad. What is the biggest pressure on your sales side?', score:13, t:'14:41'},
+      {who:'lead', text:'My team is drowning. Too many enquiries and they are closing fewer than before', score:31, t:'14:42'},
+      {who:'psi',  text:'How much of their day goes on enquiries that were never going to buy?', score:44, t:'14:42'},
+      {who:'lead', text:'Most of it. They are exhausted and the good ones slip through', score:62, t:'14:43'},
+      {who:'psi',  text:'PSI qualifies first, so your team only speaks to buyers. Want to see it running on your enquiries?', score:71, t:'14:43'},
+      {who:'lead', text:'Yes please, set something up for next week', score:78, t:'14:44'}
+    ]},
+    { name:'Michelle', script:[
+      {who:'psi',  text:'Hi Michelle \u{1F44B} Thanks for tapping our PSI ad. How are you managing your leads right now?', score:14, t:'10:05'},
+      {who:'lead', text:'Spreadsheets and WhatsApp. We lose track of who has been contacted', score:37, t:'10:06'},
+      {who:'psi',  text:'So there is no single place where a lead and its history live?', score:52, t:'10:06'},
+      {who:'lead', text:'No. Every rep keeps their own notes on their own phone', score:74, t:'10:07'},
+      {who:'psi',  text:'PSI holds every conversation, score and next step in one place. Free session Thursday?', score:85, t:'10:07'},
+      {who:'lead', text:'Thursday works, please send the invite', score:91, t:'10:08'}
+    ]}
   ];
 
   var convIdx = Math.floor(Math.random() * conversations.length);
@@ -1925,7 +1924,9 @@ body.scrolled .nav-inner{height:60px}
   }
 
   function runChat(){
-    var script = conversations[convIdx];
+    var conv = conversations[convIdx];
+    var script = conv.script;
+    if(nameEl) nameEl.textContent = conv.name;
     chat.innerHTML='';
     routeEl.classList.remove('show');
     setScore(0);
@@ -1951,7 +1952,7 @@ body.scrolled .nav-inner{height:60px}
         return;
       }
       var m=script[i];
-      if(m.who==='in'){
+      if(m.who==='psi'){
         chat.appendChild(typing);
         typing.classList.add('show');
         chat.scrollTop=chat.scrollHeight;
