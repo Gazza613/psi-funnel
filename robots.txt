@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 
-# TODO: replace with the live domain once the Vercel domain is attached
-Sitemap: https://REPLACE-WITH-YOUR-DOMAIN/sitemap.xml
+# the OG card source is a build input, not a page
+Disallow: /assets/og/og-card.html
+
+Sitemap: https://chat.gasmarketing.co.za/sitemap.xml

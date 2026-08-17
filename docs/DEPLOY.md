@@ -49,8 +49,20 @@ var WA_NUMBER = '27821234567';   // South Africa, 082 123 4567
 4. **Attach the domain.** Project → Settings → Domains → Add. Vercel shows the DNS records
    to create at your registrar:
 
-   - Apex (`psi.example.com` style root): an **A** record to Vercel's IP
-   - Subdomain (`www` or `psi`): a **CNAME** to `cname.vercel-dns.com`
+   The funnel's domain is **`chat.gasmarketing.co.za`**. DNS for `gasmarketing.co.za`
+   is at domains.co.za (nameservers `ns1`-`ns4.anycast-ns.com/.net`), not at the host,
+   so the record is created there:
+
+   | Field | Value |
+   |---|---|
+   | Type | `CNAME` |
+   | Host | `chat` — **not** the full domain; domains.co.za appends the rest |
+   | Value | the per-project target Vercel displays, e.g. `<hash>.vercel-dns-017.com` |
+
+   A subdomain always takes a CNAME. An **A** record is only for an apex domain.
+   Do not change the nameservers, and leave the apex, `www` (Webflow) and `MX`
+   (Google Workspace) records alone — this addition cannot affect the main site
+   or email.
 
    Propagation is usually minutes, occasionally up to 48 hours. HTTPS is issued
    automatically once DNS resolves — no certificate to buy or install.
@@ -72,14 +84,18 @@ var WA_NUMBER = '27821234567';   // South Africa, 082 123 4567
 
 ## Still outstanding
 
-- **Favicon.** The page has none, so browsers show a blank tab icon.
-- **Open Graph tags.** No `og:title`, `og:description`, or `og:image`, which means links
-  shared in WhatsApp and on Facebook render as a bare URL with no preview card. For a
-  paid-media funnel this is a measurable click-through loss.
-- **Canonical URL.** Needs the live domain before it can be set.
-- **`sitemap.xml` and `robots.txt`** contain a `REPLACE-WITH-YOUR-DOMAIN` placeholder.
 - **Analytics / conversion tracking.** No Meta Pixel, GA4, or Google Ads tag is installed,
-  so paid campaigns pointed here currently have no conversion signal to optimise against.
+  so paid campaigns pointed here have no conversion signal to optimise against. The
+  natural conversion event is a tap on any `[data-wa]` element.
+- **Larger favicon master.** The icon set is built from a 120x120 source, so the 192 and
+  512 sizes are upscaled and slightly soft. See `assets/brand/README.md`.
+
+## Decommissioning Netlify
+
+Safe once `chat.gasmarketing.co.za` serves from Vercel. DNS and email are at
+domains.co.za and the main site runs on Webflow, so Netlify holds nothing but the old
+funnel deployment. Before deleting, confirm no live ad or existing link still points at
+the old `*.netlify.app` URL, and export anything worth keeping from it.
 
 ## Rolling back
 
