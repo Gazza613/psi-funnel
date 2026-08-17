@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSI, Pre-Sales Intelligence | GAS Marketing Automation</title>
+<meta name="description" content="PSI routes your paid media through WhatsApp conversations that qualify every lead before it reaches your sales team. Intent scored. Sales ready. Engineered by GAS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ---- GAS CI: Orange on Navy. No purples, no pinks, no yellows. ---- */
+  /* orange, the only accent */
+  --g-amber:#FFA24D;     /* light orange, the lift in every gradient */
+  --g-orange:#F78918;    /* core brand orange */
+  --g-red:#FF6A1F;       /* deep orange, the hot end of the ramp */
+  --o-700:#D4550A;
+  --g-grad:linear-gradient(100deg,var(--g-amber) 0%,var(--g-orange) 46%,var(--g-red) 100%);
+  --g-grad-soft:linear-gradient(100deg,rgba(255,255,255,.035),rgba(255,255,255,.008));
+  /* navy, the ground everything sits on */
+  --ink:#060B18;
+  --ink-2:#0B1224;
+  --ink-3:#111B33;
+  --navy-line:#1B2A4D;
+  --line:rgba(140,170,255,.11);
+  --line-2:rgba(150,175,255,.20);
+  --text:#EEF1F8;
+  --text-2:#98A2BE;
+  --text-3:#616C8A;
+  /* intent tiers ride the CI: blue, amber, orange */
+  --hot:#FF6A1F;
+  --warm:#FFA24D;
+  --cold:#5B8CFF;
+  --tier-ramp:linear-gradient(90deg,var(--cold) 0%,var(--warm) 52%,var(--hot) 100%);
+  --wa:#25D366;
+  --wa-ink:#04240F;    /* the dark green label ink that sits on WhatsApp green */
+  --wa-bubble:#16233A;
+  --wa-bubble-out:#123A4F;
+  --radius:16px;
+  --r-lg:22px;
+  /* one vertical rhythm for the whole page, so no section invents its own */
+  --sec:clamp(58px,6.2vw,88px);
+  --head-gap:clamp(32px,3.6vw,46px);
+  --ease:cubic-bezier(.22,.9,.24,1);
+  --disp:'Archivo',sans-serif;
+  --body:'Instrument Sans',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:var(--sec) 0;position:relative}
+/* fixed nav is 70px, so anchored sections stop clear of it instead of tucking under */
+section[id],header[id]{scroll-margin-top:100px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--g-amber);display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--g-grad)}
+h1,h2,h3{font-family:var(--disp);line-height:1.02;letter-spacing:-.01em}
+h2{font-size:clamp(34px,4.6vw,58px);font-weight:800;font-stretch:88%;text-transform:uppercase}
+.accent{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* the headline split wraps each word in a blurred, faded layer of its own, and that
+   layer paints outside the parent's text clip, so the word carries the gradient itself */
+.accent .w,.h-hot .w{background-image:inherit;-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{color:var(--text-2);max-width:640px;font-size:18px;margin-top:16px}
+.section-head{margin-bottom:var(--head-gap)}
+.gas-mark{width:34px;height:34px;border-radius:50%;background:url(assets/brand/gas-mark.png) center/cover no-repeat;box-shadow:0 4px 16px -4px rgba(255,106,31,.5);flex:none}
+
+/* scroll progress */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--g-grad);z-index:200}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);background:rgba(9,9,11,.72);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{font-family:var(--disp);font-weight:900;font-stretch:80%;font-size:20px;letter-spacing:.02em;display:flex;align-items:center;gap:12px}
+.psi-mark{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.16em;color:#2B0A02;background:var(--g-grad);padding:5px 9px;border-radius:7px;box-shadow:0 4px 14px -6px rgba(255,106,31,.85),inset 0 1px 0 rgba(255,255,255,.5)}
+.brand-group{display:flex;align-items:center;gap:14px}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.nav-tagline{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);padding-left:14px;border-left:1px solid var(--line-2);white-space:nowrap}
+.nav-links{display:flex;gap:30px;font-size:14.5px;color:var(--text-2)}
+.nav-links a{transition:color .2s ease}
+.nav-links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:15px;padding:14px 28px;border-radius:999px;border:1px solid transparent;cursor:pointer;position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease}
+.btn-sm{padding:10px 20px;font-size:14px}
+
+/* ---------- iconography ---------- */
+.ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none;overflow:visible}
+.btn .ic{width:17px;height:17px;stroke-width:2;transition:transform .25s var(--ease)}
+.btn:hover .ic{transform:translateX(4px)}
+/* a leading icon pulls the other way, so the label never gets crowded */
+.btn:hover > .ic:first-child{transform:translateX(-2px)}
+
+/* icon tiles: a bevelled navy chip that lights up on hover */
+.card-ic,.fs-ic,.e-ic{position:relative;display:flex;align-items:center;justify-content:center;flex:none;isolation:isolate;
+  background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.01));
+  border:1px solid var(--line-2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 24px -18px #000;
+  transition:color .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card-ic::before,.fs-ic::before,.e-ic::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;z-index:-1;transition:opacity .3s var(--ease)}
+.card-ic{width:48px;height:48px;border-radius:14px;margin-bottom:18px;color:var(--g-amber)}
+.card-ic::before{background:var(--g-grad)}
+.card:hover .card-ic{color:#20120A;border-color:transparent;transform:translateY(-3px) rotate(-3deg);box-shadow:0 16px 34px -16px rgba(247,137,24,.75)}
+.card:hover .card-ic::before{opacity:1}
+.fs-ic{width:38px;height:38px;border-radius:11px;color:var(--g-amber)}
+.fs-ic .ic{width:19px;height:19px}
+.fs-ic::before{background:var(--g-grad)}
+.f-stage[data-w="40"] .fs-ic{color:#20120A;border-color:transparent}
+.f-stage[data-w="40"] .fs-ic::before{opacity:1}
+.e-ic{width:46px;height:46px;border-radius:13px;color:var(--g-amber)}
+.e-ic::before{background:var(--g-grad)}
+.eng:hover .e-ic{color:#20120A;border-color:transparent;transform:translateY(-3px) rotate(3deg);box-shadow:0 16px 34px -16px rgba(247,137,24,.75)}
+.eng:hover .e-ic::before{opacity:1}
+.cmp .mk{display:flex;align-items:center;margin-top:2px}
+.cmp .mk .ic{width:17px;height:17px;stroke-width:2.1}
+
+/* draw-on-scroll: every glyph carries pathLength="1", and stroke-dasharray
+   inherits into the <use> shadow tree, so one rule animates any icon */
+.js .rv .ic-draw,.js .j-step .ic-draw,.js .f-stage .ic-draw{stroke-dasharray:1;stroke-dashoffset:1}
+.js .rv.show .ic-draw,.js .j-step.show .ic-draw,.js .f-stage.show .ic-draw{animation:icdraw .9s var(--ease) .15s forwards}
+@keyframes icdraw{to{stroke-dashoffset:0}}
+/* the radar keeps sweeping once it has drawn itself */
+.ic-spin{transform-origin:50% 50%;animation:icspin 9s linear infinite}
+@keyframes icspin{to{transform:rotate(360deg)}}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(100px,9.2vw,128px) 0 clamp(54px,6vw,82px);overflow:hidden;position:relative}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.22;pointer-events:none;z-index:0}
+.orb-1{width:560px;height:560px;background:var(--g-orange);top:-160px;right:-120px;animation:drift1 16s ease-in-out infinite alternate}
+.orb-2{width:420px;height:420px;background:#2A4DA8;bottom:-180px;left:-140px;animation:drift2 20s ease-in-out infinite alternate;opacity:.16}
+@keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(-70px,50px) scale(1.12)}}
+@keyframes drift2{from{transform:translate(0,0)}to{transform:translate(60px,-40px)}}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(38px,4.4vw,56px);align-items:center;position:relative;z-index:1}
+.kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.3em;color:var(--text-3);text-transform:uppercase;margin-bottom:22px}
+.kicker b{color:var(--g-amber);font-weight:500}
+h1{font-size:clamp(52px,7.2vw,98px);font-weight:900;font-stretch:78%;text-transform:uppercase;line-height:.94}
+h1 .line{display:block;overflow:hidden}
+h1 .line span{display:inline-block;transform:translateY(112%);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards}
+h1 .line:nth-child(2) span{animation-delay:.14s}
+@keyframes rise{to{transform:translateY(0)}}
+.h-hot{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{color:var(--text-2);font-size:19px;max-width:520px;margin:22px 0 0}
+
+/* phone mock */
+.phone{width:340px;max-width:100%;margin:0 auto;background:#0B141A;border:1px solid var(--line-2);border-radius:34px;padding:12px;box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 80px -30px rgba(247,137,24,.25)}
+.phone-screen{border-radius:24px;overflow:hidden;background:#0B141A url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" opacity="0.04"><path d="M0 40h80M40 0v80" stroke="white"/></svg>')}
+.wa-header{background:#1F2C34;padding:12px 14px;display:flex;align-items:center;gap:11px}
+.wa-avatar{width:36px;height:36px;border-radius:50%;background:url(assets/brand/gas-mark.png) center/cover no-repeat}
+.wa-name{font-size:14.5px;font-weight:600;line-height:1.2}
+.wa-status{font-size:11.5px;color:var(--wa)}
+.wa-body{padding:14px 12px 16px;display:flex;flex-direction:column;gap:8px;height:470px;overflow-y:auto;scrollbar-width:none}
+/* a zero-height spacer so early bubbles sit on the floor of the screen like a
+   real thread, instead of leaving a block of dead space beneath them. The auto
+   margin collapses to nothing once the conversation fills the panel. */
+.wa-body::before{content:"";margin-top:auto}
+.wa-body::-webkit-scrollbar{display:none}
+.bubble{max-width:82%;padding:9px 12px;border-radius:10px;font-size:13.5px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease}
+.bubble.show{opacity:1;transform:none}
+.bubble.in{background:var(--wa-bubble);align-self:flex-start;border-top-left-radius:2px}
+.bubble.out{background:var(--wa-bubble-out);align-self:flex-end;border-top-right-radius:2px}
+.bubble .t{display:block;text-align:right;font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;font-family:var(--mono)}
+/* typewriter. A hidden ghost copy of the full message reserves the bubble's
+   final box, so the visible characters only ever fill in left to right. Without
+   it a right-anchored (.out) bubble grows leftwards while it types and reads
+   backwards against the left-anchored (.in) replies. */
+.bubble .tw{position:relative;display:block}
+.bubble .tw-ghost{visibility:hidden}
+.bubble .tw-live{position:absolute;left:0;top:0;width:100%}
+.bubble.tw-on .tw-live::after{content:"";display:inline-block;width:1.5px;height:1em;margin-left:1px;vertical-align:-2px;background:currentColor;animation:caret .9s steps(1) infinite}
+@keyframes caret{0%,49%{opacity:.7}50%,100%{opacity:0}}
+.typing{align-self:flex-start;background:var(--wa-bubble);border-radius:10px;padding:11px 14px;display:none;gap:4px}
+.typing.show{display:flex}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--text-3);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.2s}
+.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+
+.score-chip{position:absolute;top:118px;right:-14px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:14px;padding:14px 18px;box-shadow:0 20px 50px -18px rgba(0,0,0,.8);min-width:172px}
+.score-chip .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--text-3);text-transform:uppercase}
+.score-chip .val{font-family:var(--mono);font-size:34px;font-weight:600;line-height:1.1;background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.score-chip .bar{height:5px;border-radius:99px;background:var(--ink);margin-top:8px;overflow:hidden}
+.score-chip .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--tier-ramp);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.score-chip .tier{font-family:var(--mono);font-size:11px;margin-top:8px;color:var(--text-2)}
+.hero-visual{position:relative}
+.route-chip{position:absolute;bottom:20px;left:-24px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:14px;padding:12px 16px;font-family:var(--mono);font-size:12px;box-shadow:0 20px 50px -18px rgba(0,0,0,.8);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
+.route-chip.show{opacity:1;transform:none}
+.route-chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--hot);margin-right:8px;box-shadow:0 0 12px var(--hot)}
+
+/* ---------- fans logo marquee ---------- */
+.fans{padding:clamp(38px,4vw,50px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+.fans-label{font-family:var(--mono);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--text-3);text-align:center;display:flex;align-items:center;justify-content:center;gap:16px}
+.fans-label::before,.fans-label::after{content:"";width:40px;height:1px;background:var(--line-2)}
+.fans-track{margin-top:26px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marquee{display:flex;gap:0;width:max-content;animation:scroll 30s linear infinite}
+.marquee:hover{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.marquee-slow{animation-duration:48s}
+.m-set{display:flex;align-items:center;gap:84px;padding-right:84px;white-space:nowrap}
+.logo-item{display:flex;align-items:center;height:46px;filter:grayscale(1) brightness(1.5);opacity:.45;transition:filter .35s ease,opacity .35s ease}
+.logo-item:hover{filter:none;opacity:1}
+.logo-item img{height:40px;width:auto;display:block}
+.logo-item b{display:none;font-family:var(--disp);font-weight:800;font-stretch:82%;font-size:23px;color:#CFC9C2;letter-spacing:.03em}
+.logo-item.noimg img{display:none}
+.logo-item.noimg b{display:block}
+.logo-item.noimg:hover b{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- problem ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;transition:border-color .25s ease,transform .25s ease,box-shadow .25s ease}
+.card:hover{border-color:rgba(247,137,24,.4);transform:translateY(-4px);box-shadow:0 24px 50px -24px rgba(255,106,31,.28)}
+.card h3{font-size:19px;font-weight:700;font-stretch:92%;margin-bottom:10px}
+.card p{color:var(--text-2);font-size:15.5px}
+.card .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--g-amber);border:1px solid rgba(255,162,77,.35);border-radius:99px;padding:4px 12px;margin-top:16px}
+
+/* ---------- FUNNEL ---------- */
+.funnel-sec{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+.funnel-wrap{position:relative;max-width:920px;margin:0 auto}
+.flow-col{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);z-index:0;overflow:hidden}
+.flow-dot{position:absolute;left:-2px;width:6px;height:6px;border-radius:50%;background:var(--g-amber);opacity:0;animation:fall 3.4s linear infinite}
+.flow-dot:nth-child(2){animation-delay:1.1s;background:var(--g-orange)}
+.flow-dot:nth-child(3){animation-delay:2.2s;background:var(--g-red)}
+@keyframes fall{0%{top:-4%;opacity:0}8%{opacity:.9}88%{opacity:.9}100%{top:102%;opacity:0}}
+.f-stage{position:relative;z-index:1;overflow:hidden;margin:0 auto 12px;opacity:0;transform:translateY(26px) scale(.97);transition:opacity .6s ease,transform .6s ease;background:var(--ink);border:1px solid var(--line);border-radius:14px;padding:20px 26px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.f-stage.show{opacity:1;transform:none}
+.f-stage .fs-head{display:flex;align-items:center;gap:14px}
+.f-stage .fs-num{font-family:var(--mono);font-size:12px;color:var(--text-3)}
+.f-stage h3{font-size:clamp(17px,2vw,22px);font-weight:800;font-stretch:90%;text-transform:uppercase}
+.f-stage p{color:var(--text-2);font-size:14.5px;margin-top:6px;max-width:480px}
+.f-stage .fs-val{font-family:var(--mono);font-size:clamp(22px,3vw,34px);font-weight:600;text-align:right;white-space:nowrap}
+.f-stage .fs-sub{font-family:var(--mono);font-size:11px;color:var(--text-3);text-align:right;letter-spacing:.1em;margin-top:2px}
+.f-stage .fs-fill{position:absolute;inset:0;border-radius:14px;background:var(--g-grad-soft);opacity:0;transition:opacity .8s ease;pointer-events:none}
+.f-stage.show .fs-fill{opacity:1}
+.f-stage::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g-grad);opacity:0;transition:opacity .8s ease}
+.f-stage.show::before{opacity:1}
+.f-stage[data-w="100"]{width:100%}
+.f-stage[data-w="82"]{width:82%}
+.f-stage[data-w="66"]{width:66%}
+.f-stage[data-w="52"]{width:52%}
+.f-stage[data-w="40"]{width:40%;min-width:340px;border-color:rgba(255,106,31,.55);box-shadow:0 0 60px -18px rgba(255,106,31,.55)}
+.f-stage[data-w="40"] .fs-fill{background:linear-gradient(100deg,rgba(255,162,77,.10),rgba(255,106,31,.08))}
+.f-stage[data-w="40"] .fs-val{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.f-split{display:flex;gap:8px;margin-top:10px;font-family:var(--mono);font-size:11px}
+.f-split span{padding:4px 10px;border-radius:99px;border:1px solid var(--line)}
+.f-split .sh{color:var(--hot);border-color:rgba(255,106,31,.5)}
+.f-split .sw{color:var(--warm);border-color:rgba(255,162,77,.45)}
+.f-split .sc{color:var(--cold);border-color:rgba(91,140,255,.4)}
+.f-conn{position:relative;z-index:1;text-align:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--text-3);padding:0 0 12px;opacity:0;transition:opacity .7s ease}
+.f-conn.show{opacity:1}
+.f-conn b{color:var(--g-amber);font-weight:600}
+.f-quote{text-align:center;margin-top:clamp(34px,4vw,48px)}
+.f-quote .q{font-family:var(--disp);font-weight:800;font-stretch:85%;font-size:clamp(24px,3.4vw,40px);text-transform:uppercase;line-height:1.05}
+.f-caption{font-family:var(--mono);font-size:12px;color:var(--text-3);text-align:center;margin-top:16px;letter-spacing:.08em}
+
+/* ---------- journey ---------- */
+.j-track{position:relative;margin-top:4px}
+.j-line{position:absolute;left:27px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cold) 0%,var(--warm) 50%,var(--hot) 100%);opacity:.55}
+.j-step{display:grid;grid-template-columns:56px 1fr;gap:24px;padding:clamp(26px,3vw,38px) 0;opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.j-step.show{opacity:1;transform:none}
+.j-node{width:56px;height:56px;border-radius:50%;background:var(--ink);border:2px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:600;position:relative;z-index:2}
+.j-step[data-heat="cold"] .j-node{border-color:var(--cold);color:var(--cold)}
+.j-step[data-heat="warm"] .j-node{border-color:var(--warm);color:var(--warm)}
+.j-step[data-heat="hot"] .j-node{border-color:var(--hot);color:var(--hot);box-shadow:0 0 28px -6px rgba(255,106,31,.6)}
+.j-step.show[data-heat="hot"] .j-node{animation:nodepulse 2.4s ease-in-out infinite}
+@keyframes nodepulse{0%,100%{box-shadow:0 0 24px -6px rgba(255,106,31,.55)}50%{box-shadow:0 0 42px -4px rgba(255,106,31,.85)}}
+.j-content{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,36px);align-items:center}
+.j-copy h3{font-size:clamp(22px,2.4vw,30px);font-weight:800;font-stretch:88%;text-transform:uppercase;margin-bottom:10px}
+.j-copy p{color:var(--text-2);font-size:16px}
+.j-copy .j-meta{font-family:var(--mono);font-size:12px;color:var(--text-3);margin-top:14px;letter-spacing:.08em}
+.j-visual{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);padding:20px;font-size:13.5px}
+
+/* Facebook feed advert mock — sized at 85% of the column, chrome scaled to match */
+.ad-slot{max-width:85%;margin-inline:auto}
+.fb-ad{background:#242526;border:1px solid #3A3B3C;border-radius:10px;overflow:hidden;color:#E4E6EB;font-family:Helvetica,Arial,sans-serif;font-size:11.5px;padding:0}
+.fb-head{display:flex;align-items:center;gap:8px;padding:10px 12px 7px}
+.fb-avatar{width:32px;height:32px;border-radius:50%;background:#0B1224 url(assets/brand/gas-mark.png) center/cover no-repeat;border:1px solid #3A3B3C;flex:none}
+.fb-name{font-weight:600;font-size:12px;line-height:1.25}
+.fb-sp{font-size:10px;color:#B0B3B8;display:flex;align-items:center;gap:4px}
+.fb-dots{margin-left:auto;color:#B0B3B8;font-weight:700;letter-spacing:2px}
+.fb-text{padding:0 12px 8px;font-size:11.5px;line-height:1.4}
+.fb-creative{display:block;width:100%;height:auto}
+.fb-linkbar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#18191A;padding:10px 12px;border-top:1px solid #3A3B3C}
+.fb-linkbar .lb-l{min-width:0}
+.fb-linkbar .lb-url{font-size:9.5px;color:#B0B3B8;text-transform:uppercase;letter-spacing:.04em}
+.fb-linkbar .lb-title{font-weight:600;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fb-cta{position:relative;flex:none;display:inline-flex;align-items:center;gap:6px;background:var(--wa);color:#04240F;font-weight:700;font-size:11px;border-radius:7px;padding:8px 12px;animation:ctaglow 2.6s ease-in-out infinite}
+@keyframes ctaglow{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.45)}50%{box-shadow:0 0 0 8px rgba(37,211,102,0)}}
+.tap-hint{position:absolute;top:50%;left:50%;width:29px;height:29px;margin:-14.5px 0 0 -14.5px;border:2px solid #fff;border-radius:50%;opacity:0;animation:tap 3.6s ease-out infinite;pointer-events:none}
+@keyframes tap{0%,55%{opacity:0;transform:scale(.4)}62%{opacity:.9;transform:scale(.55)}78%{opacity:.35;transform:scale(1.1)}92%,100%{opacity:0;transform:scale(1.5)}}
+.fb-meta{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;font-size:10.5px;color:#B0B3B8}
+.fb-actions{display:flex;border-top:1px solid #3A3B3C}
+.fb-actions span{flex:1;text-align:center;padding:8px 0;font-size:10.5px;color:#B0B3B8;font-weight:600}
+.ad-flow{font-family:var(--mono);font-size:11.5px;color:var(--g-amber);text-align:center;margin-top:12px;letter-spacing:.12em;animation:feedglow 2.6s ease-in-out infinite}
+
+.mini-chat{display:flex;flex-direction:column;gap:7px}
+.mini-chat .bubble{opacity:1;transform:none;font-size:13px;max-width:88%}
+.signal-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-family:var(--mono);font-size:12.5px}
+.signal-row:last-child{border-bottom:0}
+.signal-row .s-name{color:var(--text-2)}
+.signal-row .s-val{color:var(--g-amber)}
+.signal-row .s-val.pos::before{content:"+";margin-right:1px}
+
+.route-lanes{display:flex;flex-direction:column;gap:10px}
+.lane{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px}
+.lane .l-left{display:flex;align-items:center;gap:10px}
+.lane .l-dot{width:9px;height:9px;border-radius:50%}
+.lane.hot{border-color:rgba(255,106,31,.45);background:rgba(255,106,31,.07)}
+.lane.hot .l-dot{background:var(--hot);box-shadow:0 0 10px var(--hot)}
+.lane.warm{border-color:rgba(255,162,77,.32)}
+.lane.warm .l-dot{background:var(--warm);box-shadow:0 0 10px rgba(255,162,77,.7)}
+.lane.cold .l-dot{background:var(--cold)}
+.lane .l-dest{font-family:var(--mono);font-size:11.5px;color:var(--text-2)}
+
+/* ---------- dashboard ---------- */
+.dash-shell{background:var(--ink-2);border:1px solid var(--line-2);border-radius:20px;overflow:hidden;box-shadow:0 60px 120px -40px rgba(0,0,0,.85),0 0 110px -50px rgba(247,137,24,.22)}
+.dash-top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--ink-3)}
+.dash-top .d-title{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;letter-spacing:.12em}
+.dash-live{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--wa)}
+.dash-live i{width:8px;height:8px;border-radius:50%;background:var(--wa);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}50%{box-shadow:0 0 0 7px rgba(37,211,102,0)}}
+.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.kpi{padding:20px;border-right:1px solid var(--line)}
+.kpi:last-child{border-right:0}
+.kpi .k-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.kpi .k-val{font-family:var(--mono);font-size:32px;font-weight:600;margin-top:6px}
+.kpi .k-val .u{font-size:16px;color:var(--text-3)}
+.kpi .k-sub{font-family:var(--mono);font-size:11.5px;margin-top:4px;color:var(--text-3)}
+.kpi .k-sub.up{color:var(--wa)}
+.dash-main{display:grid;grid-template-columns:1.5fr 1fr;gap:0}
+.dash-table{border-right:1px solid var(--line);padding:16px 20px}
+.dt-head,.dt-row{display:grid;grid-template-columns:1.4fr .9fr .8fr .7fr;gap:12px;align-items:center;padding:11px 6px;font-size:13.5px}
+.dt-head{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);border-bottom:1px solid var(--line)}
+.dt-row{border-bottom:1px solid var(--line)}
+.dt-row:last-child{border-bottom:0}
+.dt-name b{display:block;font-weight:600}
+.dt-name span{font-size:11.5px;color:var(--text-3);font-family:var(--mono)}
+.dt-src{font-family:var(--mono);font-size:11.5px;color:var(--text-2)}
+.score-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;font-weight:600}
+.score-pill .sp-bar{width:44px;height:5px;border-radius:99px;background:var(--ink);overflow:hidden}
+.score-pill .sp-bar i{display:block;height:100%;border-radius:99px}
+.tier-pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;border-radius:99px;padding:4px 10px;text-align:center}
+.tier-pill.hot{color:var(--hot);border:1px solid rgba(255,106,31,.5);background:rgba(255,106,31,.08)}
+.tier-pill.warm{color:var(--warm);border:1px solid rgba(255,162,77,.42);background:rgba(255,162,77,.08)}
+.tier-pill.cold{color:var(--cold);border:1px solid rgba(91,140,255,.35)}
+.dash-side{padding:18px 20px;display:flex;flex-direction:column;gap:20px}
+.side-block .sb-lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
+.heat-bars{display:flex;flex-direction:column;gap:9px}
+.hb{display:grid;grid-template-columns:64px 1fr 40px;gap:10px;align-items:center;font-family:var(--mono);font-size:12px}
+.hb .hb-track{height:9px;border-radius:99px;background:var(--ink);overflow:hidden}
+.hb .hb-fill{display:block;height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.feed{display:flex;flex-direction:column;gap:11px;font-size:12.5px}
+.feed .f-item{display:flex;gap:10px;color:var(--text-2)}
+.feed .f-time{font-family:var(--mono);font-size:11px;color:var(--text-3);min-width:44px}
+.feed .f-item b{color:var(--text)}
+.feed .f-item.now{animation:feedglow 2.6s ease-in-out infinite}
+@keyframes feedglow{0%,100%{opacity:1}50%{opacity:.55}}
+.dash-caption{font-family:var(--mono);font-size:12px;color:var(--text-3);text-align:center;margin-top:14px;letter-spacing:.08em}
+
+/* ---------- compare ---------- */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cmp{border-radius:var(--radius);padding:30px 28px;border:1px solid var(--line)}
+.cmp.form{background:var(--ink-2)}
+.cmp.psi{background:var(--ink-2);border-color:rgba(247,137,24,.45);box-shadow:0 0 70px -30px rgba(247,137,24,.35)}
+.cmp-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.cmp-ic{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:none;
+  background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.01));border:1px solid var(--line-2);color:var(--text-3)}
+.cmp.psi .cmp-ic{color:var(--g-amber);border-color:rgba(247,137,24,.42);box-shadow:0 12px 28px -18px rgba(247,137,24,.9)}
+.cmp-ic .ic{width:20px;height:20px}
+.cmp h3{font-size:21px;font-weight:800;font-stretch:90%;text-transform:uppercase;margin-bottom:0}
+.cmp ul{list-style:none;display:flex;flex-direction:column;gap:13px;font-size:15.5px;color:var(--text-2)}
+.cmp li{display:flex;gap:12px;align-items:flex-start}
+.cmp li .mk{font-family:var(--mono);font-size:13px;margin-top:2px}
+.cmp.form .mk{color:var(--text-3)}
+.cmp.psi .mk{color:var(--g-amber)}
+
+/* ---------- engagement ---------- */
+.eng-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.eng{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;display:flex;flex-direction:column;gap:12px;transition:border-color .25s ease,transform .25s ease}
+.eng:hover{border-color:rgba(247,137,24,.45);transform:translateY(-4px)}
+.eng .e-step{font-family:var(--mono);font-size:12px;color:var(--g-amber);letter-spacing:.16em}
+.eng h3{font-size:20px;font-weight:800;font-stretch:90%;text-transform:uppercase}
+.eng p{color:var(--text-2);font-size:15.5px;flex:1}
+.eng .e-meta{font-family:var(--mono);font-size:12px;color:var(--text-3)}
+
+/* ---------- faq ---------- */
+.faq{max-width:820px;margin:0 auto}
+details{border-bottom:1px solid var(--line);padding:20px 0}
+summary{cursor:pointer;font-family:var(--disp);font-weight:700;font-stretch:92%;font-size:19px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);font-size:22px;color:var(--g-amber);transition:transform .2s ease}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
+
+/* ---------- final ---------- */
+.final{background:radial-gradient(ellipse at 50% 0%,rgba(247,137,24,.10),transparent 60%),var(--ink-2);border-top:1px solid var(--line);text-align:center}
+.final h2{font-size:clamp(38px,5.6vw,72px)}
+.final .lede{margin-left:auto;margin-right:auto;margin-top:18px}
+.final .gas-mark{width:52px;height:52px;margin:0 auto 20px}
+
+footer{border-top:1px solid var(--line);padding:34px 0;font-size:14px;color:var(--text-3)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .f-sign{font-family:var(--mono);font-size:12px}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.show{opacity:1;transform:none}
+
+/* ============================================================
+   MOTION + DEPTH SYSTEM
+   Everything below is decorative. It is all switched off inside
+   the prefers-reduced-motion block at the end of this stylesheet.
+   ============================================================ */
+
+/* --- 1. the ground: a slow navy aurora lit by orange --- */
+.atmos{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;background:
+  radial-gradient(70% 55% at 50% -10%,rgba(20,36,78,.85),transparent 70%),
+  radial-gradient(60% 50% at 100% 100%,rgba(13,22,52,.9),transparent 70%),
+  var(--ink)}
+.atmos i{position:absolute;display:block;border-radius:50%;filter:blur(110px);opacity:.34}
+.atmos .a1{width:52vw;height:52vw;background:var(--g-orange);top:-18vw;right:-12vw;animation:float1 24s ease-in-out infinite alternate}
+.atmos .a2{width:46vw;height:46vw;background:#1E3A82;top:38vh;left:-16vw;opacity:.30;animation:float2 30s ease-in-out infinite alternate}
+.atmos .a3{width:38vw;height:38vw;background:#2A4DA8;bottom:-14vw;right:6vw;opacity:.24;animation:float3 27s ease-in-out infinite alternate}
+@keyframes float1{to{transform:translate3d(-8vw,8vh,0) scale(1.18)}}
+@keyframes float2{to{transform:translate3d(9vw,-10vh,0) scale(1.12)}}
+@keyframes float3{to{transform:translate3d(-6vw,-6vh,0) scale(1.2)}}
+
+/* --- 2. film grain, keeps the big flat gradients from banding --- */
+.grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+  animation:grainshift 6s steps(6) infinite}
+@keyframes grainshift{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(3%,1%)}100%{transform:translate(0,0)}}
+
+/* --- 3. reveals: rise + defocus, staggered by --i --- */
+.js .rv{opacity:0;transform:translateY(26px) scale(.985);filter:blur(10px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease);
+  transition-delay:calc(var(--i,0)*70ms)}
+.js .rv.show{opacity:1;transform:none;filter:blur(0)}
+
+/* headline words peel up one after another */
+.js .rv .w{display:inline-block;opacity:0;transform:translateY(.45em) rotate(1.6deg);filter:blur(8px);
+  transition:opacity .75s var(--ease),transform .75s var(--ease),filter .75s var(--ease)}
+.js .rv.show .w{opacity:1;transform:none;filter:blur(0);transition-delay:calc(var(--i,0)*48ms)}
+/* a heading that splits into words drops the container blur, the words carry it */
+.js .rv.has-words{filter:none;transform:none}
+
+/* --- 4. spotlight: cards track the cursor --- */
+.spot{position:relative;isolation:isolate}
+.spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;
+  transition:opacity .35s var(--ease);
+  background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(247,137,24,.14),transparent 62%)}
+.spot:hover::after{opacity:1}
+
+/* --- 5. living gradient border for the hero pieces --- */
+.gborder{position:relative}
+.gborder::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;z-index:0;
+  background:conic-gradient(from var(--ang,0deg),transparent 0deg,var(--g-orange) 60deg,var(--g-amber) 140deg,transparent 220deg,transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:spinang 7s linear infinite;opacity:.85}
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes spinang{to{--ang:360deg}}
+
+/* --- 6. nav condenses on scroll --- */
+nav{transition:height .3s var(--ease),background .3s var(--ease),border-color .3s var(--ease),backdrop-filter .3s var(--ease)}
+.nav-inner{transition:height .3s var(--ease)}
+body.scrolled nav{background:rgba(6,11,24,.82);border-bottom-color:var(--line-2);box-shadow:0 14px 40px -28px #000}
+body.scrolled .nav-inner{height:60px}
+.nav-links a{position:relative;padding:4px 0}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1.5px;background:var(--g-grad);transition:right .35s var(--ease)}
+.nav-links a:hover::after,.nav-links a.active::after{right:0}
+.nav-links a.active{color:var(--text)}
+
+/* --- 7. status chips --- */
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-2);background:rgba(255,255,255,.05);border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;
+  transition:border-color .3s var(--ease),color .3s var(--ease),transform .3s var(--ease)}
+.chip:hover{border-color:rgba(247,137,24,.5);color:var(--text);transform:translateY(-2px)}
+.chip .ic{width:14px;height:14px;stroke-width:2;color:var(--g-orange)}
+.chip.live{color:var(--wa);border-color:rgba(37,211,102,.32)}
+.chip.live i{width:7px;height:7px;border-radius:50%;background:var(--wa);animation:pulse 1.8s infinite}
+
+/* --- 8. buttons get depth and a magnetic pull --- */
+.btn{transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease);will-change:transform}
+
+/* --- 9. cards lift with a coloured shadow --- */
+.card{position:relative;background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),var(--ink-2);backdrop-filter:blur(2px)}
+.card:hover{border-color:rgba(247,137,24,.42);transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(247,137,24,.4),0 0 0 1px rgba(247,137,24,.12)}
+.eng{background:linear-gradient(165deg,rgba(255,255,255,.04),rgba(255,255,255,.01)),var(--ink-2)}
+.eng:hover{border-color:rgba(247,137,24,.5);transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(247,137,24,.45)}
+
+/* --- 10. dashboard gets browser chrome, blotato style --- */
+.dash-chrome{display:flex;align-items:center;gap:14px;padding:12px 18px;background:rgba(255,255,255,.03);border-bottom:1px solid var(--line)}
+.dash-chrome .dots{display:flex;gap:7px}
+.dash-chrome .dots i{width:10px;height:10px;border-radius:50%;background:var(--line-2)}
+.dash-chrome .dots i:first-child{background:rgba(255,106,31,.7)}
+.dash-chrome .dots i:nth-child(2){background:rgba(255,162,77,.55)}
+.dash-chrome .dots i:nth-child(3){background:rgba(91,140,255,.55)}
+.dash-chrome .url{flex:1;font-family:var(--mono);font-size:11.5px;color:var(--text-3);background:rgba(0,0,0,.32);border:1px solid var(--line);border-radius:8px;padding:6px 12px;letter-spacing:.04em}
+.dash-chrome .url b{color:var(--text-2);font-weight:500}
+
+/* --- 11. floating chips drift, phone breathes --- */
+.hero-visual{perspective:1200px}
+/* the live-demo badge. It used to be a faint outline that vanished against
+   the orb glow, so it now sits on its own solid navy chip with an orange
+   gradient hairline, a pulsing dot and a real drop shadow. */
+.visual-label{position:relative;z-index:2;display:flex;align-items:center;gap:10px;width:max-content;max-width:100%;margin:0 auto 18px;
+  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#EEF1F8;
+  background:linear-gradient(180deg,rgba(19,30,58,.96),rgba(10,16,34,.96));
+  border-radius:999px;padding:9px 18px;backdrop-filter:blur(10px);
+  box-shadow:0 16px 34px -18px #000,inset 0 1px 0 rgba(255,255,255,.1)}
+.visual-label::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(100deg,var(--g-amber),rgba(255,162,77,.22) 48%,var(--g-orange));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+.visual-label .vl-dot{width:7px;height:7px;border-radius:50%;background:var(--wa);flex:none;box-shadow:0 0 10px var(--wa);animation:pulse 1.8s infinite}
+.visual-label b{color:#fff;font-weight:600}
+.phone{transform-style:preserve-3d;transition:transform .5s var(--ease);animation:breathe 9s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.score-chip,.route-chip{animation:hover-a 7s ease-in-out infinite}
+.route-chip{animation-duration:8.5s;animation-delay:-2s}
+@keyframes hover-a{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.route-chip{transition:opacity .5s ease}
+.route-chip.show{opacity:1}
+
+/* --- 12. section rule: a hairline that glows in the middle --- */
+.hr-glow{height:1px;border:0;margin:0;background:linear-gradient(90deg,transparent,rgba(247,137,24,.45),rgba(255,162,77,.4),transparent)}
+
+/* --- 13. the funnel spine pulses light down its length --- */
+.flow-col::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(247,137,24,.55),transparent);
+  background-size:100% 40%;background-repeat:no-repeat;animation:spine 3.6s linear infinite}
+@keyframes spine{0%{background-position:0 -60%}100%{background-position:0 160%}}
+
+/* --- 14. marquee edges + speed on hover --- */
+.fans{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.018),transparent)}
+.logo-item{transition:filter .4s var(--ease),opacity .4s var(--ease),transform .4s var(--ease)}
+.logo-item:hover{transform:scale(1.06)}
+
+/* --- 15. the ad creative sits in a real device frame --- */
+.creative-frame{position:relative;border-radius:10px;overflow:hidden;background:#0A1020;container-type:inline-size}
+.creative-frame img{display:block;width:100%;height:auto;transform:scale(1.001);transition:transform 1.2s var(--ease)}
+.ad-slot:hover .creative-frame img{transform:scale(1.05)}
+.creative-frame::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.16) 48%,transparent 58%);
+  background-size:280% 100%;animation:sheen 5.5s ease-in-out infinite}
+@keyframes sheen{0%,62%{background-position:180% 0}100%{background-position:-80% 0}}
+
+/* --- 15b. the GAS creative itself, drawn in code so it stays on CI at any size --- */
+.gas-ad{position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;gap:1.8cqw;
+  padding:4.2cqw 5cqw;background:
+    radial-gradient(90% 70% at 92% 4%,rgba(255,106,31,.26),transparent 62%),
+    radial-gradient(80% 70% at 4% 100%,rgba(42,77,168,.30),transparent 66%),
+    linear-gradient(165deg,#0A1226 0%,#060B18 58%,#080F22 100%);
+  color:#fff;font-family:var(--disp);overflow:hidden;
+  transform:scale(1.001);transition:transform 1.2s var(--ease)}
+.ad-slot:hover .gas-ad{transform:scale(1.03)}
+.gas-ad::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(140,170,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(140,170,255,.07) 1px,transparent 1px);
+  background-size:7cqw 7cqw;-webkit-mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 78%);mask-image:radial-gradient(70% 60% at 50% 40%,#000,transparent 78%)}
+.gas-ad>*{position:relative}
+.ga-top{display:flex;align-items:center;gap:2.2cqw}
+.ga-mark{width:6.4cqw;height:6.4cqw;border-radius:50%;flex:none;background:#0B1224 url(assets/brand/gas-mark.png) center/cover no-repeat;box-shadow:0 0 0 .5cqw rgba(247,137,24,.22)}
+.ga-kicker{font-family:var(--mono);font-size:2.5cqw;letter-spacing:.16em;color:var(--g-amber)}
+.ga-head{font-size:8.8cqw;line-height:.94;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;margin-top:.4cqw}
+.ga-head em{font-style:normal;background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ga-rule{height:1px;background:linear-gradient(90deg,rgba(247,137,24,.55),rgba(255,162,77,.35),transparent)}
+.ga-lane{display:flex;align-items:center;gap:2cqw;font-family:var(--mono);font-size:2.6cqw;letter-spacing:.1em;color:#C8D2EC}
+.ga-tag{font-weight:700;letter-spacing:.14em;padding:.9cqw 1.8cqw;border-radius:1.2cqw;font-size:2.4cqw;
+  background:rgba(37,211,102,.13);color:#5CE58C;border:1px solid rgba(37,211,102,.35)}
+.ga-tag.old{background:rgba(255,106,31,.1);color:var(--g-amber);border-color:rgba(255,106,31,.3)}
+.ga-signal{display:flex;align-items:center;gap:2.4cqw}
+.ga-signal .ic{width:11cqw;height:11cqw;color:#5CE58C;stroke-width:1.4}
+.ga-beam{flex:1;height:.7cqw;border-radius:1cqw;background:linear-gradient(90deg,rgba(92,229,140,.05),rgba(92,229,140,.85));
+  background-size:220% 100%;animation:gabeam 2.8s linear infinite}
+@keyframes gabeam{0%{background-position:120% 0}100%{background-position:-60% 0}}
+.ga-verified{display:flex;align-items:center;gap:1.6cqw;padding:1.8cqw 2.4cqw;border-radius:1.6cqw;
+  border:1px solid rgba(92,229,140,.4);background:rgba(92,229,140,.09);font-family:var(--mono);font-size:2.5cqw;letter-spacing:.08em;color:#DDF7E6;white-space:nowrap}
+.ga-verified .ic{width:3.6cqw;height:3.6cqw;color:#5CE58C;stroke-width:2}
+.ga-win{font-size:3.5cqw;font-weight:800;line-height:1.15;letter-spacing:-.01em;color:#EAF0FF;text-transform:uppercase}
+.ga-win b{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ga-old{display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;margin-top:auto}
+.ga-cell{border:1px solid rgba(140,170,255,.14);border-radius:1.8cqw;background:rgba(255,255,255,.028);
+  padding:2.2cqw 1.6cqw;display:flex;flex-direction:column;align-items:center;gap:1cqw;text-align:center}
+.ga-cell .ic{width:5.2cqw;height:5.2cqw;color:#7E8BAE;stroke-width:1.6}
+.ga-cell .n{font-family:var(--mono);font-size:3.2cqw;font-weight:600;color:var(--g-amber);line-height:1}
+.ga-cell .l{font-family:var(--body);font-size:2.2cqw;line-height:1.2;color:#9AA5C4;letter-spacing:.02em}
+.ga-foot{font-family:var(--mono);font-size:2.3cqw;letter-spacing:.14em;color:#6E7A9B;text-align:center}
+@container (max-width:220px){.ga-foot{display:none}}
+
+/* ============================================================
+   16. THE WHATSAPP LAUNCH
+   The page has exactly one action: open a live PSI conversation.
+   No forms, anywhere, by design, so every call to action on the
+   page is the same object at three sizes.
+
+   The green is borrowed strictly as a channel signal, so a
+   prospect knows before tapping that a chat opens and not a
+   landing page. It stays deliberately quiet: one line of type,
+   one soft shadow, no sweeping rims or sheens. The orange in
+   the label above the draft carries the GAS frame instead.
+
+   The destination lives in one place, the WA config block in
+   the script at the foot of this file.
+   ============================================================ */
+.wa-block{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin-top:26px;max-width:540px}
+.wa-block.wa-mid{align-items:center;margin:32px auto 0;text-align:center}
+/* no draft bubble above the button, so the block carries its own air:
+   a little more clearance from the chips row, and a wider gap so the
+   reassurance line reads as a caption to the button, not a second line
+   of the same object. */
+.wa-block.wa-solo{gap:17px;margin-top:32px}
+
+/* --- the opener, drafted in front of them ---------------------
+   The single biggest hesitation on a chat button is "what do I
+   even say". So the message the tap will send is shown first,
+   as an outgoing WhatsApp bubble with the caret still blinking:
+   drafted, not yet sent. The button below sends it. */
+.wa-draft{display:flex;flex-direction:column;gap:8px;align-items:flex-start;max-width:100%}
+.wa-mid .wa-draft{align-items:center}
+.wa-draft .lbl{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3)}
+.wa-draft .lbl::before{content:"";width:18px;height:1px;background:linear-gradient(90deg,transparent,var(--g-orange))}
+.wa-msg{position:relative;display:inline-flex;align-items:flex-end;gap:9px;max-width:100%;
+  padding:9px 13px;border-radius:13px;border-bottom-left-radius:4px;
+  background:var(--wa-bubble-out);border:1px solid rgba(37,211,102,.20);
+  font-size:13.5px;line-height:1.42;color:#DBE7F6;text-align:left;
+  box-shadow:0 16px 34px -24px #000}
+.wa-msg::after{content:"";position:absolute;left:15px;bottom:-6px;width:11px;height:11px;background:inherit;
+  border-right:1px solid rgba(37,211,102,.20);border-bottom:1px solid rgba(37,211,102,.20);
+  border-bottom-right-radius:3px;transform:rotate(45deg)}
+.wa-mid .wa-msg::after{left:50%;margin-left:-5px}
+.wa-msg .caret{width:2px;height:15px;flex:none;margin-bottom:2px;border-radius:1px;background:var(--wa);animation:wacaret 1.05s steps(2,end) infinite}
+@keyframes wacaret{0%,49%{opacity:1}50%,100%{opacity:0}}
+
+/* --- the button ----------------------------------------------
+   One line, one pill, no theatrics. Where a draft bubble sits above
+   it, that bubble does the persuading, so the button only has to look
+   like the easy next step: nav-button typography, a single soft green
+   shadow, and the mark and arrow carrying the WhatsApp cue instead of
+   two inset discs. */
+.wa-launch{position:relative;display:inline-flex;align-items:center;gap:10px;
+  padding:13px 22px;border-radius:999px;
+  font-family:var(--body);font-weight:600;font-size:14.5px;line-height:1;white-space:nowrap;
+  background:linear-gradient(100deg,#33DE79,#25D366 52%,#12A85F);
+  color:var(--wa-ink);
+  box-shadow:0 12px 26px -14px rgba(37,211,102,.62),inset 0 1px 0 rgba(255,255,255,.34);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease);will-change:transform}
+.wa-launch:hover{box-shadow:0 16px 32px -14px rgba(37,211,102,.74),inset 0 1px 0 rgba(255,255,255,.44)}
+.wa-launch:focus-visible{outline:2px solid var(--g-amber);outline-offset:4px}
+.wa-launch .wa-mark{width:18px;height:18px;flex:none;stroke-width:2;color:var(--wa-ink)}
+.wa-launch .wa-arrow{width:15px;height:15px;flex:none;stroke-width:2.4;color:var(--wa-ink);opacity:.6;
+  transition:transform .25s var(--ease),opacity .25s var(--ease)}
+.wa-launch:hover .wa-arrow{transform:translateX(3px);opacity:1}
+
+/* --- the reassurance line, in place of the second button ----- */
+.wa-assure{display:flex;align-items:center;gap:11px;flex-wrap:wrap;font-size:13.5px;color:var(--text-3);max-width:520px}
+.wa-mid .wa-assure{justify-content:center}
+.wa-live{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--wa);
+  background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.3)}
+.wa-live i{width:6px;height:6px;border-radius:50%;background:var(--wa);animation:pulse 1.8s infinite}
+
+/* --- the nav button, same object at chip size ---------------- */
+.btn-wa{background:linear-gradient(100deg,#3FE47E,#25D366 46%,#0FA45C);color:#04240F;font-weight:700;
+  box-shadow:0 10px 26px -12px rgba(37,211,102,.6),inset 0 1px 0 rgba(255,255,255,.42)}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 16px 34px -12px rgba(37,211,102,.78),inset 0 1px 0 rgba(255,255,255,.52)}
+.btn-wa::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 32%,rgba(255,255,255,.4) 50%,transparent 68%);transform:translateX(-120%);transition:transform .6s ease}
+.btn-wa:hover::after{transform:translateX(120%)}
+.btn-wa .dot{position:relative;z-index:1;width:7px;height:7px;border-radius:50%;flex:none;background:#F4FFF8;box-shadow:0 0 0 3px rgba(255,255,255,.26);animation:pulse 1.8s infinite}
+.btn-wa .ic,.btn-wa span:not(.dot){position:relative;z-index:1}
+.btn-wa:hover .ic{transform:translateX(-2px)}
+
+/* --- the dock: the chat is never more than one tap away ------ */
+.wa-dock{position:fixed;right:24px;bottom:24px;z-index:120;display:flex;flex-direction:column;align-items:flex-end;gap:12px;
+  opacity:0;transform:translateY(18px) scale(.9);pointer-events:none;
+  transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.wa-dock.on{opacity:1;transform:none;pointer-events:auto}
+.wa-fab{position:relative;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;flex:none;
+  background:linear-gradient(140deg,#3FE47E,#25D366 45%,#0D9B55);
+  box-shadow:0 20px 44px -14px rgba(37,211,102,.62),0 8px 20px -10px #000,inset 0 1px 0 rgba(255,255,255,.45);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.wa-fab .ic{width:27px;height:27px;stroke-width:1.9;color:#04240F}
+.wa-fab::before{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(37,211,102,.7);animation:wafab 2.9s var(--ease) infinite}
+@keyframes wafab{0%{transform:scale(1);opacity:.7}75%{transform:scale(1.5);opacity:0}100%{opacity:0}}
+.wa-fab:hover{transform:scale(1.07) rotate(-5deg);box-shadow:0 26px 52px -14px rgba(37,211,102,.75),0 8px 20px -10px #000,inset 0 1px 0 rgba(255,255,255,.55)}
+.wa-fab:focus-visible{outline:2px solid var(--g-amber);outline-offset:4px}
+.wa-teaser{position:relative;max-width:250px;padding:13px 36px 14px 15px;border-radius:15px;border-bottom-right-radius:4px;
+  background:linear-gradient(180deg,rgba(19,30,58,.97),rgba(10,16,34,.97));border:1px solid var(--line-2);
+  backdrop-filter:blur(10px);font-size:13.5px;line-height:1.45;color:var(--text);text-align:left;
+  box-shadow:0 24px 46px -22px #000;transform-origin:100% 100%;
+  opacity:0;transform:translateY(8px) scale(.95);pointer-events:none;
+  transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.wa-teaser.on{opacity:1;transform:none;pointer-events:auto}
+.wa-teaser b{display:block;margin-bottom:5px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--wa)}
+.wa-teaser .x{position:absolute;top:8px;right:8px;width:22px;height:22px;border:0;border-radius:50%;cursor:pointer;
+  display:grid;place-items:center;background:rgba(255,255,255,.06);color:var(--text-3);transition:background .2s ease,color .2s ease}
+.wa-teaser .x:hover{background:rgba(255,255,255,.13);color:var(--text)}
+.wa-teaser .x .ic{width:11px;height:11px;stroke-width:2.6}
+
+/* --- holding state, only while the PSI line is being provisioned --- */
+.wa-toast{position:fixed;left:50%;bottom:26px;z-index:210;display:flex;align-items:center;gap:11px;
+  max-width:min(430px,calc(100% - 32px));padding:12px 18px;border-radius:999px;
+  font-size:13.5px;line-height:1.4;color:var(--text);text-align:left;
+  background:linear-gradient(180deg,rgba(19,30,58,.97),rgba(9,14,30,.97));border:1px solid var(--line-2);
+  box-shadow:0 26px 52px -22px #000;backdrop-filter:blur(10px);
+  opacity:0;transform:translate(-50%,14px);pointer-events:none;
+  transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.wa-toast.on{opacity:1;transform:translate(-50%,0)}
+.wa-toast .ic{width:18px;height:18px;stroke-width:2;color:var(--wa);flex:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv,.js .rv,.j-step,.bubble,.route-chip,.f-stage{opacity:1!important;transform:none!important;filter:none!important}
+  .js .rv .w{opacity:1!important;transform:none!important;filter:none!important}
+  .ic-draw{stroke-dasharray:none!important;stroke-dashoffset:0!important}
+  h1 .line span{transform:none!important}
+  .grain,.atmos i{display:none}
+  .wa-msg .caret,.wa-fab::before{display:none}
+  html{scroll-behavior:auto}
+}
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:56px}
+  .grid-3,.eng-grid{grid-template-columns:1fr 1fr}
+  .j-content{grid-template-columns:1fr}
+  .dash-main{grid-template-columns:1fr}
+  .dash-table{border-right:0;border-bottom:1px solid var(--line)}
+  .dash-kpis{grid-template-columns:1fr 1fr}
+  .kpi:nth-child(2){border-right:0}
+  .kpi{border-bottom:1px solid var(--line)}
+  .compare{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .nav-tagline{display:none}
+  .score-chip{right:0}
+  .route-chip{left:0}
+  .f-stage{width:100%!important;min-width:0!important}
+}
+@media (max-width:620px){
+  .ad-slot{max-width:100%}
+  .grid-3,.eng-grid{grid-template-columns:1fr}
+  .wa-block{max-width:100%}
+  .wa-block.wa-solo{gap:15px;margin-top:28px}
+  .wa-launch{padding:12px 20px;font-size:14px}
+  .wa-dock{right:15px;bottom:16px}
+  .wa-fab{width:54px;height:54px}
+  .wa-fab .ic{width:25px;height:25px}
+  .wa-teaser{max-width:min(250px,calc(100vw - 96px))}
+  .dt-head,.dt-row{grid-template-columns:1.4fr .9fr .8fr}
+  .dt-src{display:none}
+  .f-stage{grid-template-columns:1fr}
+  .f-stage .fs-val,.f-stage .fs-sub{text-align:left}
+  .dash-top{flex-wrap:wrap;gap:8px}
+  .dash-top .d-title{font-size:11px;letter-spacing:.08em}
+  .j-step{grid-template-columns:44px 1fr;gap:18px}
+  .j-node{width:44px;height:44px;font-size:12px}
+  .j-line{left:21px}
+}
+@media (max-width:480px){
+  h1{font-size:clamp(40px,13.5vw,60px)}
+  .hero{padding:92px 0 52px}
+  .nav-inner{height:62px}
+  .logo{font-size:17px;gap:8px}
+  .gas-mark{width:28px;height:28px}
+  .btn-sm{padding:9px 14px;font-size:12.5px}
+  .wa-launch{padding:12px 18px;font-size:13.6px;gap:9px}
+  .wa-launch .wa-mark{width:17px;height:17px}
+  .wa-msg{font-size:12.8px}
+  .wa-assure{font-size:12.8px}
+  .visual-label{font-size:10.5px;letter-spacing:.12em;padding:8px 14px}
+  .score-chip{position:static;margin:18px auto 0;width:min(300px,100%)}
+  .route-chip{position:static;margin:12px auto 0;display:block;width:max-content;max-width:100%}
+  .f-conn{font-size:10.5px;letter-spacing:.08em}
+  .m-set{gap:52px;padding-right:52px}
+  .logo-item img{height:32px}
+  .logo-item b{font-size:19px}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.className+=' js';</script>
+<div class="atmos" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+<div class="grain" aria-hidden="true"></div>
+<div id="progress"></div>
+
+<!-- ============================================================
+     GAS ICON SYSTEM
+     One 24x24 grid, 1.7px rounded strokes, optical centre on every
+     glyph. Every shape carries pathLength="1" so a single inherited
+     stroke-dashoffset can draw any icon on scroll (see .ic-draw).
+     Gradient: #gasg (the GAS orange ramp)
+     ============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gasg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFA24D"/><stop offset=".5" stop-color="#F78918"/><stop offset="1" stop-color="#FF6A1F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- structure -->
+  <symbol id="i-layers" viewBox="0 0 24 24"><path pathLength="1" d="M12 2.8 21 7.6 12 12.4 3 7.6l9-4.8Z"/><path pathLength="1" d="m3.4 12.2 8.6 4.6 8.6-4.6"/><path pathLength="1" d="m3.4 16.6 8.6 4.6 8.6-4.6"/></symbol>
+  <symbol id="i-funnel" viewBox="0 0 24 24"><path pathLength="1" d="M3.4 4.6h17.2l-6.5 7.7v6.3l-4.2 2.4v-8.7L3.4 4.6Z"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect pathLength="1" x="7.3" y="7.3" width="9.4" height="9.4" rx="2.4"/><path pathLength="1" d="M10.2 3.2v4.1M13.8 3.2v4.1M10.2 16.7v4.1M13.8 16.7v4.1"/><path pathLength="1" d="M3.2 10.2h4.1M3.2 13.8h4.1M16.7 10.2h4.1M16.7 13.8h4.1"/></symbol>
+
+  <!-- signal + intent -->
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path pathLength="1" d="M13.4 2.3 4.9 13.6h5.5L9.9 21.7l8.6-11.3H13l.4-8.1Z"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24"><path pathLength="1" d="M4.2 20.2v-3.6"/><path pathLength="1" d="M9.4 20.2v-7.4"/><path pathLength="1" d="M14.6 20.2V8.6"/><path pathLength="1" d="M19.8 20.2V4.2"/></symbol>
+  <symbol id="i-radar" viewBox="0 0 24 24"><path pathLength="1" d="M20.4 12a8.4 8.4 0 1 1-4.6-7.5"/><path pathLength="1" d="M16.1 12a4.1 4.1 0 1 1-2.6-3.8"/><path pathLength="1" d="M12 12 19 5.6"/><circle pathLength="1" cx="18.4" cy="6.2" r="1.5"/></symbol>
+  <symbol id="i-broadcast" viewBox="0 0 24 24"><path pathLength="1" d="M3.2 10.6v2.8a1.1 1.1 0 0 0 1.1 1.1h2.2l4.6 3.9V5.6L6.5 9.5H4.3a1.1 1.1 0 0 0-1.1 1.1Z"/><path pathLength="1" d="M14.8 9.2a4.4 4.4 0 0 1 0 5.6"/><path pathLength="1" d="M17.6 6.5a8.3 8.3 0 0 1 0 11"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path pathLength="1" d="M3.6 8.4V6.2a2.6 2.6 0 0 1 2.6-2.6h2.2"/><path pathLength="1" d="M15.6 3.6h2.2a2.6 2.6 0 0 1 2.6 2.6v2.2"/><path pathLength="1" d="M20.4 15.6v2.2a2.6 2.6 0 0 1-2.6 2.6h-2.2"/><path pathLength="1" d="M8.4 20.4H6.2a2.6 2.6 0 0 1-2.6-2.6v-2.2"/><path pathLength="1" d="M3.6 12h16.8"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle pathLength="1" cx="12" cy="12" r="8.4"/><circle pathLength="1" cx="12" cy="12" r="4.4"/><circle pathLength="1" cx="12" cy="12" r="1.1"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path pathLength="1" d="M3.9 16.8a9 9 0 1 1 16.2 0"/><path pathLength="1" d="m12 14.6 4.4-4.8"/><circle pathLength="1" cx="12" cy="15.4" r="1.4"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path pathLength="1" d="m3.2 17.2 5.8-5.8 3.8 3.8 8-8"/><path pathLength="1" d="M14.6 7.2h6.2v6.2"/></symbol>
+
+  <!-- conversation -->
+  <symbol id="i-chat" viewBox="0 0 24 24"><path pathLength="1" d="M20.8 11.6a8.4 8.4 0 0 1-11.9 7.6l-5.7 1.6 1.6-5.4A8.4 8.4 0 1 1 20.8 11.6Z"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path pathLength="1" d="M20.8 11.6a8.4 8.4 0 0 1-12.4 7.4l-5.2 1.4 1.4-5A8.4 8.4 0 1 1 20.8 11.6Z"/><path pathLength="1" d="M8.9 8.6c.3 2.6 3.1 5.4 5.7 5.7l1-1.4-2-1-1 .8a6.2 6.2 0 0 1-2.1-2.1l.8-1-1-2-1.4 1Z"/></symbol>
+  <symbol id="i-call" viewBox="0 0 24 24"><path pathLength="1" d="M4.9 3.7h3.9l2 4.9-2.5 1.5a12 12 0 0 0 5 5l1.5-2.5 4.9 2v3.9a2.1 2.1 0 0 1-2.1 2.1A16.2 16.2 0 0 1 2.8 5.8a2.1 2.1 0 0 1 2.1-2.1Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect pathLength="1" x="2.9" y="5.3" width="18.2" height="13.4" rx="2.6"/><path pathLength="1" d="m3.7 7.3 7.1 5.2a2 2 0 0 0 2.4 0l7.1-5.2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle pathLength="1" cx="9.2" cy="8" r="3.3"/><path pathLength="1" d="M3.4 19.8a5.8 5.8 0 0 1 11.6 0"/><path pathLength="1" d="M16.1 5.3a3.3 3.3 0 0 1 0 5.4"/><path pathLength="1" d="M17.4 14.5a5.8 5.8 0 0 1 3.2 4.7"/></symbol>
+
+  <!-- verdicts -->
+  <symbol id="i-check" viewBox="0 0 24 24"><path pathLength="1" d="m4.4 12.6 5 5L19.6 6.6"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle pathLength="1" cx="12" cy="12" r="8.6"/><path pathLength="1" d="m8.1 12.4 2.8 2.8 5.2-5.9"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path pathLength="1" d="m6.4 6.4 11.2 11.2"/><path pathLength="1" d="M17.6 6.4 6.4 17.6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path pathLength="1" d="m12 2.9 7.6 3v5.9c0 4.4-3.1 8-7.6 9.3-4.5-1.3-7.6-4.9-7.6-9.3V5.9l7.6-3Z"/><path pathLength="1" d="m8.7 11.9 2.4 2.4 4.2-4.7"/></symbol>
+
+  <!-- motion + system -->
+  <symbol id="i-loop" viewBox="0 0 24 24"><path pathLength="1" d="M20.2 12a8.2 8.2 0 1 1-2.4-5.8"/><path pathLength="1" d="M20.2 3.2v5h-5"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle pathLength="1" cx="6.2" cy="6.2" r="2.6"/><path pathLength="1" d="M6.2 8.8V14a4.2 4.2 0 0 0 4.2 4.2h7"/><path pathLength="1" d="m14.6 15.4 3 2.8-3 2.8"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path pathLength="1" d="M3.6 12h15.6"/><path pathLength="1" d="m13.2 6 6 6-6 6"/></symbol>
+  <symbol id="i-tap" viewBox="0 0 24 24"><path pathLength="1" d="m4.2 3.9 6.7 16.4 2.5-6.9 6.9-2.5L4.2 3.9Z"/><path pathLength="1" d="m13.9 13.9 5.4 5.4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle pathLength="1" cx="12" cy="12" r="8.6"/><path pathLength="1" d="M12 6.9V12l3.5 2.1"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path pathLength="1" d="M10.2 13.8a4.2 4.2 0 0 0 6 0l2.6-2.6a4.2 4.2 0 0 0-6-6l-1.4 1.4"/><path pathLength="1" d="M13.8 10.2a4.2 4.2 0 0 0-6 0l-2.6 2.6a4.2 4.2 0 0 0 6 6l1.4-1.4"/></symbol>
+
+  <!-- growth -->
+  <symbol id="i-sprout" viewBox="0 0 24 24"><path pathLength="1" d="M12 21.4v-8.2"/><path pathLength="1" d="M12 13.2c0-4.3-3.2-7.2-8.2-7.2 0 5.1 3.2 7.2 8.2 7.2Z"/><path pathLength="1" d="M12 13.2c0-4.3 3.2-7.2 8.2-7.2 0 5.1-3.2 7.2-8.2 7.2Z"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path pathLength="1" d="M9.2 2.9h5.6"/><path pathLength="1" d="M10.1 2.9v6.3l-5.6 9.1a2.1 2.1 0 0 0 1.8 3.2h11.4a2.1 2.1 0 0 0 1.8-3.2l-5.6-9.1V2.9"/><path pathLength="1" d="M7.4 14.9h9.2"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path pathLength="1" d="m10.4 2.6 1.7 4.9 4.9 1.7-4.9 1.7-1.7 4.9-1.7-4.9L3.8 9.2l4.9-1.7 1.7-4.9Z"/><path pathLength="1" d="m17.6 14.2.9 2.5 2.5.9-2.5.9-.9 2.5-.9-2.5-2.5-.9 2.5-.9.9-2.5Z"/></symbol>
+</svg>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="brand-group">
+      <a class="logo" href="#top"><span class="gas-mark" role="img" aria-label="GAS logo"></span>GAS<span class="psi-mark">PSI</span></a>
+      <span class="nav-tagline">The Agency of Now</span>
+    </div>
+    <div class="nav-links">
+      <a href="#funnel">The funnel</a>
+      <a href="#journey">The journey</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#start">Getting started</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-wa btn-sm magnetic" href="https://wa.me/" data-wa="Hi GAS, I want to talk to PSI about our lead quality"><span class="dot" aria-hidden="true"></span><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>Chat to us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="kicker">PRE-SALES INTELLIGENCE · <b>BY GAS MARKETING</b></div>
+      <h1><span class="line"><span>Intent</span></span><span class="line"><span class="h-hot">Engineered</span></span></h1>
+      <p class="hero-sub"><strong style="color:var(--text)">PSI is Pre-Sales Intelligence</strong>, the AI qualification layer that sits between marketing and your sales team. Every ad click becomes a WhatsApp conversation, every conversation becomes an intent score, and only sales-ready leads reach your people. AI does the qualifying. Your humans do the closing.</p>
+      <div class="chips">
+        <span class="chip live"><i></i>Live prospecting now</span>
+        <span class="chip"><svg class="ic"><use href="#i-radar"/></svg>Intent scored pre-sales</span>
+        <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>Replies in seconds, 24/7</span>
+      </div>
+      <!-- one action, one destination. The hero runs the button on its
+           own: the chips above already carry the promise, so the CTA and
+           its reassurance line are the whole block. -->
+      <div class="wa-block wa-solo">
+        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I want to see PSI running on my funnel">
+          <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          <span>Chat to us on WhatsApp</span>
+          <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <p class="wa-assure"><span class="wa-live"><i aria-hidden="true"></i>PSI on duty 24/7</span> No forms, no call-back queue. PSI answers, qualifies, and hands our team the conversation.</p>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <p class="visual-label"><i class="vl-dot" aria-hidden="true"></i><b>Live demo</b> · our own funnel, running now</p>
+      <div class="phone gborder" id="heroPhone">
+        <div class="phone-screen">
+          <div class="wa-header">
+            <div class="wa-avatar" role="img" aria-label="GAS PSI avatar"></div>
+            <div>
+              <div class="wa-name">PSI · GAS Marketing</div>
+              <div class="wa-status">online · qualifying</div>
+            </div>
+          </div>
+          <div class="wa-body" id="heroChat"></div>
+        </div>
+      </div>
+      <div class="score-chip" aria-hidden="true">
+        <div class="lbl">Intent score</div>
+        <div class="val"><span id="heroScore">0</span></div>
+        <div class="bar"><i id="heroBar"></i></div>
+        <div class="tier" id="heroTier">TIER · COLD</div>
+      </div>
+      <div class="route-chip" id="heroRoute"><span class="dot"></span>ROUTED TO OUR SALES TEAM · CONTEXT ATTACHED</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ FANS LOGO MARQUEE ============ -->
+<!-- To show real logos: create a /logos folder next to this file and drop in the
+     files named below (PNG or SVG, transparent background, roughly 200px tall).
+     Each logo renders greyscale automatically and reveals full colour on hover.
+     If a file is missing, a styled grey wordmark shows in its place. -->
+<div class="fans" aria-label="Some of our biggest fans">
+  <p class="fans-label">Some of our biggest fans</p>
+  <div class="fans-track">
+    <div class="marquee marquee-slow">
+      <div class="m-set">
+        <span class="logo-item"><img src="assets/logos/mtn-momo.png" alt="MTN MoMo" onerror="this.parentNode.classList.add('noimg')"><b>MTN MoMo</b></span>
+        <span class="logo-item"><img src="assets/logos/wh-properties.png" alt="WH Properties" onerror="this.parentNode.classList.add('noimg')"><b>WH Properties</b></span>
+        <span class="logo-item"><img src="assets/logos/chilla.png" alt="Chilla" onerror="this.parentNode.classList.add('noimg')"><b>Chilla</b></span>
+        <span class="logo-item"><img src="assets/logos/learnalot.png" alt="Learnalot" onerror="this.parentNode.classList.add('noimg')"><b>Learnalot</b></span>
+        <span class="logo-item"><img src="assets/logos/fedex.png" alt="FedEx" onerror="this.parentNode.classList.add('noimg')"><b>FedEx</b></span>
+        <span class="logo-item"><img src="assets/logos/old-mutual.png" alt="Old Mutual" onerror="this.parentNode.classList.add('noimg')"><b>Old Mutual</b></span>
+        <span class="logo-item"><img src="assets/logos/hyundai.png" alt="Hyundai" onerror="this.parentNode.classList.add('noimg')"><b>Hyundai</b></span>
+        <span class="logo-item"><img src="assets/logos/the-amber-room.png" alt="The Amber Room" onerror="this.parentNode.classList.add('noimg')"><b>The Amber Room</b></span>
+        <span class="logo-item"><img src="assets/logos/sun-international.png" alt="Sun International" onerror="this.parentNode.classList.add('noimg')"><b>Sun International</b></span>
+      </div>
+      <div class="m-set" aria-hidden="true">
+        <span class="logo-item"><img src="assets/logos/mtn-momo.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>MTN MoMo</b></span>
+        <span class="logo-item"><img src="assets/logos/wh-properties.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>WH Properties</b></span>
+        <span class="logo-item"><img src="assets/logos/chilla.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>Chilla</b></span>
+        <span class="logo-item"><img src="assets/logos/learnalot.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>Learnalot</b></span>
+        <span class="logo-item"><img src="assets/logos/fedex.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>FedEx</b></span>
+        <span class="logo-item"><img src="assets/logos/old-mutual.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>Old Mutual</b></span>
+        <span class="logo-item"><img src="assets/logos/hyundai.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>Hyundai</b></span>
+        <span class="logo-item"><img src="assets/logos/the-amber-room.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>The Amber Room</b></span>
+        <span class="logo-item"><img src="assets/logos/sun-international.png" alt="" onerror="this.parentNode.classList.add('noimg')"><b>Sun International</b></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROBLEM ============ -->
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div class="eyebrow">The problem</div>
+      <h2 class="rvw">Lead forms are where <span class="accent">intent goes to die.</span></h2>
+      <p class="lede">Paid media has never been better at generating clicks. What happens after the click is where most budgets quietly bleed out.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card rv spot"><div class="card-ic"><svg class="ic ic-draw"><use href="#i-layers"/></svg></div><h3>Volume without quality</h3><p>Forms capture a name and a number, nothing about readiness, budget or timeline. Your sales team inherits the guesswork.</p><span class="tag">SALES TIME WASTED</span></div>
+      <div class="card rv spot"><div class="card-ic"><svg class="ic ic-draw"><use href="#i-bolt"/></svg></div><h3>Speed to lead is everything</h3><p>Interest decays fast. A lead followed up hours later is a different, colder lead. Manual follow-up cannot keep pace with media.</p><span class="tag">LEADS GO COLD</span></div>
+      <div class="card rv spot"><div class="card-ic"><svg class="ic ic-draw"><use href="#i-signal"/></svg></div><h3>No intent signal</h3><p>Every lead looks identical in a spreadsheet. Sales cannot tell a ready buyer from a curious browser, so they treat everyone the same.</p><span class="tag">HOT LEADS BURIED</span></div>
+      <div class="card rv spot"><div class="card-ic"><svg class="ic ic-draw"><use href="#i-loop"/></svg></div><h3>The feedback loop is broken</h3><p>Media buyers optimise for cost per lead while sales complains about lead quality. Neither side is working from the same data.</p><span class="tag">MEDIA FLYING BLIND</span></div>
+      <div class="card rv spot"><div class="card-ic"><svg class="ic ic-draw"><use href="#i-sprout"/></svg></div><h3>Nurture is an afterthought</h3><p>Not-yet-ready leads get discarded instead of developed. Genuine future buyers are thrown away with the tyre kickers.</p><span class="tag">PIPELINE LEAKAGE</span></div>
+      <div class="card rv spot"><div class="card-ic"><svg class="ic ic-draw"><use href="#i-chat"/></svg></div><h3>Handovers carry no context</h3><p>Sales gets a name, not a conversation. Every call starts from zero, repeating questions the lead has already answered.</p><span class="tag">TRUST ERODED</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FUNNEL METHODOLOGY ============ -->
+<section class="funnel-sec" id="funnel">
+  <div class="wrap">
+    <div class="section-head rv" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">The methodology</div>
+      <h2 class="rvw">The PSI funnel. <span class="accent">Engineered for intent.</span></h2>
+      <p class="lede" style="margin-left:auto;margin-right:auto">Most agencies pour more budget into the top. PSI engineers the middle, where clicks become conversations and conversations become intent.</p>
+    </div>
+    <div class="funnel-wrap">
+      <div class="flow-col" aria-hidden="true"><span class="flow-dot"></span><span class="flow-dot"></span><span class="flow-dot"></span></div>
+
+      <div class="f-stage" data-w="100">
+        <div class="fs-fill"></div>
+        <div>
+          <div class="fs-head"><span class="fs-ic"><svg class="ic ic-draw"><use href="#i-broadcast"/></svg></span><span class="fs-num">STAGE 01</span><h3>Reach</h3></div>
+          <p>Paid social across Meta, TikTok and Google puts your offer in front of the right audiences.</p>
+        </div>
+        <div><div class="fs-val" data-count="120000">0</div><div class="fs-sub">IMPRESSIONS</div></div>
+      </div>
+
+      <div class="f-conn">&#8595; <b>3.0%</b> CLICK THROUGH TO WHATSAPP</div>
+
+      <div class="f-stage" data-w="82">
+        <div class="fs-fill"></div>
+        <div>
+          <div class="fs-head"><span class="fs-ic"><svg class="ic ic-draw"><use href="#i-tap"/></svg></span><span class="fs-num">STAGE 02</span><h3>Signal</h3></div>
+          <p>Click-to-WhatsApp replaces the landing page. One tap and the prospect is in a conversation.</p>
+        </div>
+        <div><div class="fs-val" data-count="3600">0</div><div class="fs-sub">CTWA CLICKS</div></div>
+      </div>
+
+      <div class="f-conn">&#8595; <b>87.5%</b> START A CONVERSATION</div>
+
+      <div class="f-stage" data-w="66">
+        <div class="fs-fill"></div>
+        <div>
+          <div class="fs-head"><span class="fs-ic"><svg class="ic ic-draw"><use href="#i-chat"/></svg></span><span class="fs-num">STAGE 03</span><h3>Dialogue</h3></div>
+          <p>PSI engages in seconds, answers real questions and qualifies through natural conversation, 24/7.</p>
+        </div>
+        <div><div class="fs-val" data-count="3150">0</div><div class="fs-sub">CONVERSATIONS</div></div>
+      </div>
+
+      <div class="f-conn">&#8595; <b>100%</b> OF CONVERSATIONS SCORED</div>
+
+      <div class="f-stage" data-w="52">
+        <div class="fs-fill"></div>
+        <div>
+          <div class="fs-head"><span class="fs-ic"><svg class="ic ic-draw"><use href="#i-gauge"/></svg></span><span class="fs-num">STAGE 04</span><h3>Score</h3></div>
+          <p>Every conversation is intent scored live and routed by tier. Nothing reaches sales unscored.</p>
+          <div class="f-split"><span class="sh">HOT 428</span><span class="sw">WARM 890</span><span class="sc">COLD 1,832</span></div>
+        </div>
+        <div><div class="fs-val">100<span style="font-size:.55em">%</span></div><div class="fs-sub">SCORED &amp; TIERED</div></div>
+      </div>
+
+      <div class="f-conn">&#8595; <b>13.6%</b> QUALIFY HOT &#183; ZERO GUESSWORK TO SALES</div>
+
+      <div class="f-stage" data-w="40">
+        <div class="fs-fill"></div>
+        <div>
+          <div class="fs-head"><span class="fs-ic"><svg class="ic ic-draw"><use href="#i-check-circle"/></svg></span><span class="fs-num">STAGE 05</span><h3>Sales ready</h3></div>
+          <p>Hot leads land with sales, transcript and score attached.</p>
+        </div>
+        <div><div class="fs-val" data-count="428">0</div><div class="fs-sub">HANDED TO SALES</div></div>
+      </div>
+    </div>
+
+    <div class="f-quote rv">
+      <p class="q rvw">We do not widen the funnel.<br><span class="accent">We sharpen it.</span></p>
+    </div>
+    <p class="f-caption rv">ILLUSTRATIVE FUNNEL MODEL · DEMO DATA · YOUR NUMBERS BUILD FROM YOUR LIVE CAMPAIGNS</p>
+  </div>
+</section>
+
+<!-- ============ JOURNEY ============ -->
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div class="eyebrow">The journey</div>
+      <h2 class="rvw">Follow one lead, from <span class="accent">ad click to sales ready.</span></h2>
+      <p class="lede">This is the funnel from the inside. One prospect, one conversation, one score, one clean handover. It runs the same way at any volume.</p>
+    </div>
+    <div class="j-track">
+      <div class="j-line" aria-hidden="true"></div>
+
+      <div class="j-step" data-heat="cold">
+        <div class="j-node">01</div>
+        <div class="j-content">
+          <div class="j-copy">
+            <h3>The signal</h3>
+            <p>It starts in the feed. This is our own advert, running our own media. The call to action is not "Learn more" pointing at a form. It is "Chat to us". One tap on the WhatsApp button and the prospect is in a live conversation, with the advert context travelling with them.</p>
+            <div class="j-meta">CHANNEL · PAID SOCIAL → CLICK TO WHATSAPP</div>
+          </div>
+          <div>
+            <!-- Our own prospecting advert. The creative is drawn in code (.gas-ad)
+                 so it always sits on GAS CI, with no stock or personal photography. -->
+            <div class="ad-slot">
+              <div class="j-visual fb-ad" role="img" aria-label="GAS Marketing advert with a WhatsApp chat call to action">
+              <div class="fb-head">
+                <div class="fb-avatar" role="img" aria-label="GAS Marketing profile picture"></div>
+                <div>
+                  <div class="fb-name">GAS Marketing</div>
+                  <div class="fb-sp">Sponsored · 🌐</div>
+                </div>
+                <div class="fb-dots">···</div>
+              </div>
+              <div class="fb-text">Still paying for leads nobody wants to call? ⚡ Chat to us on WhatsApp and see how PSI scores buying intent before your sales team picks up. 👇</div>
+              <div class="creative-frame">
+                <div class="gas-ad" role="img" aria-label="GAS advert: stop guessing, start knowing. PSI spots in-market intent instantly and verifies it, instead of counting whitepaper downloads, ad clicks and email opens.">
+                  <div class="ga-top"><span class="ga-mark" aria-hidden="true"></span><span class="ga-kicker">PSI · PRE-SALES INTELLIGENCE</span></div>
+                  <h4 class="ga-head">Stop guessing.<br><em>Start knowing.</em></h4>
+                  <div class="ga-rule" aria-hidden="true"></div>
+                  <div class="ga-lane"><span class="ga-tag">NEW WAY</span> SPOT INTENT INSTANTLY</div>
+                  <div class="ga-signal">
+                    <svg class="ic" aria-hidden="true"><use href="#i-radar"/></svg>
+                    <span class="ga-beam" aria-hidden="true"></span>
+                    <span class="ga-verified"><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg>IN-MARKET: VERIFIED</span>
+                  </div>
+                  <div class="ga-win">Shorter sales cycles.<br><b>Stronger conversations.</b></div>
+                  <div class="ga-lane"><span class="ga-tag old">OLD WAY</span> HOURS SPENT GUESSING INTENT</div>
+                  <div class="ga-old">
+                    <div class="ga-cell"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg><span class="n">20%</span><span class="l">Whitepaper download</span></div>
+                    <div class="ga-cell"><svg class="ic" aria-hidden="true"><use href="#i-tap"/></svg><span class="n">20%</span><span class="l">Ad click</span></div>
+                    <div class="ga-cell"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg><span class="n">20%</span><span class="l">Email open</span></div>
+                  </div>
+                  <div class="ga-foot">LOW SERIOUSNESS · HIGH SALES COST</div>
+                </div>
+              </div>
+              <div class="fb-linkbar">
+                <div class="lb-l">
+                  <div class="lb-url">WHATSAPP</div>
+                  <div class="lb-title">Chat to us about lead quality</div>
+                </div>
+                <span class="fb-cta"><svg class="ic" style="width:15px;height:15px;stroke-width:2"><use href="#i-whatsapp"/></svg>Send message<span class="tap-hint" aria-hidden="true"></span></span>
+              </div>
+              <div class="fb-meta"><span>👍❤️ 214</span><span>32 comments · 11 shares</span></div>
+              <div class="fb-actions"><span>👍 Like</span><span>💬 Comment</span><span>↗ Share</span></div>
+            </div>
+            </div>
+            <p class="ad-flow">TAP ↓ WHATSAPP OPENS ↓ PSI TAKES THE CONVERSATION</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="j-step" data-heat="cold">
+        <div class="j-node">02</div>
+        <div class="j-content">
+          <div class="j-copy">
+            <h3>The conversation</h3>
+            <p>PSI opens a natural, on-brand dialogue in seconds, at any hour. It answers real questions, handles objections and asks the qualifying questions a good salesperson would, without ever feeling like an interrogation. This is the exact conversation our own prospects have with us.</p>
+            <div class="j-meta">RESPONSE TIME · SECONDS, NOT HOURS · 24/7</div>
+          </div>
+          <div class="j-visual">
+            <div class="mini-chat">
+              <div class="bubble in">Hi Naledi 👋 Great to hear from you. Are you running paid media at the moment, or planning to?</div>
+              <div class="bubble out">Running it now, Meta and Google</div>
+              <div class="bubble in">Good. Is the problem lead volume, or lead quality?</div>
+              <div class="bubble out">Quality. My team wastes days on bad leads</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="j-step" data-heat="warm">
+        <div class="j-node">03</div>
+        <div class="j-content">
+          <div class="j-copy">
+            <h3>The scoring</h3>
+            <p>Behind the conversation, PSI reads every answer as an intent signal. Timeline, fit, budget readiness, engagement depth and urgency each move the score. The lead never sees a form, but you see everything.</p>
+            <div class="j-meta">ENGINE · PSI INTENT SCORING · LIVE PER MESSAGE</div>
+          </div>
+          <div class="j-visual">
+            <div class="signal-row"><span class="s-name">Paid media already running</span><span class="s-val pos">18</span></div>
+            <div class="signal-row"><span class="s-name">Named lead quality as the problem</span><span class="s-val pos">15</span></div>
+            <div class="signal-row"><span class="s-name">Decision maker confirmed</span><span class="s-val pos">12</span></div>
+            <div class="signal-row"><span class="s-name">Shared current cost per lead</span><span class="s-val pos">22</span></div>
+            <div class="signal-row"><span class="s-name">Response depth and speed</span><span class="s-val pos">11</span></div>
+            <div class="signal-row"><span class="s-name" style="color:var(--text)">Intent score</span><span class="s-val" style="font-weight:600">78 / 100</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="j-step" data-heat="hot">
+        <div class="j-node">04</div>
+        <div class="j-content">
+          <div class="j-copy">
+            <h3>The routing</h3>
+            <p>Scored leads are routed by tier. Hot goes straight to sales with the full conversation attached. Warm enters a nurture track that develops intent over time. Cold is disqualified cleanly, protecting sales capacity and sharpening your media data.</p>
+            <div class="j-meta">DISQUALIFICATION IS NOT FAILURE. IT IS PERFORMANCE.</div>
+          </div>
+          <div class="j-visual route-lanes">
+            <div class="lane hot"><span class="l-left"><span class="l-dot"></span><b>Hot · 70+</b></span><span class="l-dest">→ SALES NOW · CONTEXT ATTACHED</span></div>
+            <div class="lane warm"><span class="l-left"><span class="l-dot"></span>Warm · 40–69</span><span class="l-dest">→ NURTURE TRACK</span></div>
+            <div class="lane cold"><span class="l-left"><span class="l-dot"></span>Cold · under 40</span><span class="l-dest">→ DISQUALIFIED, LOGGED</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="j-step" data-heat="hot">
+        <div class="j-node">05</div>
+        <div class="j-content">
+          <div class="j-copy">
+            <h3>The intelligence</h3>
+            <p>Every conversation feeds the PSI dashboard and flows back into your media as conversion signals. Campaigns learn which audiences produce intent, not just clicks, so the whole engine compounds instead of resetting each month.</p>
+            <div class="j-meta">FEEDBACK LOOP · PSI → CAPI → SMARTER MEDIA</div>
+          </div>
+          <div class="j-visual">
+            <div class="signal-row"><span class="s-name">Qualified leads → CRM</span><span class="s-val">SYNCED</span></div>
+            <div class="signal-row"><span class="s-name">Intent tiers → Meta CAPI</span><span class="s-val">SYNCED</span></div>
+            <div class="signal-row"><span class="s-name">Campaign optimisation target</span><span class="s-val">QUALIFIED, NOT CLICKS</span></div>
+            <div class="signal-row"><span class="s-name">Full transcript to sales</span><span class="s-val">ATTACHED</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ DASHBOARD ============ -->
+<section id="dashboard" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div class="eyebrow">The PSI dashboard</div>
+      <h2 class="rvw">Our own funnel, <span class="accent">on the record.</span></h2>
+      <p class="lede">One view of every conversation, every score and every routing decision, live. This is the PSI dashboard we run on our own prospecting, and the same one your team would work from. Sales works the hot list. Marketing sees exactly which media produces intent.</p>
+    </div>
+    <div class="dash-shell rv spot" role="img" aria-label="Illustrative PSI dashboard showing intent scored leads">
+      <div class="dash-chrome" aria-hidden="true">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="url">psi.gasmarketing.co.za<b>/prospecting/live</b></span>
+      </div>
+      <div class="dash-top">
+        <div class="d-title"><span class="psi-mark">PSI</span> GAS PROSPECTING · CAMPAIGN VIEW</div>
+        <div class="dash-live"><i></i>LIVE</div>
+      </div>
+      <div class="dash-kpis">
+        <div class="kpi"><div class="k-lbl">Conversations</div><div class="k-val" data-count="1284">0</div><div class="k-sub">THIS MONTH</div></div>
+        <div class="kpi"><div class="k-lbl">Qualified · Hot</div><div class="k-val" data-count="167">0</div><div class="k-sub up">→ ROUTED TO SALES</div></div>
+        <div class="kpi"><div class="k-lbl">In nurture</div><div class="k-val" data-count="342">0</div><div class="k-sub">WARM · DEVELOPING</div></div>
+        <div class="kpi"><div class="k-lbl">Avg. intent score</div><div class="k-val"><span data-count="58">0</span><span class="u">/100</span></div><div class="k-sub up">TRENDING UP</div></div>
+      </div>
+      <div class="dash-main">
+        <div class="dash-table">
+          <div class="dt-head"><span>Lead</span><span>Source</span><span>Intent</span><span>Tier</span></div>
+          <div class="dt-row">
+            <div class="dt-name"><b>Naledi M.</b><span>R180 CPL · quality problem · booked</span></div>
+            <div class="dt-src">Meta · CTWA</div>
+            <div class="score-pill">92<span class="sp-bar"><i style="width:92%;background:var(--hot)"></i></span></div>
+            <span class="tier-pill hot">HOT</span>
+          </div>
+          <div class="dt-row">
+            <div class="dt-name"><b>Sipho K.</b><span>Asked pricing · comparing agencies</span></div>
+            <div class="dt-src">LinkedIn · CTWA</div>
+            <div class="score-pill">81<span class="sp-bar"><i style="width:81%;background:var(--g-orange)"></i></span></div>
+            <span class="tier-pill hot">HOT</span>
+          </div>
+          <div class="dt-row">
+            <div class="dt-name"><b>Lerato D.</b><span>Budget opens Q1 · early</span></div>
+            <div class="dt-src">Meta · CTWA</div>
+            <div class="score-pill">54<span class="sp-bar"><i style="width:54%;background:var(--warm)"></i></span></div>
+            <span class="tier-pill warm">WARM</span>
+          </div>
+          <div class="dt-row">
+            <div class="dt-name"><b>James R.</b><span>Browsing · no media spend yet</span></div>
+            <div class="dt-src">Google · CTWA</div>
+            <div class="score-pill">47<span class="sp-bar"><i style="width:47%;background:var(--warm)"></i></span></div>
+            <span class="tier-pill warm">WARM</span>
+          </div>
+          <div class="dt-row">
+            <div class="dt-name"><b>Unknown user</b><span>Single message · no fit</span></div>
+            <div class="dt-src">Meta · CTWA</div>
+            <div class="score-pill">14<span class="sp-bar"><i style="width:14%;background:var(--cold)"></i></span></div>
+            <span class="tier-pill cold">COLD</span>
+          </div>
+        </div>
+        <div class="dash-side">
+          <div class="side-block">
+            <div class="sb-lbl">Intent distribution</div>
+            <div class="heat-bars">
+              <div class="hb"><span style="color:var(--hot)">HOT</span><span class="hb-track"><i class="hb-fill" data-w="34" style="background:var(--hot)"></i></span><span>13%</span></div>
+              <div class="hb"><span style="color:var(--warm)">WARM</span><span class="hb-track"><i class="hb-fill" data-w="62" style="background:var(--warm)"></i></span><span>27%</span></div>
+              <div class="hb"><span style="color:var(--cold)">COLD</span><span class="hb-track"><i class="hb-fill" data-w="100" style="background:var(--cold)"></i></span><span>60%</span></div>
+            </div>
+          </div>
+          <div class="side-block">
+            <div class="sb-lbl">Live activity</div>
+            <div class="feed">
+              <div class="f-item now"><span class="f-time">now</span><span><b>Naledi M.</b> routed to our sales team, transcript attached</span></div>
+              <div class="f-item"><span class="f-time">2m</span><span><b>Sipho K.</b> asked about pricing, score +22</span></div>
+              <div class="f-item"><span class="f-time">9m</span><span><b>Lerato D.</b> moved to nurture track</span></div>
+              <div class="f-item"><span class="f-time">14m</span><span>Qualified event fired to Meta CAPI</span></div>
+              <div class="f-item"><span class="f-time">21m</span><span>New conversation opened · TikTok CTWA</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="dash-caption rv">ILLUSTRATIVE DASHBOARD VIEW · DEMO DATA SHOWN · YOUR CAMPAIGNS RENDER THE SAME WAY</p>
+  </div>
+</section>
+
+<!-- ============ WHY ============ -->
+<section id="why" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div class="eyebrow">Conversations vs forms</div>
+      <h2 class="rvw">Why a conversation <span class="accent">beats a form.</span></h2>
+    </div>
+    <div class="compare">
+      <div class="cmp form rv spot">
+        <div class="cmp-head"><span class="cmp-ic"><svg class="ic ic-draw"><use href="#i-funnel"/></svg></span><h3>The form funnel</h3></div>
+        <ul>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>Captures a name and number, nothing about intent</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>Follow-up happens in business hours, interest does not</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>Every lead reaches sales, ready or not</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>Media optimises for cheap leads, not good ones</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>Sales calls start from zero context</li>
+        </ul>
+      </div>
+      <div class="cmp psi rv spot gborder">
+        <div class="cmp-head"><span class="cmp-ic"><svg class="ic ic-draw"><use href="#i-route"/></svg></span><h3>The PSI pipeline</h3></div>
+        <ul>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Qualifies through natural WhatsApp dialogue, in seconds</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Engages 24/7, at the exact moment of intent</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Only scored, sales-ready leads reach your team</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Intent data feeds back into media via CAPI</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Every handover carries the full conversation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GETTING STARTED ============ -->
+<section id="start" class="funnel-sec">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div class="eyebrow">Getting started</div>
+      <h2 class="rvw">Engineered with you, <span class="accent">live in weeks.</span></h2>
+      <p class="lede">PSI is a strategic service, not another SaaS login. We build the qualification intelligence around your offer, your audience and your sales process.</p>
+    </div>
+    <div class="eng-grid">
+      <div class="eng rv spot">
+        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 01</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-whatsapp"/></svg></span></div>
+        <h3>Open the chat</h3>
+        <p>It starts on WhatsApp, exactly the way your own prospects will arrive. We map your current funnel, your lead quality problem and where intent is leaking, then take it to a call once you want one.</p>
+        <span class="e-meta">WHATSAPP FIRST · NO FORMS</span>
+      </div>
+      <div class="eng rv spot">
+        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 02</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-flask"/></svg></span></div>
+        <h3>Proof of concept</h3>
+        <p>We build your PSI conversation, scoring model and dashboard against one live campaign. Real media, real leads, real scores, measured against your existing funnel.</p>
+        <span class="e-meta">ONE CAMPAIGN · LIVE DATA</span>
+      </div>
+      <div class="eng rv spot">
+        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 03</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-trend"/></svg></span></div>
+        <h3>Scale the engine</h3>
+        <p>Once the model proves itself, we extend PSI across your campaigns and channels, with the feedback loop compounding lead quality month after month.</p>
+        <span class="e-meta">CONSUMPTION BASED · SCALES WITH YOU</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head rv" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">Common questions</div>
+      <h2 class="rvw">Asked before <span class="accent">every build.</span></h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Will the conversations feel like a bot?</summary>
+        <p>PSI conversations are engineered on your brand voice, your real product detail and real objections, then refined against live conversations. The goal is a dialogue a good salesperson would be proud of, not a script a lead has to survive.</p>
+      </details>
+      <details>
+        <summary>What happens to leads that are not ready to buy?</summary>
+        <p>They are not thrown away. PSI distinguishes poor-fit leads, which are disqualified cleanly, from genuine future buyers who are simply early. The second group moves into a nurture track designed to develop their intent over time.</p>
+      </details>
+      <details>
+        <summary>Does this replace my sales team?</summary>
+        <p>No, it partners with them. PSI is built on the principle that AI and humans each do what they do best. The AI works around the clock on the part machines are brilliant at, instant response, patient qualification and consistent scoring. Your people then spend their day on the part only humans can do, building trust and closing, with every conversation handed over in full.</p>
+      </details>
+      <details>
+        <summary>Which channels does PSI work with?</summary>
+        <p>PSI sits behind your paid media, including Meta, TikTok and Google, using click-to-WhatsApp as the entry point. Qualified outcomes feed back into your ad platforms so campaigns optimise towards intent rather than clicks.</p>
+      </details>
+      <details>
+        <summary>Why is PSI a service and not software I subscribe to?</summary>
+        <p>Because lead generation succeeds or fails on the intelligence built into it. The scoring model, conversation design and routing logic are engineered for your business specifically, then managed and improved continuously. That is strategy work, not a login.</p>
+      </details>
+      <details>
+        <summary>How do we measure whether it is working?</summary>
+        <p>Against your own funnel. The proof of concept runs on a live campaign so you can compare qualified lead volume, sales feedback and downstream conversion against what your current setup produces, in your dashboard, not ours.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <div class="wrap">
+    <div class="gas-mark rv" role="img" aria-label="GAS logo"></div>
+    <h2 class="rv rvw">Every lead. Scored.<br><span class="accent">Before hello.</span></h2>
+    <p class="lede rv">Do not fill in a form. Send us a message instead. Tell PSI what you are spending and what your sales team is complaining about, and you will get an answer in seconds, at whatever hour you are reading this.</p>
+    <div class="wa-block wa-mid rv">
+      <div class="wa-draft">
+        <span class="lbl">The message this sends</span>
+        <span class="wa-msg"><span class="wa-echo">Hi GAS, our lead quality needs work. Where do we start?</span><i class="caret" aria-hidden="true"></i></span>
+      </div>
+      <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, our lead quality needs work. Where do we start?">
+        <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+        <span>Chat to us on WhatsApp</span>
+        <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+      <p class="wa-assure"><span class="wa-live"><i aria-hidden="true"></i>One tap, no forms</span> The same qualification layer we sell you is the one answering you.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo" style="font-size:17px;margin-bottom:6px"><span class="gas-mark" style="width:26px;height:26px"></span>GAS<span class="psi-mark">PSI</span></div>
+      <div>GAS Marketing Automation · The Agency of NOW · Johannesburg, South Africa</div>
+    </div>
+    <div class="f-sign">INTENT ENGINEERS · gasmarketing.co.za</div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     THE DOCK
+     Once the hero has scrolled away the chat stays one tap away,
+     and steps aside when the closing call to action takes over.
+     ============================================================ -->
+<div class="wa-dock" id="waDock">
+  <div class="wa-teaser" id="waTeaser">
+    <b>PSI is listening</b>
+    Rather just ask? Send one line about your funnel and see how PSI handles it.
+    <button class="x" type="button" id="waTeaserClose" aria-label="Dismiss"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <a class="wa-fab" href="https://wa.me/" data-wa="Hi GAS, I have a question about PSI" aria-label="Chat to us on WhatsApp"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+</div>
+
+<div class="wa-toast" id="waToast" role="status" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg><span></span></div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ============================================================
+     WA CONFIG · the only line to change when the line goes live
+     ------------------------------------------------------------
+     Put the PSI WhatsApp number here in international format:
+     digits only, no plus sign, no spaces or brackets.
+     A Johannesburg mobile 082 123 4567 becomes '27821234567'.
+
+     Every call to action on the page then rebuilds itself around
+     it and carries its own pre-filled opener, so the first line
+     of each chat tells us which part of the page sent them.
+
+     While it is empty the buttons stay fully live and styled,
+     but a tap holds and explains that the line is switching on,
+     so nothing on the site ever opens an empty chat.
+     ============================================================ */
+  var WA_NUMBER = '';
+  var WA_HOLD = 'Our PSI WhatsApp line is switching on. It goes live here shortly.';
+
+  (function whatsapp(){
+    var live = /^[1-9]\d{7,14}$/.test(WA_NUMBER);
+    var toast = document.getElementById('waToast');
+    var holdTimer;
+
+    document.querySelectorAll('[data-wa]').forEach(function(el){
+      var msg = el.getAttribute('data-wa') || '';
+
+      /* the draft bubble beside a button always mirrors that button's
+         opener, so the message shown is the message actually sent */
+      var block = el.closest('.wa-block');
+      var echo = block && block.querySelector('.wa-echo');
+      if(echo) echo.textContent = msg;
+
+      if(!live){ el.setAttribute('data-wa-hold',''); return; }
+      el.href = 'https://wa.me/' + WA_NUMBER + (msg ? '?text=' + encodeURIComponent(msg) : '');
+      el.target = '_blank';
+      el.rel = 'noopener';
+    });
+
+    if(live || !toast) return;
+    toast.querySelector('span').textContent = WA_HOLD;
+    document.addEventListener('click', function(e){
+      var el = e.target.closest ? e.target.closest('[data-wa-hold]') : null;
+      if(!el) return;
+      e.preventDefault();
+      toast.classList.add('on');
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(function(){ toast.classList.remove('on'); }, 4600);
+    });
+  })();
+
+  /* scroll progress bar */
+  var prog = document.getElementById('progress');
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    prog.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  }, {passive:true});
+
+  /* reveals */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+  },{threshold:.18});
+  document.querySelectorAll('.rv,.j-step').forEach(function(el){ io.observe(el); });
+
+  /* ---------- stagger: siblings in a grid reveal one after another ---------- */
+  ['.grid-3','.eng-grid','.compare','.chips','.faq'].forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(parent){
+      Array.prototype.forEach.call(parent.children, function(child, i){
+        child.style.setProperty('--i', i);
+      });
+    });
+  });
+
+  /* ---------- headline word split ----------
+     Walks text nodes so nested spans (.accent) survive intact,
+     then hands each word an index the CSS uses as a transition delay. */
+  if(!reduced){
+    document.querySelectorAll('.rvw').forEach(function(head){
+      var n = 0;
+      (function split(node){
+        Array.prototype.slice.call(node.childNodes).forEach(function(child){
+          if(child.nodeType === 3){
+            var parts = child.nodeValue.split(/(\s+)/);
+            if(parts.length === 1 && !parts[0].trim()) return;
+            var frag = document.createDocumentFragment();
+            parts.forEach(function(part){
+              if(!part) return;
+              if(!part.trim()){ frag.appendChild(document.createTextNode(part)); return; }
+              var w = document.createElement('span');
+              w.className = 'w';
+              w.style.setProperty('--i', n++);
+              w.textContent = part;
+              frag.appendChild(w);
+            });
+            node.replaceChild(frag, child);
+          } else if(child.nodeType === 1 && child.tagName !== 'BR'){
+            split(child);
+          }
+        });
+      })(head);
+      var host = head.closest('.rv');
+      if(host) host.classList.add('has-words');
+    });
+  }
+
+  /* ---------- cursor spotlight on cards ---------- */
+  if(!reduced && matchMedia('(hover:hover)').matches){
+    document.querySelectorAll('.spot').forEach(function(el){
+      el.addEventListener('pointermove', function(e){
+        var r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+
+    /* ---------- magnetic buttons ---------- */
+    document.querySelectorAll('.magnetic').forEach(function(btn){
+      btn.addEventListener('pointermove', function(e){
+        var r = btn.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width/2)) / r.width;
+        var dy = (e.clientY - (r.top + r.height/2)) / r.height;
+        btn.style.transform = 'translate(' + (dx*7).toFixed(2) + 'px,' + (dy*7 - 2).toFixed(2) + 'px)';
+      });
+      btn.addEventListener('pointerleave', function(){ btn.style.transform = ''; });
+    });
+
+    /* ---------- the phone tilts towards the cursor ---------- */
+    var phone = document.getElementById('heroPhone');
+    var stage = document.querySelector('.hero-visual');
+    if(phone && stage){
+      stage.addEventListener('pointermove', function(e){
+        var r = stage.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width/2)) / r.width;
+        var dy = (e.clientY - (r.top + r.height/2)) / r.height;
+        phone.style.transform = 'rotateY(' + (dx*9).toFixed(2) + 'deg) rotateX(' + (-dy*9).toFixed(2) + 'deg)';
+        phone.style.animationPlayState = 'paused';
+      });
+      stage.addEventListener('pointerleave', function(){
+        phone.style.transform = '';
+        phone.style.animationPlayState = '';
+      });
+    }
+  }
+
+  /* ---------- nav: condense on scroll, light the section you are in ---------- */
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+
+  /* ---------- the WhatsApp dock ----------
+     Appears once the hero button has scrolled out of reach and hides
+     again over the closing call to action, so the two never compete.
+     The teaser shows itself once, then stays quiet. */
+  var dock = document.getElementById('waDock');
+  var teaser = document.getElementById('waTeaser');
+  var closing = document.querySelector('.final');
+  var teaserDone = false, teaserTimer;
+
+  var closeBtn = document.getElementById('waTeaserClose');
+  if(closeBtn) closeBtn.addEventListener('click', function(){
+    teaserDone = true;
+    clearTimeout(teaserTimer);
+    if(teaser) teaser.classList.remove('on');
+  });
+
+  function dockScroll(){
+    if(!dock) return;
+    var past = window.scrollY > window.innerHeight * 0.8;
+    var clear = !closing || closing.getBoundingClientRect().top > window.innerHeight * 0.78;
+    var show = past && clear;
+    dock.classList.toggle('on', show);
+    if(show && !teaserDone && teaser){
+      teaserDone = true;
+      teaserTimer = setTimeout(function(){
+        if(!dock.classList.contains('on')) return;
+        teaser.classList.add('on');
+        teaserTimer = setTimeout(function(){ teaser.classList.remove('on'); }, 9000);
+      }, 2600);
+    }
+    if(!show && teaser) teaser.classList.remove('on');
+  }
+
+  function onScroll(){
+    document.body.classList.toggle('scrolled', window.scrollY > 40);
+    var mark = window.scrollY + window.innerHeight * 0.35, current = -1;
+    sections.forEach(function(sec, i){ if(sec && sec.offsetTop <= mark) current = i; });
+    navLinks.forEach(function(a, i){ a.classList.toggle('active', i === current); });
+    dockScroll();
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* funnel stages, staggered */
+  var fio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      fio.unobserve(e.target);
+      var items = Array.prototype.slice.call(document.querySelectorAll('.f-stage,.f-conn'));
+      var idx = items.indexOf(e.target);
+      setTimeout(function(){ e.target.classList.add('show'); }, reduced ? 0 : Math.min(idx*110,660));
+    });
+  },{threshold:.3});
+  document.querySelectorAll('.f-stage,.f-conn').forEach(function(el){ fio.observe(el); });
+
+  /* counters */
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      var el=e.target, end=parseInt(el.getAttribute('data-count'),10);
+      if(reduced){ el.textContent=end.toLocaleString('en-ZA'); return; }
+      var start=null;
+      function step(ts){
+        if(!start) start=ts;
+        var p=Math.min((ts-start)/1300,1);
+        el.textContent=Math.round(end*(1-Math.pow(1-p,3))).toLocaleString('en-ZA');
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  },{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
+
+  /* heat bars */
+  var hio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      hio.unobserve(e.target);
+      e.target.querySelectorAll('.hb-fill').forEach(function(f,i){
+        setTimeout(function(){ f.style.width=f.getAttribute('data-w')+'%'; }, i*150);
+      });
+    });
+  },{threshold:.4});
+  document.querySelectorAll('.heat-bars').forEach(function(el){ hio.observe(el); });
+
+  /* hero WhatsApp loop */
+  var chat = document.getElementById('heroChat');
+  var scoreEl = document.getElementById('heroScore');
+  var barEl = document.getElementById('heroBar');
+  var tierEl = document.getElementById('heroTier');
+  var routeEl = document.getElementById('heroRoute');
+
+  var script = [
+    {who:'in',  text:'Hi Naledi 👋 Thanks for tapping our ad on lead quality. Are you running paid media at the moment?', score:12, t:'21:02'},
+    {who:'out', text:'Yes, Meta and Google. Volume is fine, the quality is not', score:29, t:'21:03'},
+    {who:'in',  text:'That is the usual pattern. Roughly what are you paying per lead, and how many actually reach a real conversation?', score:41, t:'21:03'},
+    {who:'out', text:'About R180 a lead. Maybe 1 in 10 is worth a call', score:69, t:'21:04'},
+    {who:'in',  text:'So nine out of ten are paid for and never sold to. PSI scores intent before your team picks up. Free strategy session Thursday 9am?', score:85, t:'21:04'},
+    {who:'out', text:'Thursday 9am works, send the invite 🙌', score:94, t:'21:05'}
+  ];
+
+  function setScore(n){
+    scoreEl.textContent = n;
+    barEl.style.width = n + '%';
+    tierEl.textContent = 'TIER · ' + (n>=70 ? 'HOT' : n>=40 ? 'WARM' : 'COLD');
+    tierEl.style.color = n>=70 ? 'var(--hot)' : n>=40 ? 'var(--warm)' : 'var(--cold)';
+  }
+
+  var TYPE_MS = 14;
+
+  /* the ghost span carries the full message (hidden) so the bubble is already
+     at its final width and height; the live span types over it */
+  function makeBubble(m){
+    var b=document.createElement('div');
+    b.className='bubble '+m.who;
+    b.innerHTML='<span class="tw"><span class="tw-ghost"></span><span class="tw-live"></span></span><span class="t">'+m.t+'</span>';
+    b.querySelector('.tw-ghost').textContent=m.text;
+    return b;
+  }
+
+  /* identical for .in and .out: one character at a time, left to right */
+  function typeInto(b, text, done){
+    var live=b.querySelector('.tw-live');
+    var chars=Array.from(text), i=0;
+    b.classList.add('tw-on');
+    (function step(){
+      live.textContent=chars.slice(0,++i).join('');
+      if(i>=chars.length){ b.classList.remove('tw-on'); done(); return; }
+      setTimeout(step,TYPE_MS);
+    })();
+  }
+
+  function runChat(){
+    chat.innerHTML='';
+    routeEl.classList.remove('show');
+    setScore(0);
+    if(reduced){
+      script.forEach(function(m){
+        var b=makeBubble(m);
+        b.classList.add('show');
+        b.querySelector('.tw-live').textContent=m.text;
+        chat.appendChild(b);
+      });
+      setScore(94); routeEl.classList.add('show');
+      return;
+    }
+    var typing=document.createElement('div');
+    typing.className='typing';
+    typing.innerHTML='<i></i><i></i><i></i>';
+    var i=0;
+    function next(){
+      if(i>=script.length){
+        setTimeout(function(){ routeEl.classList.add('show'); },500);
+        setTimeout(runChat,7000);
+        return;
+      }
+      var m=script[i];
+      if(m.who==='in'){
+        chat.appendChild(typing);
+        typing.classList.add('show');
+        chat.scrollTop=chat.scrollHeight;
+        setTimeout(function(){
+          typing.classList.remove('show');
+          if(typing.parentNode) typing.parentNode.removeChild(typing);
+          addBubble(m);
+        },700);
+      } else {
+        setTimeout(function(){ addBubble(m); },550);
+      }
+    }
+    function addBubble(m){
+      var b=makeBubble(m);
+      chat.appendChild(b);
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ b.classList.add('show'); }); });
+      chat.scrollTop=chat.scrollHeight;
+      typeInto(b, m.text, function(){
+        setScore(m.score);
+        i++;
+        setTimeout(next,600);
+      });
+    }
+    next();
+  }
+
+  var heroIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ heroIO.unobserve(e.target); runChat(); } });
+  },{threshold:.3});
+  heroIO.observe(chat);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+# Netlify (legacy host, no longer used)
+.netlify
+
+# Vercel
+.vercel
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Dependencies / build output (reserved for future tooling)
+node_modules/
+dist/
+.cache/
+
+# Local env — never commit keys or phone numbers you don't want public
+.env
+.env.*
+!.env.example
+
+# Working files that should not ship to the CDN
+*.psd
+*.ai
+*.fig
+*.sketch
+/_working/
+/_source/
