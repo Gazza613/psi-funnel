@@ -503,6 +503,22 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .final .lede{margin-left:auto;margin-right:auto;margin-top:18px}
 .final .gas-mark{width:107px;height:107px;margin:0 auto 20px}
 
+/* ---------- inline asks ----------
+   One ask at each point the argument has just landed, each carrying a
+   pre-filled message that reflects where on the page it was tapped. */
+.cta-band{display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:18px;margin-top:var(--sec)}
+.cta-band p{font-family:var(--disp);font-weight:800;font-stretch:88%;text-transform:uppercase;
+  font-size:clamp(20px,2.2vw,27px);line-height:1.2;color:var(--text);margin:0;max-width:18ch}
+.cta-band .accent{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* the quote that rides with the client logos, so proof lands at the first scroll */
+.fans-quote{max-width:640px;margin:30px auto 0;padding:0 24px;text-align:center;
+  font-size:16px;line-height:1.65;color:var(--text-2)}
+.fans-quote q{quotes:none;color:var(--text)}
+.fans-quote cite{display:block;margin-top:10px;font-style:normal;font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.fans-quote cite b{color:var(--g-amber);font-weight:500}
+@media (max-width:620px){ .fans-quote{font-size:15px;margin-top:24px} }
 /* ---------- founder ----------
    Two columns: the portrait carries a fallback glyph underneath it, so a
    missing photo degrades to a neutral placeholder instead of a broken frame. */
@@ -642,8 +658,19 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .f-badges img{height:54px;width:auto;display:block;filter:brightness(0) invert(1);
   opacity:.45;transition:opacity .25s ease}
 .f-badges img:hover{opacity:.75}
-footer{border-top:1px solid var(--line);padding:34px 0;font-size:14px;color:var(--text-3)}
-footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding:44px 0 34px;font-size:14px;color:var(--text-3)}
+/* the offices fold in here rather than taking a section of their own —
+   credibility furniture, not a step in the argument */
+.f-cols{display:grid;grid-template-columns:1fr 1fr;gap:34px;padding-bottom:34px;
+  margin-bottom:30px;border-bottom:1px solid var(--line)}
+footer address{font-style:normal;font-size:15px;line-height:1.7;color:var(--text-2)}
+footer .p-lbl{margin-bottom:12px}
+footer .p-links{padding-top:16px;gap:8px 22px}
+footer .p-mail{font-size:13px}
+footer .office-list li{padding:9px 0;font-size:15px;color:var(--text-2)}
+footer .o-time{font-size:13.5px}
+@media (max-width:720px){ .f-cols{grid-template-columns:1fr;gap:26px} }
+footer .f-row{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 footer .f-sign,.f-copy{font-family:var(--mono);font-size:12px}
 
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
@@ -1194,6 +1221,10 @@ body.scrolled .nav-inner{height:60px}
       </div>
     </div>
   </div>
+  <p class="fans-quote">
+    <q>Best in the business. GAS is a true partner in marketing management and lead generation.</q>
+    <cite><b>Daniel Pelkowitz</b> · WH Properties</cite>
+  </p>
 </div>
 
 <!-- ============ PROBLEM ============ -->
@@ -1295,6 +1326,14 @@ body.scrolled .nav-inner{height:60px}
       <p class="q rvw">We do not widen the funnel.<br><span class="accent">We sharpen it.</span></p>
     </div>
     <p class="f-caption rv">CONVERSATIONS THAT ENGAGE · CONVERSATIONS THAT COUNT · CONVERSATIONS THAT CONVERT</p>
+      <div class="cta-band rv">
+        <p>Want this modelled on <span class="accent">your numbers?</span></p>
+        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, can you model the PSI funnel on our numbers?">
+          <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          <span>Chat to us on WhatsApp</span>
+          <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
   </div>
 </section>
 
@@ -1443,7 +1482,7 @@ body.scrolled .nav-inner{height:60px}
 </section>
 
 <!-- ============ DASHBOARD ============ -->
-<section id="dashboard" style="padding-top:0">
+<section id="dashboard" class="funnel-sec">
   <div class="wrap">
     <div class="section-head rv">
       <div class="eyebrow">The PSI Dashboard</div>
@@ -1520,6 +1559,14 @@ body.scrolled .nav-inner{height:60px}
         </div>
       </div>
     </div>
+      <div class="cta-band rv">
+        <p>Want this view on <span class="accent">your own funnel?</span></p>
+        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I want the PSI dashboard running on our own funnel. Where do we start?">
+          <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          <span>Chat to us on WhatsApp</span>
+          <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
     <p class="dash-caption rv">ILLUSTRATIVE DASHBOARD VIEW · DEMO DATA SHOWN · YOUR CAMPAIGNS RENDER THE SAME WAY</p>
   </div>
 </section>
@@ -1578,36 +1625,13 @@ body.scrolled .nav-inner{height:60px}
             <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You want a campaign, not a system</li>
           </ul>
         </div>
-      </div>
-  </div>
-</section>
-
-<!-- ============ GETTING STARTED ============ -->
-<section id="start" class="funnel-sec">
-  <div class="wrap">
-    <div class="section-head rv">
-      <div class="eyebrow">Getting Started</div>
-      <h2 class="rvw">Engineered with you, <span class="accent">live in weeks.</span></h2>
-      <p class="lede">PSI is a strategic service, not another SaaS tool. We build the qualification intelligence around your offer, your audience and your sales process. Human command. AI execution. One platform.</p>
-    </div>
-    <div class="eng-grid">
-      <div class="eng rv spot">
-        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 01</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-whatsapp"/></svg></span></div>
-        <h3>Open the chat</h3>
-        <p>It starts on WhatsApp, exactly the way your own prospects will arrive. We map your current funnel, your lead quality problem and where intent is leaking, then take it to a call once you want one.</p>
-        <span class="e-meta">WHATSAPP FIRST · NO FORMS</span>
-      </div>
-      <div class="eng rv spot">
-        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 02</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-flask"/></svg></span></div>
-        <h3>Proof of concept</h3>
-        <p>We build your PSI conversation, scoring model and dashboard against one live campaign. Real media, real leads, real scores, measured against your existing funnel.</p>
-        <span class="e-meta">ONE CAMPAIGN · LIVE DATA</span>
-      </div>
-      <div class="eng rv spot">
-        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 03</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-trend"/></svg></span></div>
-        <h3>Scale the engine</h3>
-        <p>Once the model proves itself, we extend PSI across your campaigns and channels, with the feedback loop compounding lead quality month after month.</p>
-        <span class="e-meta">CONSUMPTION BASED · SCALES WITH YOU</span>
+        <div class="cta-band rv">
+        <p>Sounds like you? <span class="accent">Then let us talk.</span></p>
+        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I read the fit check and it sounds like us. Where do we start?">
+          <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          <span>Chat to us on WhatsApp</span>
+          <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
       </div>
     </div>
   </div>
@@ -1727,57 +1751,49 @@ body.scrolled .nav-inner{height:60px}
         <blockquote>The combination of creativity, technology and strategic thinking makes GAS an invaluable partner to our business, and a team we trust to deliver real, measurable results.</blockquote>
         <figcaption class="q-cite"><b>Jacques Fouché</b><span>CEO, iGrow Wealth Investments</span></figcaption>
       </figure>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PRESENCE ============ -->
-<section class="presence" id="presence">
-  <div class="wrap">
-    <div class="eyebrow">Where We Work</div>
-    <h2 class="rvw">Four Offices.<br><span class="accent">Two Continents.</span></h2>
-
-    <div class="p-stats rv">
-      <div class="p-stat"><b>4</b><span>Offices</span></div>
-      <div class="p-stat"><b>2</b><span>Continents</span></div>
-      <div class="p-stat"><b>2</b><span>Time zones</span></div>
-      <div class="p-stat"><b>24/7</b><span>PSI cover</span></div>
-    </div>
-
-    <div class="presence-grid rv">
-      <div class="card p-hq">
-        <div class="p-lbl">Head Office</div>
-        <address>
-          78 Corlett Drive<br>
-          Melrose North<br>
-          Johannesburg, 2196<br>
-          South Africa
-        </address>
-        <div class="p-links">
-          <a class="p-mail" href="mailto:grow@gasmarketing.co.za">
-            <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>grow@gasmarketing.co.za
-          </a>
-          <a class="p-mail" href="https://www.google.com/maps/search/?api=1&amp;query=78+Corlett+Drive+Melrose+North+Johannesburg+2196" target="_blank" rel="noopener">
-            <svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Get directions
-          </a>
-        </div>
-      </div>
-
-      <div class="card p-offices">
-        <div class="p-lbl"><span class="p-live"><i aria-hidden="true"></i></span>Local time right now</div>
-        <ul class="office-list">
-          <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Johannesburg<span class="o-time">--:--</span></li>
-          <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Durban<span class="o-time">--:--</span></li>
-          <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Cape Town<span class="o-time">--:--</span></li>
-          <li data-tz="Europe/Lisbon"><i aria-hidden="true"></i>Portugal<span class="o-time">--:--</span></li>
-        </ul>
-        <p class="p-note">Two time zones stretch the working day. PSI answers the hours in between.</p>
+      <div class="cta-band rv">
+        <p>Ask us what we did <span class="accent">for them.</span></p>
+        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I saw what you did for your clients. What could PSI do for us?">
+          <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          <span>Chat to us on WhatsApp</span>
+          <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ FAQ ============ -->
+<section id="start" class="funnel-sec">
+  <div class="wrap">
+    <div class="section-head rv">
+      <div class="eyebrow">Getting Started</div>
+      <h2 class="rvw">Engineered with you, <span class="accent">live in weeks.</span></h2>
+      <p class="lede">PSI is a strategic service, not another SaaS tool. We build the qualification intelligence around your offer, your audience and your sales process. Human command. AI execution. One platform.</p>
+    </div>
+    <div class="eng-grid">
+      <div class="eng rv spot">
+        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 01</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-whatsapp"/></svg></span></div>
+        <h3>Open the chat</h3>
+        <p>It starts on WhatsApp, exactly the way your own prospects will arrive. We map your current funnel, your lead quality problem and where intent is leaking, then take it to a call once you want one.</p>
+        <span class="e-meta">WHATSAPP FIRST · NO FORMS</span>
+      </div>
+      <div class="eng rv spot">
+        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 02</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-flask"/></svg></span></div>
+        <h3>Proof of concept</h3>
+        <p>We build your PSI conversation, scoring model and dashboard against one live campaign. Real media, real leads, real scores, measured against your existing funnel.</p>
+        <span class="e-meta">ONE CAMPAIGN · LIVE DATA</span>
+      </div>
+      <div class="eng rv spot">
+        <div style="display:flex;align-items:center;justify-content:space-between"><span class="e-step">STEP 03</span><span class="e-ic"><svg class="ic ic-draw"><use href="#i-trend"/></svg></span></div>
+        <h3>Scale the engine</h3>
+        <p>Once the model proves itself, we extend PSI across your campaigns and channels, with the feedback loop compounding lead quality month after month.</p>
+        <span class="e-meta">CONSUMPTION BASED · SCALES WITH YOU</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section style="padding-top:0">
   <div class="wrap">
     <div class="section-head rv" style="text-align:center">
@@ -1829,8 +1845,31 @@ body.scrolled .nav-inner{height:60px}
   </div>
 </section>
 
-<footer>
-  <div class="wrap">
+<footer class="presence">
+  <div class="wrap f-cols">
+    <div class="f-col">
+      <div class="p-lbl">Head Office</div>
+      <address>78 Corlett Drive, Melrose North<br>Johannesburg, 2196, South Africa</address>
+      <div class="p-links">
+        <a class="p-mail" href="mailto:grow@gasmarketing.co.za">
+          <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>grow@gasmarketing.co.za
+        </a>
+        <a class="p-mail" href="https://www.google.com/maps/search/?api=1&amp;query=78+Corlett+Drive+Melrose+North+Johannesburg+2196" target="_blank" rel="noopener">
+          <svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Get directions
+        </a>
+      </div>
+    </div>
+    <div class="f-col">
+      <div class="p-lbl"><span class="p-live"><i aria-hidden="true"></i></span>Local time right now</div>
+      <ul class="office-list">
+        <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Johannesburg<span class="o-time">--:--</span></li>
+        <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Durban<span class="o-time">--:--</span></li>
+        <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Cape Town<span class="o-time">--:--</span></li>
+        <li data-tz="Europe/Lisbon"><i aria-hidden="true"></i>Portugal<span class="o-time">--:--</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap f-row">
     <div class="logo" style="font-size:17px"><span class="gas-mark" style="width:26px;height:26px"></span>GAS<span class="psi-mark">PSI</span></div>
     <div class="f-copy">Copyright &copy; GAS Marketing Automation</div>
     <div class="f-badges">
