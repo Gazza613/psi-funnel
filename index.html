@@ -393,6 +393,11 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .j-track{position:relative;margin-top:4px}
 .j-line{position:absolute;left:27px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cold) 0%,var(--warm) 50%,var(--hot) 100%);opacity:.55}
 .j-step{display:grid;grid-template-columns:56px 1fr;gap:24px;padding:clamp(26px,3vw,38px) 0;opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+/* grid and flex children default to min-width:auto, so the ad mock's link bar
+   (a nowrap title beside a fixed-width button) forced the whole step wider than
+   the phone. That widened the document, and the fixed nav sized to it — putting
+   its CTA off-screen. Same fix as .hero-grid>*. */
+.j-step>*,.j-content>*,.j-copy>*{min-width:0}
 .j-step.show{opacity:1;transform:none}
 .j-node{width:56px;height:56px;border-radius:50%;background:var(--ink);border:2px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:600;position:relative;z-index:2}
 .j-step[data-heat="cold"] .j-node{border-color:var(--cold);color:var(--cold)}
@@ -428,6 +433,14 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .fb-actions{display:flex;border-top:1px solid #3A3B3C}
 .fb-actions span{flex:1;text-align:center;padding:8px 0;font-size:10.5px;color:#B0B3B8;font-weight:600}
 .ad-flow{font-family:var(--mono);font-size:11.5px;color:var(--g-amber);text-align:center;margin-top:12px;letter-spacing:.12em;animation:feedglow 2.6s ease-in-out infinite}
+/* on a phone the mock is barely 200px wide, so the link bar cannot hold a
+   title beside the button — it stacks, which is how the real thing renders
+   on mobile anyway */
+@media (max-width:620px){
+  .fb-linkbar{flex-direction:column;align-items:stretch;gap:7px}
+  .fb-linkbar .lb-title{white-space:normal}
+  .fb-cta{justify-content:center}
+}
 
 .mini-chat{display:flex;flex-direction:column;gap:7px}
 /* This block is drawn from the lead's side of the exchange — PSI speaks on the
