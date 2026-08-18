@@ -549,10 +549,12 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .team-track .m-set{display:flex;align-items:center;gap:40px;padding-right:40px;white-space:nowrap}
 .marquee-rev{animation-direction:reverse}
 .tm{margin:0;display:flex;align-items:center;gap:14px}
+/* faces stay in colour — greyscale reads as archive footage on people,
+   where it reads as restraint on the client logos */
 .tm img{width:64px;height:64px;border-radius:50%;flex:none;object-fit:cover;
-  box-shadow:0 0 0 1px var(--line-2);filter:grayscale(1);opacity:.72;
-  transition:filter .35s var(--ease),opacity .35s var(--ease)}
-.tm:hover img{filter:none;opacity:1}
+  box-shadow:0 0 0 1px var(--line-2);
+  transition:box-shadow .35s var(--ease),transform .35s var(--ease)}
+.tm:hover img{box-shadow:0 0 0 2px rgba(255,162,77,.55);transform:scale(1.05)}
 .tm b{display:block;font-size:15px;font-weight:600;color:var(--text)}
 .tm span{display:block;margin-top:3px;font-family:var(--mono);font-size:10px;
   letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
