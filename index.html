@@ -496,6 +496,60 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .final .lede{margin-left:auto;margin-right:auto;margin-top:18px}
 .final .gas-mark{width:107px;height:107px;margin:0 auto 20px}
 
+/* ---------- founder ----------
+   Two columns: the portrait carries a fallback glyph underneath it, so a
+   missing photo degrades to a neutral placeholder instead of a broken frame. */
+.founder-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:26px;align-items:stretch;margin-top:var(--head-gap)}
+.fd-card{margin:0;position:relative;overflow:hidden;border-radius:var(--r-lg);
+  border:1px solid var(--line);background:var(--ink-2)}
+.fd-photo{aspect-ratio:4/5;background-color:var(--ink-3);
+  background-image:url(assets/brand/gary-berman.jpg), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23616C8A' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>");
+  background-size:cover, 76px 76px;background-position:center top, center;
+  background-repeat:no-repeat, no-repeat}
+.fd-card figcaption{padding:20px 24px 22px;border-top:1px solid var(--line)}
+.fd-card b{display:block;font-family:var(--disp);font-weight:800;font-stretch:88%;
+  font-size:22px;text-transform:uppercase;letter-spacing:.01em;
+  background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fd-card span{display:block;margin-top:5px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--text-3)}
+.fd-copy{background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),var(--ink-2);
+  border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(28px,3.2vw,42px);
+  position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.fd-copy::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g-grad);opacity:.85}
+.fd-copy p{color:var(--text-2);font-size:17px;line-height:1.7}
+.fd-copy p + p{margin-top:18px}
+.fd-copy strong{color:var(--text);font-weight:600}
+.fd-stat{display:inline-flex;align-items:baseline;gap:9px;margin-bottom:22px;font-family:var(--mono)}
+.fd-stat b{font-size:clamp(30px,3.4vw,42px);font-weight:600;line-height:1;
+  background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fd-stat span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3)}
+@media (max-width:820px){
+  .founder-grid{grid-template-columns:1fr}
+  .fd-photo{aspect-ratio:1/1;background-position:center 20%, center}
+}
+/* ---------- testimonials ----------
+   Initials stand in until a headshot exists, so the section works with no
+   photo files and a missing one never leaves a broken frame. */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:var(--head-gap)}
+.q-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--r-lg);
+  background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),var(--ink-2);
+  padding:30px 28px;display:flex;flex-direction:column}
+.q-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g-grad);opacity:.75}
+.q-top{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.q-av{width:52px;height:52px;border-radius:50%;flex:none;background-color:var(--ink-3);
+  background-size:cover;background-position:center;box-shadow:0 0 0 1px rgba(255,162,77,.35);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:15px;letter-spacing:.06em;color:var(--g-amber)}
+.q-av.has-photo{color:transparent}
+.q-head{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--g-amber)}
+.q-card blockquote{margin:0;font-size:16.5px;line-height:1.7;color:var(--text-2)}
+.q-card blockquote::before{content:"\201C";display:block;font-family:var(--disp);font-weight:900;
+  font-size:44px;line-height:.6;color:var(--g-orange);opacity:.5;margin-bottom:10px}
+.q-cite{margin-top:auto;padding-top:22px;font-style:normal}
+.q-cite b{display:block;font-size:15px;color:var(--text);font-weight:600}
+.q-cite span{display:block;margin-top:4px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+@media (max-width:980px){ .quotes{grid-template-columns:1fr} }
 /* ---------- presence / credibility ----------
    The section carried no visual device, so it read as a contact block. The
    clocks are the device: real local times, ticking, which earn the two
@@ -1521,6 +1575,97 @@ body.scrolled .nav-inner{height:60px}
 </section>
 
 <!-- ============ FINAL CTA ============ -->
+<!-- ============ FOUNDER ============ -->
+<section class="founder" id="founder">
+  <div class="wrap">
+    <div class="eyebrow">Who Built It</div>
+    <h2 class="rvw">20 Years Experience in<br><span class="accent">Lead Generation.</span></h2>
+    <div class="founder-grid rv">
+      <figure class="fd-card">
+        <div class="fd-photo" role="img" aria-label="Gary Berman, Managing Director"></div>
+        <figcaption>
+          <b>Gary Berman</b>
+          <span>Managing Director</span>
+        </figcaption>
+      </figure>
+      <div class="fd-copy">
+        <div class="fd-stat"><b>53M</b><span>Consumer records built</span></div>
+        <p>Gary Berman has been in lead generation and data for over two decades.</p>
+        <p>He built one of South Africa's largest consumer databases, 53 million records. He has run lead gen businesses through every technology shift, every new platform, every new promise.</p>
+        <p><strong>One thing never changed:</strong> sales teams kept getting handed "leads" that were not ready, and spent their time qualifying instead of closing.</p>
+        <p>Pre-Sales Intelligence is the fix he spent 20 years waiting for someone to build. So he built it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials" id="testimonials">
+  <div class="wrap">
+    <div class="section-head rv" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">In Their Words</div>
+      <h2 class="rvw">Do not just take<br><span class="accent">our word for it.</span></h2>
+    </div>
+    <div class="quotes rv">
+      <figure class="q-card">
+        <div class="q-top">
+          <div class="q-av" data-photo="assets/testimonials/daniel-pelkowitz.jpg" aria-hidden="true">DP</div>
+          <div class="q-head">Best in the business</div>
+        </div>
+        <blockquote>Best in the business. GAS is a true partner in marketing management and lead generation. Hardest workers in the industry and always going the extra mile to service clients.</blockquote>
+        <figcaption class="q-cite"><b>Daniel Pelkowitz</b><span>WH Properties</span></figcaption>
+      </figure>
+      <figure class="q-card">
+        <div class="q-top">
+          <div class="q-av" data-photo="assets/testimonials/julian-remba.jpg" aria-hidden="true">JR</div>
+          <div class="q-head">Helped us grow</div>
+        </div>
+        <blockquote>Thank you so much to the GAS marketing team for the great marketing campaigns you have produced for us. Your contribution to our business has helped us grow.</blockquote>
+        <figcaption class="q-cite"><b>Julian Remba</b><span>MTN MoMo</span></figcaption>
+      </figure>
+      <figure class="q-card">
+        <div class="q-top">
+          <div class="q-av" data-photo="assets/testimonials/jacques-fouche.jpg" aria-hidden="true">JF</div>
+          <div class="q-head">Exceptional</div>
+        </div>
+        <blockquote>The combination of creativity, technology and strategic thinking makes GAS an invaluable partner to our business, and a team we trust to deliver real, measurable results.</blockquote>
+        <figcaption class="q-cite"><b>Jacques Fouché</b><span>CEO, iGrow Wealth Investments</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIT CHECK ============ -->
+<section id="fit" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head rv" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">Straight Answer</div>
+      <h2 class="rvw">Is this <span class="accent">right for you?</span></h2>
+      <p class="lede" style="margin-left:auto;margin-right:auto">We would rather tell you upfront than waste your time.</p>
+    </div>
+    <div class="compare">
+      <div class="cmp psi rv spot gborder">
+        <div class="cmp-head"><span class="cmp-ic"><svg class="ic ic-draw"><use href="#i-check-circle"/></svg></span><h3>This is for you if</h3></div>
+        <ul>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>You have a sales team</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Deals take longer than they should to close</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Quality matters more to you than volume</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>You are ready to disqualify bad prospects</li>
+        </ul>
+      </div>
+      <div class="cmp form rv spot">
+        <div class="cmp-head"><span class="cmp-ic"><svg class="ic ic-draw"><use href="#i-x"/></svg></span><h3>This is not for you if</h3></div>
+        <ul>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You are handling all the sales yourself</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You just want more prospects, not better leads</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You will not disqualify any prospect</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You want a campaign, not a system</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="final">
   <div class="wrap">
     <div class="gas-mark rv" role="img" aria-label="GAS logo"></div>
@@ -1634,6 +1779,23 @@ body.scrolled .nav-inner{height:60px}
      ============================================================ */
   var WA_NUMBER = '';
   var WA_HOLD = 'Our PSI WhatsApp line is switching on. It goes live here shortly.';
+
+  /* ============================================================
+     Testimonial headshots. The initials stay until a photo actually loads,
+     so a missing file degrades to the monogram rather than an empty circle.
+     ============================================================ */
+  (function testimonialPhotos(){
+    document.querySelectorAll('.q-av[data-photo]').forEach(function(el){
+      var src = el.getAttribute('data-photo');
+      if(!src) return;
+      var img = new Image();
+      img.onload = function(){
+        el.style.backgroundImage = 'url("' + src + '")';
+        el.classList.add('has-photo');
+      };
+      img.src = src;
+    });
+  })();
 
   /* ============================================================
      Office clocks. Real local times via Intl, so the two time zones are
