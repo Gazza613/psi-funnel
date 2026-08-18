@@ -333,7 +333,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
    the cards on top. Glass over a flat colour has nothing to refract. */
 .funnel-sec{background:linear-gradient(180deg,rgba(11,18,36,.62),rgba(11,18,36,.38));
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
-.funnel-wrap{position:relative;max-width:920px;margin:0 auto}
+.funnel-wrap{position:relative;max-width:1120px;margin:0 auto}
 .flow-col{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);z-index:0;overflow:hidden}
 .flow-dot{position:absolute;left:-2px;width:6px;height:6px;border-radius:50%;background:var(--g-amber);opacity:0;animation:fall 3.4s linear infinite}
 .flow-dot:nth-child(2){animation-delay:1.1s;background:var(--g-orange)}
@@ -351,8 +351,9 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 }
 .f-stage.show{opacity:1;transform:none}
 .f-stage .fs-head{display:flex;align-items:center;gap:14px}
-.f-stage .fs-num{font-family:var(--mono);font-size:12px;color:var(--text-3)}
-.f-stage h3{font-size:clamp(17px,2vw,22px);font-weight:800;font-stretch:90%;text-transform:uppercase}
+.f-stage .fs-head>*{flex:0 0 auto}
+.f-stage .fs-num{font-family:var(--mono);font-size:12px;color:var(--text-3);white-space:nowrap}
+.f-stage h3{font-size:clamp(17px,2vw,22px);font-weight:800;font-stretch:90%;text-transform:uppercase;white-space:nowrap}
 /* channel marks under stage 01. Monochrome and muted, so they read as a quiet
    statement of where the media runs rather than five brand logos competing
    with the stage number and the impression count. */
@@ -364,7 +365,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .ch-row .ch-wa:hover{color:var(--wa)}
 .f-stage p{color:var(--text-2);font-size:14.5px;margin-top:6px;max-width:480px}
 .f-stage .fs-val{font-family:var(--mono);font-size:clamp(22px,3vw,34px);font-weight:600;text-align:right;white-space:nowrap}
-.f-stage .fs-sub{font-family:var(--mono);font-size:11px;color:var(--text-3);text-align:right;letter-spacing:.1em;margin-top:2px}
+.f-stage .fs-sub{font-family:var(--mono);font-size:11px;color:var(--text-3);text-align:right;letter-spacing:.1em;margin-top:2px;white-space:nowrap}
 .f-stage .fs-fill{position:absolute;inset:0;border-radius:14px;background:var(--g-grad-soft);opacity:0;transition:opacity .8s ease;pointer-events:none}
 .f-stage.show .fs-fill{opacity:1}
 .f-stage::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g-grad);opacity:0;transition:opacity .8s ease}
@@ -373,7 +374,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .f-stage[data-w="82"]{width:82%}
 .f-stage[data-w="66"]{width:66%}
 .f-stage[data-w="52"]{width:52%}
-.f-stage[data-w="40"]{width:40%;min-width:340px;border-color:rgba(255,106,31,.55);box-shadow:0 0 60px -18px rgba(255,106,31,.55)}
+.f-stage[data-w="40"]{width:40%;min-width:470px;border-color:rgba(255,106,31,.55);box-shadow:0 0 60px -18px rgba(255,106,31,.55)}
 .f-stage[data-w="40"] .fs-fill{background:linear-gradient(100deg,rgba(255,162,77,.10),rgba(255,106,31,.08))}
 .f-stage[data-w="40"] .fs-val{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .f-split{display:flex;gap:8px;margin-top:10px;font-family:var(--mono);font-size:11px}
@@ -1422,7 +1423,7 @@ body.scrolled .nav-inner{height:60px}
         <div class="fs-fill"></div>
         <div>
           <div class="fs-head"><span class="fs-ic"><svg class="ic ic-draw"><use href="#i-check-circle"/></svg></span><span class="fs-num">STAGE 05</span><h3>Sales ready</h3></div>
-          <p>Hot leads land with sales, transcript and PSI score attached.</p>
+          <p>Hot leads land with sales, transcript and PSI score included.</p>
         </div>
         <div><div class="fs-val" data-count="309">0</div><div class="fs-sub">HANDED TO SALES</div></div>
       </div>
@@ -1517,7 +1518,7 @@ body.scrolled .nav-inner{height:60px}
         <div class="j-content">
           <div class="j-copy">
             <h3>The conversation</h3>
-            <p>PSI opens a natural, on-brand dialogue in seconds, at any hour. It answers real questions, handles objections and asks the qualifying questions a good salesperson would, without ever feeling like an interrogation. This is the exact conversation our own prospects have with us.</p>
+            <p>PSI opens a natural, on-brand conversation in seconds, at any hour. It answers real questions, handles objections and asks the qualifying questions a good salesperson would, without ever feeling like an interrogation. This is the exact conversation our own prospects have with us.</p>
             <div class="j-meta">RESPONSE TIME · SECONDS, NOT HOURS · 24/7</div>
           </div>
           <div class="j-visual">
@@ -1671,7 +1672,7 @@ body.scrolled .nav-inner{height:60px}
           <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
         </a>
       </div>
-    <p class="dash-caption rv">ILLUSTRATIVE DASHBOARD VIEW · DEMO DATA SHOWN · YOUR CAMPAIGNS RENDER THE SAME WAY</p>
+    <p class="dash-caption rv">SAMPLE DASHBOARD · DEMO DATA SHOWN · YOURS IN WEEK 1 OF GOING LIVE</p>
   </div>
 </section>
 
@@ -1699,7 +1700,7 @@ body.scrolled .nav-inner{height:60px}
           <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Qualifies through natural WhatsApp dialogue, in seconds</li>
           <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Engages 24/7, at the exact moment of intent</li>
           <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Only scored, sales-ready leads reach your team</li>
-          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Intent data feeds back into media via CAPI</li>
+          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Intent data feeds back into future media targeting</li>
           <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Every handover carries the full conversation</li>
         </ul>
       </div>
