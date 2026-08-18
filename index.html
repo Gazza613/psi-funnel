@@ -105,6 +105,9 @@ h2{font-size:clamp(34px,4.6vw,58px);font-weight:800;font-stretch:88%;text-transf
 .accent .w,.h-hot .w{background-image:inherit;-webkit-background-clip:text;background-clip:text;color:transparent}
 .lede{color:var(--text-2);max-width:640px;font-size:18px;margin-top:16px}
 .section-head{margin-bottom:var(--head-gap)}
+/* a second head inside one section needs the gap a section break would
+   otherwise have given it */
+.compare + .section-head{margin-top:var(--sec)}
 .gas-mark{width:34px;height:34px;border-radius:50%;background:url(assets/brand/gas-mark.png) center/cover no-repeat;box-shadow:0 4px 16px -4px rgba(255,106,31,.5);flex:none}
 
 /* scroll progress */
@@ -1531,6 +1534,32 @@ body.scrolled .nav-inner{height:60px}
         </ul>
       </div>
     </div>
+
+  <div class="section-head rv" style="text-align:center">
+        <div class="eyebrow" style="justify-content:center">Straight Answer</div>
+        <h2 class="rvw">Is this <span class="accent">right for you?</span></h2>
+        <p class="lede" style="margin-left:auto;margin-right:auto">We would rather tell you upfront than waste your time.</p>
+      </div>
+      <div class="compare">
+        <div class="cmp psi rv spot gborder">
+          <div class="cmp-head"><span class="cmp-ic"><svg class="ic ic-draw"><use href="#i-check-circle"/></svg></span><h3>This is for you if</h3></div>
+          <ul>
+            <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>You have a sales team</li>
+            <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Deals take longer than they should to close</li>
+            <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Quality matters more to you than volume</li>
+            <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>You are ready to disqualify bad prospects</li>
+          </ul>
+        </div>
+        <div class="cmp form rv spot">
+          <div class="cmp-head"><span class="cmp-ic"><svg class="ic ic-draw"><use href="#i-x"/></svg></span><h3>This is not for you if</h3></div>
+          <ul>
+            <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You are handling all the sales yourself</li>
+            <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You just want more prospects, not better leads</li>
+            <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You will not disqualify any prospect</li>
+            <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You want a campaign, not a system</li>
+          </ul>
+        </div>
+      </div>
   </div>
 </section>
 
@@ -1561,42 +1590,6 @@ body.scrolled .nav-inner{height:60px}
         <p>Once the model proves itself, we extend PSI across your campaigns and channels, with the feedback loop compounding lead quality month after month.</p>
         <span class="e-meta">CONSUMPTION BASED · SCALES WITH YOU</span>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FAQ ============ -->
-<section>
-  <div class="wrap">
-    <div class="section-head rv" style="text-align:center">
-      <div class="eyebrow" style="justify-content:center">Common Questions</div>
-      <h2 class="rvw">Asked before <span class="accent">every build.</span></h2>
-    </div>
-    <div class="faq rv">
-      <details>
-        <summary>Will the conversations feel like a bot?</summary>
-        <p>PSI conversations are engineered on your brand voice, your real product detail and real objections, then refined against live conversations. The goal is a dialogue a good salesperson would be proud of, not a script a lead has to survive.</p>
-      </details>
-      <details>
-        <summary>What happens to leads that are not ready to buy?</summary>
-        <p>They are not thrown away. PSI distinguishes poor-fit leads, which are disqualified cleanly, from genuine future buyers who are simply early. The second group moves into a nurture track designed to develop their intent over time.</p>
-      </details>
-      <details>
-        <summary>Does this replace my sales team?</summary>
-        <p>No, it partners with them. PSI is built on the principle that AI and humans each do what they do best. The AI works around the clock on the part machines are brilliant at, instant response, patient qualification and consistent scoring. Your people then spend their day on the part only humans can do, building trust and closing, with every conversation handed over in full.</p>
-      </details>
-      <details>
-        <summary>Which channels does PSI work with?</summary>
-        <p>PSI sits behind your paid media, including Meta, TikTok and Google, using click-to-WhatsApp as the entry point. Qualified outcomes feed back into your ad platforms so campaigns optimise towards intent rather than clicks.</p>
-      </details>
-      <details>
-        <summary>Why is PSI a service and not software I subscribe to?</summary>
-        <p>Because lead generation succeeds or fails on the intelligence built into it. The scoring model, conversation design and routing logic are engineered for your business specifically, then managed and improved continuously. That is strategy work, not a login.</p>
-      </details>
-      <details>
-        <summary>How do we measure whether it is working?</summary>
-        <p>Against your own funnel. The proof of concept runs on a live campaign so you can compare qualified lead volume, sales feedback and downstream conversion against what your current setup produces, in your dashboard, not ours.</p>
-      </details>
     </div>
   </div>
 </section>
@@ -1714,37 +1707,6 @@ body.scrolled .nav-inner{height:60px}
   </div>
 </section>
 
-<!-- ============ FIT CHECK ============ -->
-<section id="fit" style="padding-top:0">
-  <div class="wrap">
-    <div class="section-head rv" style="text-align:center">
-      <div class="eyebrow" style="justify-content:center">Straight Answer</div>
-      <h2 class="rvw">Is this <span class="accent">right for you?</span></h2>
-      <p class="lede" style="margin-left:auto;margin-right:auto">We would rather tell you upfront than waste your time.</p>
-    </div>
-    <div class="compare">
-      <div class="cmp psi rv spot gborder">
-        <div class="cmp-head"><span class="cmp-ic"><svg class="ic ic-draw"><use href="#i-check-circle"/></svg></span><h3>This is for you if</h3></div>
-        <ul>
-          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>You have a sales team</li>
-          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Deals take longer than they should to close</li>
-          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>Quality matters more to you than volume</li>
-          <li><span class="mk"><svg class="ic"><use href="#i-check"/></svg></span>You are ready to disqualify bad prospects</li>
-        </ul>
-      </div>
-      <div class="cmp form rv spot">
-        <div class="cmp-head"><span class="cmp-ic"><svg class="ic ic-draw"><use href="#i-x"/></svg></span><h3>This is not for you if</h3></div>
-        <ul>
-          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You are handling all the sales yourself</li>
-          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You just want more prospects, not better leads</li>
-          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You will not disqualify any prospect</li>
-          <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You want a campaign, not a system</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ PRESENCE ============ -->
 <section class="presence" id="presence">
   <div class="wrap">
@@ -1787,6 +1749,42 @@ body.scrolled .nav-inner{height:60px}
         </ul>
         <p class="p-note">Two time zones stretch the working day. PSI answers the hours in between.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section>
+  <div class="wrap">
+    <div class="section-head rv" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">Common Questions</div>
+      <h2 class="rvw">Asked before <span class="accent">every build.</span></h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Will the conversations feel like a bot?</summary>
+        <p>PSI conversations are engineered on your brand voice, your real product detail and real objections, then refined against live conversations. The goal is a dialogue a good salesperson would be proud of, not a script a lead has to survive.</p>
+      </details>
+      <details>
+        <summary>What happens to leads that are not ready to buy?</summary>
+        <p>They are not thrown away. PSI distinguishes poor-fit leads, which are disqualified cleanly, from genuine future buyers who are simply early. The second group moves into a nurture track designed to develop their intent over time.</p>
+      </details>
+      <details>
+        <summary>Does this replace my sales team?</summary>
+        <p>No, it partners with them. PSI is built on the principle that AI and humans each do what they do best. The AI works around the clock on the part machines are brilliant at, instant response, patient qualification and consistent scoring. Your people then spend their day on the part only humans can do, building trust and closing, with every conversation handed over in full.</p>
+      </details>
+      <details>
+        <summary>Which channels does PSI work with?</summary>
+        <p>PSI sits behind your paid media, including Meta, TikTok and Google, using click-to-WhatsApp as the entry point. Qualified outcomes feed back into your ad platforms so campaigns optimise towards intent rather than clicks.</p>
+      </details>
+      <details>
+        <summary>Why is PSI a service and not software I subscribe to?</summary>
+        <p>Because lead generation succeeds or fails on the intelligence built into it. The scoring model, conversation design and routing logic are engineered for your business specifically, then managed and improved continuously. That is strategy work, not a login.</p>
+      </details>
+      <details>
+        <summary>How do we measure whether it is working?</summary>
+        <p>Against your own funnel. The proof of concept runs on a live campaign so you can compare qualified lead volume, sales feedback and downstream conversion against what your current setup produces, in your dashboard, not ours.</p>
+      </details>
     </div>
   </div>
 </section>
