@@ -729,11 +729,11 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   .p-stats{grid-template-columns:repeat(2,1fr);gap:24px 18px}
 }
 /* the DMA mark sits with the sign-off rather than competing with the logo */
-/* the badge artwork is #4d4d4d/#808080, invisible on the navy footer, so it
-   is flattened to white and dimmed back — monochrome, so nothing is lost */
-.f-badges img{height:54px;width:auto;display:block;filter:brightness(0) invert(1);
-  opacity:.45;transition:opacity .25s ease}
-.f-badges img:hover{opacity:.75}
+/* the badge artwork ships as flat white (see assets/brand/dma.svg), so the
+   only thing set here is how far it is dimmed back into the footer */
+.f-badge-link img{height:54px;width:auto;display:block;
+  opacity:.82;transition:opacity .25s ease}
+.f-badge-link:hover img{opacity:1}
 footer{padding:44px 0 34px;font-size:14px;color:var(--text-3)}
 /* the offices fold in here rather than taking a section of their own —
    credibility furniture, not a step in the argument */
@@ -1590,10 +1590,10 @@ body.scrolled .nav-inner{height:60px}
 <!-- ============ DASHBOARD ============ -->
 <section id="dashboard" class="funnel-sec">
   <div class="wrap">
-    <div class="section-head rv">
-      <div class="eyebrow">The PSI Dashboard</div>
+    <div class="section-head rv" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">The PSI Dashboard</div>
       <h2 class="rvw">Our own funnel, <span class="accent">on the record.</span></h2>
-      <p class="lede">One view of every conversation, every score and every routing decision, live. This is the PSI dashboard we run on our own prospecting, and the same one your team would work from. Sales works the high intent leads list. Marketing sees exactly which channel produced the intent.</p>
+      <p class="lede" style="margin-left:auto;margin-right:auto">One view of every conversation, every score and every routing decision, live. This is the PSI dashboard we run on our own prospecting, and the same one your team would work from. Sales works the high intent leads list. Marketing sees exactly which channel produced the intent.</p>
     </div>
     <div class="dash-shell rv spot" role="img" aria-label="Illustrative PSI dashboard showing intent scored leads">
       <div class="dash-chrome" aria-hidden="true">
