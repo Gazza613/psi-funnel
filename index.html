@@ -496,23 +496,42 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .final .lede{margin-left:auto;margin-right:auto;margin-top:18px}
 .final .gas-mark{width:107px;height:107px;margin:0 auto 20px}
 
-/* ---------- presence / credibility ---------- */
-.presence-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:var(--head-gap)}
-.p-lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px}
-.presence address{font-style:normal;font-size:17px;line-height:1.75;color:var(--text)}
-.p-mail{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-family:var(--mono);
-  font-size:14px;color:var(--g-amber);border-bottom:1px solid rgba(255,162,77,.35);padding-bottom:3px;
+/* ---------- presence / credibility ----------
+   The section carried no visual device, so it read as a contact block. The
+   clocks are the device: real local times, ticking, which earn the two
+   continents claim rather than asserting it. */
+.p-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:var(--head-gap);
+  padding-bottom:30px;border-bottom:1px solid var(--line)}
+.p-stat b{display:block;font-family:var(--mono);font-size:clamp(30px,3.6vw,46px);font-weight:600;
+  line-height:1;background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.p-stat span{display:block;margin-top:9px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--text-3)}
+.presence-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:28px}
+.presence .card{position:relative;overflow:hidden;display:flex;flex-direction:column}
+.p-links{margin-top:auto}
+/* the same orange edge the funnel stages carry, so the cards belong to the page */
+.presence .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g-grad);opacity:.85}
+.p-lbl{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px}
+.p-live i{display:block;width:7px;height:7px;border-radius:50%;background:var(--wa);animation:pulse 1.8s infinite}
+.presence address{font-style:normal;font-size:19px;line-height:1.75;color:var(--text)}
+.p-links{display:flex;flex-wrap:wrap;gap:10px 26px;padding-top:26px}
+.p-mail{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:14px;
+  color:var(--g-amber);border-bottom:1px solid rgba(255,162,77,.35);padding-bottom:3px;
   transition:color .2s ease,border-color .2s ease}
+.p-mail .ic{width:16px;height:16px}
 .p-mail:hover{color:var(--text);border-color:var(--text)}
-.office-list{list-style:none;display:flex;flex-direction:column;gap:0}
-.office-list li{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px dashed var(--line);
-  font-size:17px;color:var(--text)}
+.office-list{list-style:none;display:flex;flex-direction:column}
+.office-list li{display:flex;align-items:center;gap:13px;padding:14px 0;
+  border-bottom:1px dashed var(--line);font-size:18px;color:var(--text)}
 .office-list li:last-child{border-bottom:0}
 .office-list i{width:7px;height:7px;border-radius:50%;background:var(--g-grad);flex:none}
-.office-list b{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
-  color:var(--text-3);font-weight:500}
+.o-time{margin-left:auto;font-family:var(--mono);font-size:15px;letter-spacing:.06em;
+  color:var(--text-2);font-variant-numeric:tabular-nums}
+.p-note{margin-top:18px;font-size:13.5px;color:var(--text-3);line-height:1.6}
 @media (max-width:820px){
   .presence-grid{grid-template-columns:1fr}
+  .p-stats{grid-template-columns:repeat(2,1fr);gap:24px 18px}
 }
 /* the DMA mark sits with the sign-off rather than competing with the logo */
 .f-badges{display:flex;align-items:center;gap:16px}
@@ -523,7 +542,7 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .f-badges img:hover{opacity:.75}
 footer{border-top:1px solid var(--line);padding:34px 0;font-size:14px;color:var(--text-3)}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-footer .f-sign{font-family:var(--mono);font-size:12px}
+footer .f-sign,.f-copy{font-family:var(--mono);font-size:12px}
 
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
 .rv.show{opacity:1;transform:none}
@@ -1522,9 +1541,17 @@ body.scrolled .nav-inner{height:60px}
 <section class="presence" id="presence">
   <div class="wrap">
     <div class="eyebrow">Where We Work</div>
-    <h2 class="rvw">Four Offices. <span class="accent">Two Continents.</span></h2>
+    <h2 class="rvw">Four Offices.<br><span class="accent">Two Continents.</span></h2>
+
+    <div class="p-stats rv">
+      <div class="p-stat"><b>4</b><span>Offices</span></div>
+      <div class="p-stat"><b>2</b><span>Continents</span></div>
+      <div class="p-stat"><b>2</b><span>Time zones</span></div>
+      <div class="p-stat"><b>24/7</b><span>PSI cover</span></div>
+    </div>
+
     <div class="presence-grid rv">
-      <div class="card">
+      <div class="card p-hq">
         <div class="p-lbl">Head Office</div>
         <address>
           78 Corlett Drive<br>
@@ -1532,18 +1559,25 @@ body.scrolled .nav-inner{height:60px}
           Johannesburg, 2196<br>
           South Africa
         </address>
-        <a class="p-mail" href="mailto:grow@gasmarketing.co.za">
-          <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>grow@gasmarketing.co.za
-        </a>
+        <div class="p-links">
+          <a class="p-mail" href="mailto:grow@gasmarketing.co.za">
+            <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>grow@gasmarketing.co.za
+          </a>
+          <a class="p-mail" href="https://www.google.com/maps/search/?api=1&amp;query=78+Corlett+Drive+Melrose+North+Johannesburg+2196" target="_blank" rel="noopener">
+            <svg class="ic" aria-hidden="true"><use href="#i-target"/></svg>Get directions
+          </a>
+        </div>
       </div>
-      <div class="card">
-        <div class="p-lbl">Offices</div>
+
+      <div class="card p-offices">
+        <div class="p-lbl"><span class="p-live"><i aria-hidden="true"></i></span>Local time right now</div>
         <ul class="office-list">
-          <li><i aria-hidden="true"></i>Johannesburg<b>HEAD OFFICE</b></li>
-          <li><i aria-hidden="true"></i>Durban</li>
-          <li><i aria-hidden="true"></i>Cape Town</li>
-          <li><i aria-hidden="true"></i>Portugal</li>
+          <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Johannesburg<span class="o-time">--:--</span></li>
+          <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Durban<span class="o-time">--:--</span></li>
+          <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Cape Town<span class="o-time">--:--</span></li>
+          <li data-tz="Europe/Lisbon"><i aria-hidden="true"></i>Portugal<span class="o-time">--:--</span></li>
         </ul>
+        <p class="p-note">Two time zones stretch the working day. PSI answers the hours in between.</p>
       </div>
     </div>
   </div>
@@ -1552,8 +1586,12 @@ body.scrolled .nav-inner{height:60px}
 <footer>
   <div class="wrap">
     <div class="logo" style="font-size:17px"><span class="gas-mark" style="width:26px;height:26px"></span>GAS<span class="psi-mark">PSI</span></div>
+    <div class="f-copy">Copyright &copy; GAS Marketing Automation</div>
     <div class="f-badges">
-      <img src="assets/brand/dma.svg" alt="Direct Marketing Association member" width="64" height="54" loading="lazy">
+      <a class="f-badge-link" href="https://drive.google.com/file/d/1JY_vLn48Iv6-h44whkO3yxzNY-hxy_Sf/view"
+         target="_blank" rel="noopener" aria-label="DMASA membership, opens in a new tab">
+        <img src="assets/brand/dma.svg" alt="Direct Marketing Association of South Africa member" width="64" height="54" loading="lazy">
+      </a>
       <div class="f-sign">The Agency of Now · gasmarketing.co.za</div>
     </div>
   </div>
@@ -1596,6 +1634,31 @@ body.scrolled .nav-inner{height:60px}
      ============================================================ */
   var WA_NUMBER = '';
   var WA_HOLD = 'Our PSI WhatsApp line is switching on. It goes live here shortly.';
+
+  /* ============================================================
+     Office clocks. Real local times via Intl, so the two time zones are
+     demonstrated rather than claimed. Ticks on the minute boundary rather
+     than every 60s from load, so all four flip together.
+     ============================================================ */
+  (function officeClocks(){
+    var rows = document.querySelectorAll('.office-list [data-tz]');
+    if(!rows.length || !window.Intl || !Intl.DateTimeFormat) return;
+    var fmt = {};
+    function tick(){
+      rows.forEach(function(row){
+        var tz = row.getAttribute('data-tz'), out = row.querySelector('.o-time');
+        if(!out) return;
+        try{
+          if(!fmt[tz]) fmt[tz] = new Intl.DateTimeFormat('en-GB',
+            {timeZone:tz, hour:'2-digit', minute:'2-digit', hour12:false});
+          out.textContent = fmt[tz].format(new Date());
+        }catch(e){ out.textContent = ''; }
+      });
+      var now = new Date();
+      setTimeout(tick, (60 - now.getSeconds()) * 1000 + 50);
+    }
+    tick();
+  })();
 
   /* ============================================================
      The fans marquee keeps ONE authoritative list in the markup and
