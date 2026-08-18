@@ -70,6 +70,11 @@
   --warm:#FFA24D;
   --cold:#5B8CFF;
   --tier-ramp:linear-gradient(90deg,var(--cold) 0%,var(--warm) 52%,var(--hot) 100%);
+  /* The hero gauge reads as a traffic light so a first-time viewer knows
+     without a legend whether the lead is worth a call. Deliberately its own
+     ramp: --hot/--warm/--cold carry the site-wide tier language in the funnel,
+     journey and dashboard, and recolouring those would be a far wider change. */
+  --iq-cold:#FF5C5C; --iq-warm:#FFC53D; --iq-hot:#31D97A;
   --wa:#25D366;
   --wa-ink:#04240F;    /* the dark green label ink that sits on WhatsApp green */
   --wa-bubble:#16233A;
@@ -279,19 +284,32 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 
 .score-chip{position:absolute;top:118px;right:-14px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:14px;padding:14px 18px;box-shadow:0 20px 50px -18px rgba(0,0,0,.8);min-width:172px}
 .score-chip .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--text-3);text-transform:uppercase}
-.score-chip .val{font-family:var(--mono);font-size:34px;font-weight:600;line-height:1.1;background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.score-chip .bar{height:5px;border-radius:99px;background:var(--ink);margin-top:8px;overflow:hidden}
-.score-chip .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--tier-ramp);transition:width .8s cubic-bezier(.2,.8,.2,1)}
-.score-chip .tier{font-family:var(--mono);font-size:11px;margin-top:8px;color:var(--text-2)}
+/* one attribute on .score-chip drives the pill, the number, the tier word, the
+   bar and the route dot, so they can never disagree about the tier */
+.score-chip{--iq:var(--iq-cold);--iq-soft:rgba(255,92,92,.13);--iq-line:rgba(255,92,92,.45)}
+.score-chip[data-tier="warm"]{--iq:var(--iq-warm);--iq-soft:rgba(255,197,61,.14);--iq-line:rgba(255,197,61,.48)}
+.score-chip[data-tier="hot"]{--iq:var(--iq-hot);--iq-soft:rgba(49,217,122,.14);--iq-line:rgba(49,217,122,.48)}
+.score-chip .val-pill{display:inline-flex;align-items:baseline;gap:10px;margin-top:9px;
+  padding:7px 15px 8px;border-radius:999px;background:var(--iq-soft);
+  border:1px solid var(--iq-line);box-shadow:0 0 26px -10px var(--iq);
+  transition:background .55s var(--ease),border-color .55s var(--ease),box-shadow .55s var(--ease)}
+.score-chip .val{font-family:var(--mono);font-size:34px;font-weight:600;line-height:1;
+  color:var(--iq);-webkit-text-fill-color:var(--iq);font-variant-numeric:tabular-nums;
+  transition:color .55s var(--ease),-webkit-text-fill-color .55s var(--ease)}
+.score-chip .tier{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--iq);
+  transition:color .55s var(--ease)}
+.score-chip .bar{height:5px;border-radius:99px;background:var(--ink);margin-top:10px;overflow:hidden}
+.score-chip .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--iq);
+  transition:width .8s cubic-bezier(.2,.8,.2,1),background .55s var(--ease)}
 .hero-visual{position:relative}
 .route-chip{position:absolute;bottom:20px;left:-24px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:14px;padding:12px 16px;font-family:var(--mono);font-size:12px;box-shadow:0 20px 50px -18px rgba(0,0,0,.8);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
 .route-chip.show{opacity:1;transform:none}
 .route-chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px}
 /* the chip states where the lead went, so its dot carries the tier that
    decided it rather than always reading hot */
-.route-chip.hot .dot{background:var(--hot);box-shadow:0 0 12px var(--hot)}
-.route-chip.warm .dot{background:var(--warm);box-shadow:0 0 12px var(--warm)}
-.route-chip.cold .dot{background:var(--cold);box-shadow:0 0 12px var(--cold)}
+.route-chip.hot .dot{background:var(--iq-hot);box-shadow:0 0 12px var(--iq-hot)}
+.route-chip.warm .dot{background:var(--iq-warm);box-shadow:0 0 12px var(--iq-warm)}
+.route-chip.cold .dot{background:var(--iq-cold);box-shadow:0 0 12px var(--iq-cold)}
 
 /* ---------- fans logo marquee ---------- */
 .fans{padding:clamp(38px,4vw,50px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
@@ -1183,7 +1201,13 @@ body.scrolled .nav-inner{height:60px}
   .wa-msg{font-size:12.8px}
   .wa-assure{font-size:12.8px}
   .visual-label{font-size:10.5px;letter-spacing:.12em;padding:8px 14px}
-  .score-chip{position:static;margin:18px auto 0;width:min(300px,100%)}
+  /* On a phone the chip cannot overlay the mock, and sitting below it put the
+     score 1.4 screens down — you could not watch the number move with the
+     conversation, which is the whole point of the demo. Above the phone, both
+     fit one screen. */
+  .hero-visual{display:flex;flex-direction:column}
+  .visual-label{order:-2}
+  .score-chip{order:-1;position:static;margin:0 auto 14px;width:max-content;max-width:100%}
   .route-chip{position:static;margin:12px auto 0;display:block;width:max-content;max-width:100%}
   .f-conn{font-size:10.5px;letter-spacing:.08em}
   .m-set{gap:52px;padding-right:52px}
@@ -1313,11 +1337,13 @@ body.scrolled .nav-inner{height:60px}
           <div class="wa-body" id="heroChat"></div>
         </div>
       </div>
-      <div class="score-chip" aria-hidden="true">
+      <div class="score-chip" data-tier="cold" aria-hidden="true">
         <div class="lbl">Intent score</div>
-        <div class="val"><span id="heroScore">0</span></div>
+        <div class="val-pill">
+          <span class="val" id="heroScore">0</span>
+          <span class="tier" id="heroTier">COLD</span>
+        </div>
         <div class="bar"><i id="heroBar"></i></div>
-        <div class="tier" id="heroTier">TIER · COLD</div>
       </div>
       <div class="route-chip hot" id="heroRoute"><span class="dot"></span><span class="rc-text">ROUTED TO THE SALES TEAM WITH FULL CONTEXT</span></div>
     </div>
@@ -2479,6 +2505,7 @@ body.scrolled .nav-inner{height:60px}
   var scoreEl = document.getElementById('heroScore');
   var barEl = document.getElementById('heroBar');
   var tierEl = document.getElementById('heroTier');
+  var chipEl = document.querySelector('.score-chip');
   var routeEl = document.getElementById('heroRoute');
   var nameEl  = document.getElementById('waName');
   var routeTextEl = routeEl && routeEl.querySelector('.rc-text');
@@ -2545,10 +2572,12 @@ body.scrolled .nav-inner{height:60px}
   var convIdx = Math.floor(Math.random() * conversations.length);
 
   function setScore(n){
+    var tier = n >= 70 ? 'hot' : n >= 40 ? 'warm' : 'cold';
     scoreEl.textContent = n;
     barEl.style.width = n + '%';
-    tierEl.textContent = 'TIER · ' + (n>=70 ? 'HOT' : n>=40 ? 'WARM' : 'COLD');
-    tierEl.style.color = n>=70 ? 'var(--hot)' : n>=40 ? 'var(--warm)' : 'var(--cold)';
+    tierEl.textContent = tier.toUpperCase();
+    /* colour lives in CSS off this one attribute, so nothing here hard-codes a hex */
+    if(chipEl) chipEl.setAttribute('data-tier', tier);
   }
 
   /* Pacing for the demo chat. Slow enough to read along with rather than
