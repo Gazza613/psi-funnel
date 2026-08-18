@@ -533,6 +533,12 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
 .fans-quote cite b{color:var(--g-amber);font-weight:500}
 @media (max-width:620px){ .fans-quote{font-size:15px;margin-top:24px} }
+/* the button alone between the pull-quote and the caption, so the air above
+   and below matches instead of inheriting the headed band spacing */
+/* two classes, so this beats .cta-band's section-sized top margin whatever
+   the source order. The caption below contributes a 16px top margin that
+   collapses into this one, so both gaps resolve to the same value. */
+.cta-band.cta-solo{margin:clamp(34px,4vw,52px) 0}
 /* ---------- founder ----------
    Two columns: the portrait carries a fallback glyph underneath it, so a
    missing photo degrades to a neutral placeholder instead of a broken frame. */
@@ -1356,15 +1362,14 @@ body.scrolled .nav-inner{height:60px}
     <div class="f-quote rv">
       <p class="q rvw">We do not widen the funnel.<br><span class="accent">We sharpen it.</span></p>
     </div>
-    <p class="f-caption rv">CONVERSATIONS THAT ENGAGE · CONVERSATIONS THAT COUNT · CONVERSATIONS THAT CONVERT</p>
-      <div class="cta-band rv">
-        <p>Want this modelled on <span class="accent">your numbers?</span></p>
+      <div class="cta-band cta-solo rv">
         <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, can you model the PSI funnel on our numbers?">
           <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
           <span>Chat to us on WhatsApp</span>
           <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
         </a>
       </div>
+    <p class="f-caption rv">CONVERSATIONS THAT ENGAGE · CONVERSATIONS THAT COUNT · CONVERSATIONS THAT CONVERT</p>
   </div>
 </section>
 
