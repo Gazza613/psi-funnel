@@ -528,13 +528,18 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
    rectangle out of the page with hard edges top and bottom. The fill is now
    translucent so the atmosphere runs straight through it, and the hard rule
    becomes a hairline that fades out at both ends. */
-.final{background:radial-gradient(ellipse 130% 90% at 50% 0%,rgba(247,137,24,.14),transparent 62%),
-  linear-gradient(180deg,rgba(11,18,36,.55),rgba(11,18,36,.28));
+/* The bloom was anchored at 50% 0%, putting its brightest point exactly on
+   the section seam — which is what made the panel read as a separate pane
+   however light the fill got. Centred behind the content instead, it fades
+   in from nothing at the edges, so the page runs straight through and the
+   glow belongs to the CTA rather than to a rectangle. */
+.final{background:radial-gradient(ellipse 105% 78% at 50% 46%,rgba(247,137,24,.16),transparent 70%);
   text-align:center}
-.final::before,.final::after{content:"";position:absolute;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--line-2) 24%,var(--line-2) 76%,transparent)}
-.final::before{top:0}
-.final::after{bottom:0}
+/* no rules at all: with the pane this light the hairlines were the only thing
+   marking the boundary, which is exactly what made the section read as a
+   separate pane. The bloom and the centred content carry its identity. */
+.final::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(150,175,255,.09) 30%,rgba(150,175,255,.09) 70%,transparent)}
 
 .final .lede{margin-left:auto;margin-right:auto;margin-top:18px}
 .final .gas-mark{width:107px;height:107px;margin:0 auto 20px}
@@ -725,6 +730,7 @@ footer address{font-style:normal;font-size:15px;line-height:1.7;color:var(--text
 footer .p-lbl{margin-bottom:12px}
 footer .p-links{padding-top:16px;gap:8px 22px}
 footer .p-mail{font-size:13px}
+.f-spread{margin-top:16px;font-size:13px;line-height:1.6;color:var(--text-3);max-width:44ch}
 footer .office-list li{padding:9px 0;font-size:15px;color:var(--text-2)}
 footer .o-time{font-size:13.5px}
 @media (max-width:720px){ .f-cols{grid-template-columns:1fr;gap:26px} }
@@ -1746,7 +1752,7 @@ body.scrolled .nav-inner{height:60px}
     <div class="section-head rv" style="text-align:center">
       <div class="eyebrow" style="justify-content:center">The Team</div>
       <h2 class="rvw">Human command.<br><span class="accent">AI execution.</span></h2>
-      <p class="lede" style="margin-left:auto;margin-right:auto">Thirteen specialists and twelve AI agents work the same funnel. The split we sell you is the one we run ourselves.</p>
+      <p class="lede" style="margin-left:auto;margin-right:auto">Thirteen specialists and twelve AI agents work the same funnel, from four locations across two continents. The split we sell you is the one we run ourselves.</p>
     </div>
   </div>
   <div class="team-strip rv">
@@ -1933,13 +1939,14 @@ body.scrolled .nav-inner{height:60px}
       </div>
     </div>
     <div class="f-col">
-      <div class="p-lbl"><span class="p-live"><i aria-hidden="true"></i></span>Local time right now</div>
+      <div class="p-lbl"><span class="p-live"><i aria-hidden="true"></i></span>Where our teams work</div>
       <ul class="office-list">
         <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Johannesburg<span class="o-time">--:--</span></li>
         <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Durban<span class="o-time">--:--</span></li>
         <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Cape Town<span class="o-time">--:--</span></li>
         <li data-tz="Europe/Lisbon"><i aria-hidden="true"></i>Portugal<span class="o-time">--:--</span></li>
       </ul>
+        <p class="f-spread">Four locations, two time zones. The working day starts in Johannesburg and finishes in Lisbon.</p>
     </div>
   </div>
   <div class="wrap f-row">
