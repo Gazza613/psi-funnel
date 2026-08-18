@@ -875,6 +875,10 @@ body.scrolled .nav-inner{height:60px}
   .f-stage{width:100%!important;min-width:0!important}
 }
 @media (max-width:620px){
+  /* the caption is one line from 768px up. Below that it has to wrap — a true
+     single line at 360px would need about 6px type — so it is tightened just
+     enough to hold two lines rather than three. */
+  .f-caption{font-size:10.5px;letter-spacing:.04em}
   .ad-slot{max-width:100%}
   .grid-3,.eng-grid{grid-template-columns:1fr}
   .wa-block{max-width:100%}
@@ -1168,7 +1172,7 @@ body.scrolled .nav-inner{height:60px}
     <div class="f-quote rv">
       <p class="q rvw">We do not widen the funnel.<br><span class="accent">We sharpen it.</span></p>
     </div>
-    <p class="f-caption rv">ILLUSTRATIVE FUNNEL MODEL · DEMO DATA · YOUR NUMBERS BUILD FROM YOUR LIVE CAMPAIGNS</p>
+    <p class="f-caption rv">CONVERSATIONS THAT ENGAGE · CONVERSATIONS THAT COUNT · CONVERSATIONS THAT CONVERT</p>
   </div>
 </section>
 
