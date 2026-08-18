@@ -512,7 +512,18 @@ details[open] summary::after{transform:rotate(45deg)}
 details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 
 /* ---------- final ---------- */
-.final{background:radial-gradient(ellipse at 50% 0%,rgba(247,137,24,.10),transparent 60%),var(--ink-2);border-top:1px solid var(--line);text-align:center}
+/* The closing panel used an opaque --ink-2 fill, which blocked the page-wide
+   .atmos gradient that bleeds through every other section — so it cut a flat
+   rectangle out of the page with hard edges top and bottom. The fill is now
+   translucent so the atmosphere runs straight through it, and the hard rule
+   becomes a hairline that fades out at both ends. */
+.final{background:radial-gradient(ellipse 130% 90% at 50% 0%,rgba(247,137,24,.14),transparent 62%),
+  linear-gradient(180deg,rgba(11,18,36,.55),rgba(11,18,36,.28));
+  text-align:center}
+.final::before,.final::after{content:"";position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line-2) 24%,var(--line-2) 76%,transparent)}
+.final::before{top:0}
+.final::after{bottom:0}
 
 .final .lede{margin-left:auto;margin-right:auto;margin-top:18px}
 .final .gas-mark{width:107px;height:107px;margin:0 auto 20px}
@@ -523,7 +534,7 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .cta-band{display:flex;flex-direction:column;align-items:center;text-align:center;
   gap:18px;margin-top:var(--sec)}
 .cta-band p{font-family:var(--disp);font-weight:800;font-stretch:88%;text-transform:uppercase;
-  font-size:clamp(20px,2.2vw,27px);line-height:1.2;color:var(--text);margin:0;max-width:18ch}
+  font-size:clamp(20px,2.2vw,27px);line-height:1.2;color:var(--text);margin:0;max-width:34ch}
 .cta-band .accent{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 /* the quote that rides with the client logos, so proof lands at the first scroll */
 .fans-quote{max-width:640px;margin:30px auto 0;padding:0 24px;text-align:center;
@@ -542,7 +553,7 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 /* ---------- founder ----------
    Two columns: the portrait carries a fallback glyph underneath it, so a
    missing photo degrades to a neutral placeholder instead of a broken frame. */
-.founder-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:26px;align-items:stretch;margin-top:var(--head-gap)}
+.founder-grid{display:grid;grid-template-columns:.66fr 1.34fr;gap:26px;align-items:stretch;margin-top:var(--head-gap)}
 .fd-card{margin:0;position:relative;overflow:hidden;border-radius:var(--r-lg);
   border:1px solid var(--line);background:var(--ink-2)}
 .fd-photo{aspect-ratio:1/1;background-color:var(--ink-3);
@@ -571,8 +582,8 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(24px,2.6vw,34px);
   position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
 .fd-copy::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g-grad);opacity:.85}
-.fd-copy p{color:var(--text-2);font-size:15.5px;line-height:1.65}
-.fd-copy p + p{margin-top:14px}
+.fd-copy p{color:var(--text-2);font-size:16.5px;line-height:1.7}
+.fd-copy p + p{margin-top:18px}
 .fd-copy strong{color:var(--text);font-weight:600}
 @media (max-width:820px){
   .founder-grid{grid-template-columns:1fr}
@@ -596,20 +607,37 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .team-track + .tm-lbl{margin-top:34px}
 .team-track .m-set{display:flex;align-items:center;gap:40px;padding-right:40px;white-space:nowrap}
 .marquee-rev{animation-direction:reverse}
-.tm{margin:0;display:flex;align-items:center;gap:14px}
+.tm{margin:0;display:flex;align-items:center;gap:17px}
 /* faces stay in colour — greyscale reads as archive footage on people,
    where it reads as restraint on the client logos */
-.tm img{width:77px;height:77px;border-radius:50%;flex:none;object-fit:cover;
+.tm img{width:108px;height:108px;border-radius:50%;flex:none;object-fit:cover;
   box-shadow:0 0 0 1px var(--line-2);
   transition:box-shadow .35s var(--ease),transform .35s var(--ease)}
 .tm:hover img{box-shadow:0 0 0 2px rgba(255,162,77,.55);transform:scale(1.05)}
-.tm b{display:block;font-size:15px;font-weight:600;color:var(--text)}
+.tm b{display:block;font-size:16.5px;font-weight:600;color:var(--text)}
 .tm span{display:block;margin-top:3px;font-family:var(--mono);font-size:10px;
   letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
 @media (max-width:620px){
   .team-track .m-set{gap:28px;padding-right:28px}
-  .tm img{width:65px;height:65px}
+  .tm img{width:91px;height:91px}
   .tm b{font-size:14px}
+}
+/* The copy panel stretches to the portrait's height, so rather than centre a
+   short block in dead air it carries a shape: an opening line at lead size,
+   the turn of the story pulled out against an orange rule, and a closing
+   statement that lands. The hierarchy fills the height instead of padding. */
+.fd-lead{font-size:21px;line-height:1.5;color:var(--text)}
+.fd-pull{margin:26px 0;padding:2px 0 2px 20px;border-left:2px solid transparent;
+  border-image:var(--g-grad) 1;font-size:16.5px;line-height:1.6;color:var(--text-2)}
+.fd-pull strong{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--g-amber);margin-bottom:8px;font-weight:500}
+.fd-close{font-size:16.5px;line-height:1.6}
+.fd-close span{display:block;margin-top:6px;font-family:var(--disp);font-weight:800;
+  font-stretch:88%;text-transform:uppercase;font-size:clamp(21px,2.1vw,27px);line-height:1.1;
+  background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (max-width:820px){
+  .fd-lead{font-size:17.5px}
+  .fd-pull{margin:18px 0}
 }
 /* ---------- testimonials ----------
    Initials stand in until a headshot exists, so the section works with no
@@ -672,13 +700,12 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   .p-stats{grid-template-columns:repeat(2,1fr);gap:24px 18px}
 }
 /* the DMA mark sits with the sign-off rather than competing with the logo */
-.f-badges{display:flex;align-items:center;gap:16px}
 /* the badge artwork is #4d4d4d/#808080, invisible on the navy footer, so it
    is flattened to white and dimmed back — monochrome, so nothing is lost */
 .f-badges img{height:54px;width:auto;display:block;filter:brightness(0) invert(1);
   opacity:.45;transition:opacity .25s ease}
 .f-badges img:hover{opacity:.75}
-footer{border-top:1px solid var(--line);padding:44px 0 34px;font-size:14px;color:var(--text-3)}
+footer{padding:44px 0 34px;font-size:14px;color:var(--text-3)}
 /* the offices fold in here rather than taking a section of their own —
    credibility furniture, not a step in the argument */
 .f-cols{display:grid;grid-template-columns:1fr 1fr;gap:34px;padding-bottom:34px;
@@ -690,7 +717,16 @@ footer .p-mail{font-size:13px}
 footer .office-list li{padding:9px 0;font-size:15px;color:var(--text-2)}
 footer .o-time{font-size:13.5px}
 @media (max-width:720px){ .f-cols{grid-template-columns:1fr;gap:26px} }
-footer .f-row{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+/* three tracks with equal outer columns, so the centre block is genuinely
+   centred on the page rather than centred on whatever is left over */
+footer .f-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+footer .f-row > .logo{justify-self:start}
+.f-centre{justify-self:center;text-align:center;display:flex;flex-direction:column;gap:7px}
+.f-badge-link{justify-self:end;display:inline-flex}
+@media (max-width:720px){
+  footer .f-row{grid-template-columns:1fr;justify-items:center;gap:22px;text-align:center}
+  footer .f-row > .logo,.f-badge-link{justify-self:center}
+}
 footer .f-sign,.f-copy{font-family:var(--mono);font-size:12px}
 
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
@@ -1659,16 +1695,7 @@ body.scrolled .nav-inner{height:60px}
             <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You will not disqualify any prospect</li>
             <li><span class="mk"><svg class="ic"><use href="#i-x"/></svg></span>You want a campaign, not a system</li>
           </ul>
-        </div>
-        <div class="cta-band rv">
-        <p>Sounds like you? <span class="accent">Then let us talk.</span></p>
-        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I read the fit check and it sounds like us. Where do we start?">
-          <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-          <span>Chat to us on WhatsApp</span>
-          <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
-        </a>
-      </div>
-    </div>
+        </div>    </div>
   </div>
 </section>
 
@@ -1693,10 +1720,10 @@ body.scrolled .nav-inner{height:60px}
         </figcaption>
       </figure>
       <div class="fd-copy">
-        <p>Gary Berman has been in lead generation and data for over two decades.</p>
+        <p class="fd-lead">Gary Berman has been in lead generation and data for over two decades.</p>
         <p>He built one of South Africa's largest consumer databases, 53 million records. He's run lead gen businesses through every technology shift, every new platform, every new promise.</p>
-        <p><strong>One thing never changed:</strong> sales teams kept getting handed "leads" that weren't ready, and spent their time qualifying instead of closing.</p>
-        <p>Pre-Sales Intelligence is the fix he spent 20 years waiting for someone to build. So we built it.</p>
+        <blockquote class="fd-pull"><strong>One thing never changed:</strong> sales teams kept getting handed "leads" that weren't ready, and spent their time qualifying instead of closing.</blockquote>
+        <p class="fd-close">Pre-Sales Intelligence is the fix he spent 20 years waiting for someone to build. <span>So we built it.</span></p>
       </div>
     </div>
   </div>
@@ -1716,19 +1743,19 @@ body.scrolled .nav-inner{height:60px}
     <div class="team-track" aria-label="The GAS team">
       <div class="marquee marquee-slow">
         <div class="m-set">
-          <figure class="tm"><img src="assets/team/sam-michel.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Sam Michel</b><span>Chief Executive Officer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/gary-berman.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Gary Berman</b><span>Managing Director</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/donovan-pretorius.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Donovan Pretorius</b><span>Chief Growth Officer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/busi-mntungwa.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Busi Mntungwa</b><span>Account Director</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/claire-chrystal.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Claire Chrystal</b><span>Senior Account Manager</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/angelique-greffrath.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Angelique Greffrath</b><span>Operations Manager</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/nomsa-ntlemeza.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Nomsa Ntlemeza</b><span>Traffic Manager</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/aphelele-madlala.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Aphelele Madlala</b><span>Junior Account Manager</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/georgia-berman.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Georgia Berman</b><span>AI Creative Engineer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/rourke-paslovsky.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Rourke Paslovsky</b><span>AI Systems Engineer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/aidan-thompson.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Aidan Thompson</b><span>Digital Designer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/sune-vd-nest.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Suné vd Nest</b><span>Junior Web Developer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/cherice-len.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Cherice Len</b><span>Accountant</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/sam-michel.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Sam Michel</b><span>Chief Executive Officer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/gary-berman.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Gary Berman</b><span>Managing Director</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/donovan-pretorius.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Donovan Pretorius</b><span>Chief Growth Officer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/busi-mntungwa.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Busi Mntungwa</b><span>Account Director</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/claire-chrystal.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Claire Chrystal</b><span>Senior Account Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/angelique-greffrath.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Angelique Greffrath</b><span>Operations Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/nomsa-ntlemeza.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Nomsa Ntlemeza</b><span>Traffic Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aphelele-madlala.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Aphelele Madlala</b><span>Junior Account Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/georgia-berman.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Georgia Berman</b><span>AI Creative Engineer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/rourke-paslovsky.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Rourke Paslovsky</b><span>AI Systems Engineer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aidan-thompson.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Aidan Thompson</b><span>Digital Designer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/sune-vd-nest.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Suné vd Nest</b><span>Junior Web Developer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/cherice-len.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Cherice Len</b><span>Accountant</span></figcaption></figure>
         </div>
       </div>
     </div>
@@ -1736,18 +1763,18 @@ body.scrolled .nav-inner{height:60px}
     <div class="team-track" aria-label="The GAS AI division">
       <div class="marquee marquee-slow marquee-rev">
         <div class="m-set">
-          <figure class="tm"><img src="assets/team/sage.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Sage</b><span>Conversational AI Super Sleuth</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/mira.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Mira</b><span>AI Response Analyst</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/shaz.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Shaz</b><span>AI Metrics & Insight Advisor</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/aura.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Aura</b><span>AI Account Strategist</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/rumi.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Rumi</b><span>AI Playbook Architect</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/nova.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Nova</b><span>AI Knowledge Base Builder</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/ciara.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Ciara</b><span>AI Copywriter</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zeke.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Zeke</b><span>AI Creative Insight Partner</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/andiswa.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Andiswa</b><span>AI Account Coordinator</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zoey.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Zoey</b><span>AI Engagement Scribe</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/basil.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Basil</b><span>AI Photography Prompt Guru</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zola.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Zola</b><span>AI Video & Art Prompt Assistant</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/sage.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Sage</b><span>Conversational AI Super Sleuth</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/mira.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Mira</b><span>AI Response Analyst</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/shaz.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Shaz</b><span>AI Metrics & Insight Advisor</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aura.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Aura</b><span>AI Account Strategist</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/rumi.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Rumi</b><span>AI Playbook Architect</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/nova.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Nova</b><span>AI Knowledge Base Builder</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/ciara.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Ciara</b><span>AI Copywriter</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zeke.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Zeke</b><span>AI Creative Insight Partner</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/andiswa.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Andiswa</b><span>AI Account Coordinator</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zoey.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Zoey</b><span>AI Engagement Scribe</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/basil.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Basil</b><span>AI Photography Prompt Guru</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zola.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Zola</b><span>AI Video & Art Prompt Assistant</span></figcaption></figure>
         </div>
       </div>
     </div>
@@ -1786,6 +1813,7 @@ body.scrolled .nav-inner{height:60px}
         <blockquote>The combination of creativity, technology and strategic thinking makes GAS an invaluable partner to our business, and a team we trust to deliver real, measurable results.</blockquote>
         <figcaption class="q-cite"><b>Jacques Fouché</b><span>CEO, iGrow Wealth Investments</span></figcaption>
       </figure>
+    </div>
       <div class="cta-band rv">
         <p>Ask us what we did <span class="accent">for them.</span></p>
         <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I saw what you did for your clients. What could PSI do for us?">
@@ -1794,7 +1822,6 @@ body.scrolled .nav-inner{height:60px}
           <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
         </a>
       </div>
-    </div>
   </div>
 </section>
 
@@ -1906,14 +1933,14 @@ body.scrolled .nav-inner{height:60px}
   </div>
   <div class="wrap f-row">
     <div class="logo" style="font-size:17px"><span class="gas-mark" style="width:26px;height:26px"></span>GAS<span class="psi-mark">PSI</span></div>
-    <div class="f-copy">Copyright &copy; GAS Marketing Automation</div>
-    <div class="f-badges">
-      <a class="f-badge-link" href="https://drive.google.com/file/d/1JY_vLn48Iv6-h44whkO3yxzNY-hxy_Sf/view"
-         target="_blank" rel="noopener" aria-label="DMASA membership, opens in a new tab">
-        <img src="assets/brand/dma.svg" alt="Direct Marketing Association of South Africa member" width="64" height="54" loading="lazy">
-      </a>
+    <div class="f-centre">
+      <div class="f-copy">&copy; GAS Marketing Automation</div>
       <div class="f-sign">The Agency of Now · gasmarketing.co.za</div>
     </div>
+    <a class="f-badge-link" href="https://drive.google.com/file/d/1JY_vLn48Iv6-h44whkO3yxzNY-hxy_Sf/view"
+       target="_blank" rel="noopener" aria-label="DMASA membership, opens in a new tab">
+      <img src="assets/brand/dma.svg" alt="Direct Marketing Association of South Africa member" width="64" height="54" loading="lazy">
+    </a>
   </div>
 </footer>
 
