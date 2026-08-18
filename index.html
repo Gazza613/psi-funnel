@@ -513,7 +513,17 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   background-image:url(assets/brand/gary-berman.jpg), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23616C8A' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>");
   background-size:cover, 76px 76px;background-position:center 12%, center;
   background-repeat:no-repeat, no-repeat}
-.fd-card figcaption{padding:20px 24px 22px;border-top:1px solid var(--line)}
+.fd-card figcaption{display:flex;align-items:center;gap:16px;padding:20px 24px 22px;
+  border-top:1px solid var(--line)}
+/* LinkedIn keeps its own blue — a brand mark recoloured to ours stops being
+   recognisable, which is the only reason it is there */
+.fd-li{margin-left:auto;flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:11px;color:#4A9BE8;
+  background:rgba(10,102,194,.14);border:1px solid rgba(74,155,232,.4);
+  transition:background .22s var(--ease),color .22s var(--ease),transform .22s var(--ease)}
+.fd-li:hover{background:#0A66C2;color:#fff;transform:translateY(-1px)}
+.fd-li:focus-visible{outline:2px solid #4A9BE8;outline-offset:3px}
+.fd-li .ic{width:19px;height:19px;stroke-width:1.8}
 .fd-card b{display:block;font-family:var(--disp);font-weight:800;font-stretch:88%;
   font-size:22px;text-transform:uppercase;letter-spacing:.01em;
   background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -534,6 +544,10 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
    Two rows moving in opposite directions: the human team and the AI division,
    which is the same split the product sells. Reuses the marquee's .m-set /
    .rolling contract so the CSS animation is shared with the fans strip. */
+/* the strips are far wider than the viewport by design, so the section must
+   clip them exactly as .fans does — without this the document grows to the
+   marquee width and every section background stops at the viewport edge */
+.team{overflow:hidden}
 .team-strip{margin-top:var(--head-gap)}
 .tm-lbl{display:flex;align-items:center;justify-content:center;gap:11px;font-family:var(--mono);
   font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px}
@@ -1094,6 +1108,7 @@ body.scrolled .nav-inner{height:60px}
       <a href="#funnel">The Funnel</a>
       <a href="#journey">The Journey</a>
       <a href="#dashboard">Dashboard</a>
+      <a href="#team">The Team</a>
       <a href="#start">Getting Started</a>
     </div>
     <div class="nav-cta">
@@ -1606,8 +1621,14 @@ body.scrolled .nav-inner{height:60px}
       <figure class="fd-card">
         <div class="fd-photo" role="img" aria-label="Gary Berman, Managing Director"></div>
         <figcaption>
-          <b>Gary Berman</b>
-          <span>Managing Director</span>
+          <div class="fd-who">
+            <b>Gary Berman</b>
+            <span>Managing Director</span>
+          </div>
+          <a class="fd-li" href="https://www.linkedin.com/in/garyberman/" target="_blank" rel="noopener"
+             aria-label="Gary Berman on LinkedIn, opens in a new tab">
+            <svg class="ic" aria-hidden="true"><use href="#i-ch-linkedin"/></svg>
+          </a>
         </figcaption>
       </figure>
       <div class="fd-copy">
