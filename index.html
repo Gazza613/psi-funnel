@@ -509,9 +509,9 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .founder-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:26px;align-items:stretch;margin-top:var(--head-gap)}
 .fd-card{margin:0;position:relative;overflow:hidden;border-radius:var(--r-lg);
   border:1px solid var(--line);background:var(--ink-2)}
-.fd-photo{aspect-ratio:4/5;background-color:var(--ink-3);
+.fd-photo{aspect-ratio:1/1;background-color:var(--ink-3);
   background-image:url(assets/brand/gary-berman.jpg), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23616C8A' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='8' r='3.4'/><path d='M5.6 19.5c0-3.5 2.9-5.9 6.4-5.9s6.4 2.4 6.4 5.9'/></svg>");
-  background-size:cover, 76px 76px;background-position:center top, center;
+  background-size:cover, 76px 76px;background-position:center 12%, center;
   background-repeat:no-repeat, no-repeat}
 .fd-card figcaption{padding:20px 24px 22px;border-top:1px solid var(--line)}
 .fd-card b{display:block;font-family:var(--disp);font-weight:800;font-stretch:88%;
@@ -520,16 +520,12 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .fd-card span{display:block;margin-top:5px;font-family:var(--mono);font-size:11px;
   letter-spacing:.2em;text-transform:uppercase;color:var(--text-3)}
 .fd-copy{background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),var(--ink-2);
-  border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(28px,3.2vw,42px);
+  border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(24px,2.6vw,34px);
   position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
 .fd-copy::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g-grad);opacity:.85}
-.fd-copy p{color:var(--text-2);font-size:17px;line-height:1.7}
-.fd-copy p + p{margin-top:18px}
+.fd-copy p{color:var(--text-2);font-size:15.5px;line-height:1.65}
+.fd-copy p + p{margin-top:14px}
 .fd-copy strong{color:var(--text);font-weight:600}
-.fd-stat{display:inline-flex;align-items:baseline;gap:9px;margin-bottom:22px;font-family:var(--mono)}
-.fd-stat b{font-size:clamp(30px,3.4vw,42px);font-weight:600;line-height:1;
-  background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.fd-stat span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3)}
 @media (max-width:820px){
   .founder-grid{grid-template-columns:1fr}
   .fd-photo{aspect-ratio:1/1;background-position:center 20%, center}
@@ -551,7 +547,7 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .tm{margin:0;display:flex;align-items:center;gap:14px}
 /* faces stay in colour — greyscale reads as archive footage on people,
    where it reads as restraint on the client logos */
-.tm img{width:64px;height:64px;border-radius:50%;flex:none;object-fit:cover;
+.tm img{width:77px;height:77px;border-radius:50%;flex:none;object-fit:cover;
   box-shadow:0 0 0 1px var(--line-2);
   transition:box-shadow .35s var(--ease),transform .35s var(--ease)}
 .tm:hover img{box-shadow:0 0 0 2px rgba(255,162,77,.55);transform:scale(1.05)}
@@ -560,7 +556,7 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
 @media (max-width:620px){
   .team-track .m-set{gap:28px;padding-right:28px}
-  .tm img{width:54px;height:54px}
+  .tm img{width:65px;height:65px}
   .tm b{font-size:14px}
 }
 /* ---------- testimonials ----------
@@ -1615,7 +1611,6 @@ body.scrolled .nav-inner{height:60px}
         </figcaption>
       </figure>
       <div class="fd-copy">
-        <div class="fd-stat"><b>53M</b><span>Consumer records built</span></div>
         <p>Gary Berman has been in lead generation and data for over two decades.</p>
         <p>He built one of South Africa's largest consumer databases, 53 million records. He's run lead gen businesses through every technology shift, every new platform, every new promise.</p>
         <p><strong>One thing never changed:</strong> sales teams kept getting handed "leads" that weren't ready, and spent their time qualifying instead of closing.</p>
@@ -1639,19 +1634,19 @@ body.scrolled .nav-inner{height:60px}
     <div class="team-track" aria-label="The GAS team">
       <div class="marquee marquee-slow">
         <div class="m-set">
-          <figure class="tm"><img src="assets/team/sam-michel.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Sam Michel</b><span>Chief Executive Officer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/gary-berman.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Gary Berman</b><span>Managing Director</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/donovan-pretorius.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Donovan Pretorius</b><span>Chief Growth Officer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/busi-mntungwa.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Busi Mntungwa</b><span>Account Director</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/claire-chrystal.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Claire Chrystal</b><span>Senior Account Manager</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/angelique-greffrath.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Angelique Greffrath</b><span>Operations Manager</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/nomsa-ntlemeza.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Nomsa Ntlemeza</b><span>Traffic Manager</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/aphelele-madlala.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Aphelele Madlala</b><span>Junior Account Manager</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/georgia-berman.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Georgia Berman</b><span>AI Creative Engineer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/rourke-paslovsky.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Rourke Paslovsky</b><span>AI Systems Engineer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/aidan-thompson.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Aidan Thompson</b><span>Digital Designer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/sune-vd-nest.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Suné vd Nest</b><span>Junior Web Developer</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/cherice-len.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Cherice Len</b><span>Accountant</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/sam-michel.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Sam Michel</b><span>Chief Executive Officer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/gary-berman.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Gary Berman</b><span>Managing Director</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/donovan-pretorius.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Donovan Pretorius</b><span>Chief Growth Officer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/busi-mntungwa.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Busi Mntungwa</b><span>Account Director</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/claire-chrystal.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Claire Chrystal</b><span>Senior Account Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/angelique-greffrath.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Angelique Greffrath</b><span>Operations Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/nomsa-ntlemeza.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Nomsa Ntlemeza</b><span>Traffic Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aphelele-madlala.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Aphelele Madlala</b><span>Junior Account Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/georgia-berman.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Georgia Berman</b><span>AI Creative Engineer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/rourke-paslovsky.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Rourke Paslovsky</b><span>AI Systems Engineer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aidan-thompson.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Aidan Thompson</b><span>Digital Designer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/sune-vd-nest.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Suné vd Nest</b><span>Junior Web Developer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/cherice-len.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Cherice Len</b><span>Accountant</span></figcaption></figure>
         </div>
       </div>
     </div>
@@ -1659,18 +1654,18 @@ body.scrolled .nav-inner{height:60px}
     <div class="team-track" aria-label="The GAS AI division">
       <div class="marquee marquee-slow marquee-rev">
         <div class="m-set">
-          <figure class="tm"><img src="assets/team/sage.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Sage</b><span>Conversational AI Super Sleuth</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/mira.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Mira</b><span>AI Response Analyst</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/shaz.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Shaz</b><span>AI Metrics & Insight Advisor</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/aura.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Aura</b><span>AI Account Strategist</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/rumi.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Rumi</b><span>AI Playbook Architect</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/nova.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Nova</b><span>AI Knowledge Base Builder</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/ciara.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Ciara</b><span>AI Copywriter</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zeke.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Zeke</b><span>AI Creative Insight Partner</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/andiswa.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Andiswa</b><span>AI Account Coordinator</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zoey.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Zoey</b><span>AI Engagement Scribe</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/basil.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Basil</b><span>AI Photography Prompt Guru</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zola.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Zola</b><span>AI Video & Art Prompt Assistant</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/sage.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Sage</b><span>Conversational AI Super Sleuth</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/mira.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Mira</b><span>AI Response Analyst</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/shaz.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Shaz</b><span>AI Metrics & Insight Advisor</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aura.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Aura</b><span>AI Account Strategist</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/rumi.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Rumi</b><span>AI Playbook Architect</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/nova.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Nova</b><span>AI Knowledge Base Builder</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/ciara.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Ciara</b><span>AI Copywriter</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zeke.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Zeke</b><span>AI Creative Insight Partner</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/andiswa.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Andiswa</b><span>AI Account Coordinator</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zoey.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Zoey</b><span>AI Engagement Scribe</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/basil.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Basil</b><span>AI Photography Prompt Guru</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zola.jpg" alt="" width="77" height="77" loading="lazy"><figcaption><b>Zola</b><span>AI Video & Art Prompt Assistant</span></figcaption></figure>
         </div>
       </div>
     </div>
