@@ -1027,6 +1027,7 @@ body.scrolled .nav-inner{height:60px}
      single line at 360px would need about 6px type — so it is tightened just
      enough to hold two lines rather than three. */
   .f-caption{font-size:10.5px;letter-spacing:.04em}
+  .hs-more{display:none}
   .ad-slot{max-width:100%}
   .grid-3,.eng-grid{grid-template-columns:1fr}
   .wa-block{max-width:100%}
@@ -1044,6 +1045,26 @@ body.scrolled .nav-inner{height:60px}
   .j-step{grid-template-columns:44px 1fr;gap:18px}
   .j-node{width:44px;height:44px;font-size:12px}
   .j-line{left:21px}
+  /* The journey keeps all five steps; the mobile layout is what changes.
+     Stacked one-column, each step was printing its visual at full size under
+     its copy, which is what made the section a quarter of the page. The
+     visuals are illustrative at 390px, not readable, so they scale back and
+     the step padding tightens with them. */
+  .j-step{padding:20px 0}
+  .j-copy h3{margin-bottom:7px}
+  .j-copy p{font-size:15px;line-height:1.6}
+  .j-copy .j-meta{margin-top:10px;font-size:11px}
+  .j-content{gap:16px}
+  .j-visual{padding:13px;font-size:12px;border-radius:12px}
+  /* the ad mock is the tallest visual on the page. Its reaction counts and
+     the like/comment/share row are Facebook chrome, not the argument, and
+     the creative scales by container width, so a narrower slot shortens it
+     proportionally. Both the ad and its CTA bar survive intact. */
+  .fb-meta,.fb-actions{display:none}
+  .ad-slot{max-width:72%}
+  .mini-chat .bubble{font-size:12px}
+  .signal-row{padding:7px 0;font-size:11.5px}
+  .lane{font-size:11.5px}
 }
 @media (max-width:480px){
   h1{font-size:clamp(40px,13.5vw,60px)}
@@ -1154,7 +1175,7 @@ body.scrolled .nav-inner{height:60px}
     <div>
       <div class="kicker">PRE-SALES INTELLIGENCE · <b>BY GAS MARKETING</b></div>
       <h1><span class="line"><span>Intent</span></span><span class="line"><span class="h-hot">Engineered</span></span></h1>
-      <p class="hero-sub">PSI is <strong style="color:var(--text)">Pre-Sales Intelligence</strong>. It qualifies every lead before your sales team sees it. Each enquiry opens a WhatsApp chat, where PSI asks what your salespeople waste hours asking: budget, timing, intent to buy. Every lead gets a score. Ready ones reach your team. The rest stay in the funnel until their intent rises. AI qualifies. Humans close.</p>
+      <p class="hero-sub">PSI is <strong style="color:var(--text)">Pre-Sales Intelligence</strong>. It qualifies every lead before your sales team sees it. <span class="hs-more">Each enquiry opens a WhatsApp chat, where PSI asks what your salespeople waste hours asking: budget, timing, intent to buy. Every lead gets a score. Ready ones reach your team. The rest stay in the funnel until their intent rises. AI qualifies. Humans close.</span></p>
       <div class="chips">
         <span class="chip live"><i></i>Live prospecting now</span>
         <span class="chip"><svg class="ic"><use href="#i-radar"/></svg>Intent scored pre-sales</span>
