@@ -282,23 +282,23 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .typing i:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
 
-.score-chip{position:absolute;top:118px;right:-14px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:14px;padding:14px 18px;box-shadow:0 20px 50px -18px rgba(0,0,0,.8);min-width:172px}
-.score-chip .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--text-3);text-transform:uppercase}
+.score-chip{position:absolute;top:104px;right:-26px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:12px;padding:10px 13px 11px;box-shadow:0 16px 40px -20px rgba(0,0,0,.85);min-width:146px}
+.score-chip .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--text-3);text-transform:uppercase}
 /* one attribute on .score-chip drives the pill, the number, the tier word, the
    bar and the route dot, so they can never disagree about the tier */
 .score-chip{--iq:var(--iq-cold);--iq-soft:rgba(255,92,92,.13);--iq-line:rgba(255,92,92,.45)}
 .score-chip[data-tier="warm"]{--iq:var(--iq-warm);--iq-soft:rgba(255,197,61,.14);--iq-line:rgba(255,197,61,.48)}
 .score-chip[data-tier="hot"]{--iq:var(--iq-hot);--iq-soft:rgba(49,217,122,.14);--iq-line:rgba(49,217,122,.48)}
-.score-chip .val-pill{display:inline-flex;align-items:baseline;gap:10px;margin-top:9px;
-  padding:7px 15px 8px;border-radius:999px;background:var(--iq-soft);
+.score-chip .val-pill{display:inline-flex;align-items:baseline;gap:8px;margin-top:7px;
+  padding:4px 12px 5px;border-radius:999px;background:var(--iq-soft);
   border:1px solid var(--iq-line);box-shadow:0 0 26px -10px var(--iq);
   transition:background .55s var(--ease),border-color .55s var(--ease),box-shadow .55s var(--ease)}
-.score-chip .val{font-family:var(--mono);font-size:34px;font-weight:600;line-height:1;
+.score-chip .val{font-family:var(--mono);font-size:25px;font-weight:600;line-height:1;
   color:var(--iq);-webkit-text-fill-color:var(--iq);font-variant-numeric:tabular-nums;
   transition:color .55s var(--ease),-webkit-text-fill-color .55s var(--ease)}
-.score-chip .tier{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--iq);
+.score-chip .tier{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--iq);
   transition:color .55s var(--ease)}
-.score-chip .bar{height:5px;border-radius:99px;background:var(--ink);margin-top:10px;overflow:hidden}
+.score-chip .bar{height:4px;border-radius:99px;background:var(--ink);margin-top:8px;overflow:hidden}
 .score-chip .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--iq);
   transition:width .8s cubic-bezier(.2,.8,.2,1),background .55s var(--ease)}
 .hero-visual{position:relative}
@@ -1219,6 +1219,17 @@ body.scrolled .nav-inner{height:60px}
    is keyed to the input device rather than the width — desktop keeps its
    tighter sizing at every window size. Last block in the sheet so it wins
    against the width-based padding above it. */
+/* the headline breaks in a different place on a phone: at desktop width
+   "Lead forms are where" fits one line, but on a phone it wraps and leaves
+   "where" alone, so the phone breaks after "Lead forms" instead */
+.br-sm{display:none}
+@media (max-width:620px){
+  /* the byline strands the separator on its own line at phone widths */
+  .kicker .k-by{display:none}
+  .br-sm{display:inline}
+  .br-lg{display:none}
+}
+
 @media (pointer:coarse){
   .wa-launch{padding-top:15px;padding-bottom:15px}
   .btn{padding-top:15px;padding-bottom:15px}
@@ -1317,7 +1328,7 @@ body.scrolled .nav-inner{height:60px}
   <div class="orb orb-2" aria-hidden="true"></div>
   <div class="wrap hero-grid">
     <div>
-      <div class="kicker">PRE-SALES INTELLIGENCE · <b>BY GAS MARKETING</b></div>
+      <div class="kicker">Pre-Sales Intelligence<span class="k-by"> · <b>by GAS Marketing</b></span></div>
       <h1><span class="line"><span>Intent</span></span><span class="line"><span class="h-hot">Engineered</span></span></h1>
       <p class="hero-sub">PSI is <strong style="color:var(--text)">Pre-Sales Intelligence</strong>. It qualifies every lead before your sales team sees it. <span class="hs-more">Each enquiry opens a WhatsApp chat, where PSI asks what your salespeople waste hours asking: budget, timing, intent to buy. Every lead gets a score. Ready ones reach your team. The rest stay in the funnel until their intent rises. AI qualifies. Humans close.</span></p>
       <div class="chips">
@@ -1392,7 +1403,7 @@ body.scrolled .nav-inner{height:60px}
   <div class="wrap">
     <div class="section-head rv" style="text-align:center">
       <div class="eyebrow" style="justify-content:center">The Problem</div>
-      <h2 class="rvw">Lead forms are where<br><span class="accent">intent goes to die.</span></h2>
+      <h2 class="rvw">Lead forms<br class="br-sm"> are where<br class="br-lg"> <span class="accent">intent goes to die.</span></h2>
       <p class="lede" style="margin-left:auto;margin-right:auto">Paid media has never been better at generating clicks. What happens after the click is where most budgets quietly bleed out.</p>
     </div>
     <div class="grid-3">
@@ -1828,7 +1839,7 @@ body.scrolled .nav-inner{height:60px}
     </div>
   </div>
   <div class="team-strip rv">
-    <p class="tm-lbl"><i aria-hidden="true"></i>13 Specialists</p>
+    <p class="tm-lbl"><i aria-hidden="true"></i>13 Strategists</p>
     <div class="team-track" aria-label="The GAS team">
       <div class="marquee marquee-slow">
         <div class="m-set">
