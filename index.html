@@ -1214,6 +1214,20 @@ body.scrolled .nav-inner{height:60px}
   .logo-item img{height:32px}
   .logo-item b{font-size:19px}
 }
+
+/* Touch targets. A finger needs about 44px; a mouse pointer does not, so this
+   is keyed to the input device rather than the width — desktop keeps its
+   tighter sizing at every window size. Last block in the sheet so it wins
+   against the width-based padding above it. */
+@media (pointer:coarse){
+  .wa-launch{padding-top:15px;padding-bottom:15px}
+  .btn{padding-top:15px;padding-bottom:15px}
+  .btn-sm{padding-top:13px;padding-bottom:13px}
+  .logo{padding:8px 0}
+  .fd-li{padding:6px}
+  .p-mail{padding:12px 0}
+  .wa-teaser .x{width:36px;height:36px;top:5px;right:5px}
+}
 </style>
 </head>
 <body>
