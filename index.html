@@ -300,6 +300,10 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .card .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--g-amber);border:1px solid rgba(255,162,77,.35);border-radius:99px;padding:4px 12px;margin-top:16px}
 
 /* ---------- FUNNEL ---------- */
+/* the quiet band: separates a section without the --ink-2 fill, which
+   would swallow any --ink-2 cards sitting on it */
+.band{background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .funnel-sec{background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
 .funnel-wrap{position:relative;max-width:920px;margin:0 auto}
 .flow-col{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);z-index:0;overflow:hidden}
@@ -1672,7 +1676,7 @@ body.scrolled .nav-inner{height:60px}
 </section>
 
 <!-- ============ TESTIMONIALS ============ -->
-<section class="testimonials" id="testimonials">
+<section class="testimonials band" id="testimonials">
   <div class="wrap">
     <div class="section-head rv" style="text-align:center">
       <div class="eyebrow" style="justify-content:center">In Their Words</div>
@@ -1754,7 +1758,7 @@ body.scrolled .nav-inner{height:60px}
 </section>
 
 <!-- ============ FAQ ============ -->
-<section>
+<section style="padding-top:0">
   <div class="wrap">
     <div class="section-head rv" style="text-align:center">
       <div class="eyebrow" style="justify-content:center">Common Questions</div>
