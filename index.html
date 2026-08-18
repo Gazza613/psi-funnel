@@ -527,6 +527,33 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   .founder-grid{grid-template-columns:1fr}
   .fd-photo{aspect-ratio:1/1;background-position:center 20%, center}
 }
+/* ---------- team ----------
+   Two rows moving in opposite directions: the human team and the AI division,
+   which is the same split the product sells. Reuses the marquee's .m-set /
+   .rolling contract so the CSS animation is shared with the fans strip. */
+.team-strip{margin-top:var(--head-gap)}
+.tm-lbl{display:flex;align-items:center;justify-content:center;gap:11px;font-family:var(--mono);
+  font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px}
+.tm-lbl i{width:7px;height:7px;border-radius:50%;background:var(--g-grad);flex:none}
+.tm-lbl i.ai{background:var(--cold)}
+.team-track{-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.team-track + .tm-lbl{margin-top:34px}
+.team-track .m-set{display:flex;align-items:center;gap:40px;padding-right:40px;white-space:nowrap}
+.marquee-rev{animation-direction:reverse}
+.tm{margin:0;display:flex;align-items:center;gap:14px}
+.tm img{width:64px;height:64px;border-radius:50%;flex:none;object-fit:cover;
+  box-shadow:0 0 0 1px var(--line-2);filter:grayscale(1);opacity:.72;
+  transition:filter .35s var(--ease),opacity .35s var(--ease)}
+.tm:hover img{filter:none;opacity:1}
+.tm b{display:block;font-size:15px;font-weight:600;color:var(--text)}
+.tm span{display:block;margin-top:3px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+@media (max-width:620px){
+  .team-track .m-set{gap:28px;padding-right:28px}
+  .tm img{width:54px;height:54px}
+  .tm b{font-size:14px}
+}
 /* ---------- testimonials ----------
    Initials stand in until a headshot exists, so the section works with no
    photo files and a missing one never leaves a broken frame. */
@@ -1599,6 +1626,58 @@ body.scrolled .nav-inner{height:60px}
   </div>
 </section>
 
+<!-- ============ TEAM ============ -->
+<section class="team" id="team" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head rv" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">The Team</div>
+      <h2 class="rvw">Human command.<br><span class="accent">AI execution.</span></h2>
+      <p class="lede" style="margin-left:auto;margin-right:auto">Thirteen specialists and twelve AI agents work the same funnel. The split we sell you is the one we run ourselves.</p>
+    </div>
+  </div>
+  <div class="team-strip rv">
+    <p class="tm-lbl"><i aria-hidden="true"></i>13 Specialists</p>
+    <div class="team-track" aria-label="The GAS team">
+      <div class="marquee marquee-slow">
+        <div class="m-set">
+          <figure class="tm"><img src="assets/team/sam-michel.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Sam Michel</b><span>Chief Executive Officer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/gary-berman.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Gary Berman</b><span>Managing Director</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/donovan-pretorius.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Donovan Pretorius</b><span>Chief Growth Officer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/busi-mntungwa.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Busi Mntungwa</b><span>Account Director</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/claire-chrystal.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Claire Chrystal</b><span>Senior Account Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/angelique-greffrath.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Angelique Greffrath</b><span>Operations Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/nomsa-ntlemeza.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Nomsa Ntlemeza</b><span>Traffic Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aphelele-madlala.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Aphelele Madlala</b><span>Junior Account Manager</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/georgia-berman.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Georgia Berman</b><span>AI Creative Engineer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/rourke-paslovsky.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Rourke Paslovsky</b><span>AI Systems Engineer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aidan-thompson.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Aidan Thompson</b><span>Digital Designer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/sune-vd-nest.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Suné vd Nest</b><span>Junior Web Developer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/cherice-len.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Cherice Len</b><span>Accountant</span></figcaption></figure>
+        </div>
+      </div>
+    </div>
+    <p class="tm-lbl"><i class="ai" aria-hidden="true"></i>12 AI Agents</p>
+    <div class="team-track" aria-label="The GAS AI division">
+      <div class="marquee marquee-slow marquee-rev">
+        <div class="m-set">
+          <figure class="tm"><img src="assets/team/sage.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Sage</b><span>Conversational AI Super Sleuth</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/mira.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Mira</b><span>AI Response Analyst</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/shaz.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Shaz</b><span>AI Metrics & Insight Advisor</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aura.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Aura</b><span>AI Account Strategist</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/rumi.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Rumi</b><span>AI Playbook Architect</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/nova.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Nova</b><span>AI Knowledge Base Builder</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/ciara.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Ciara</b><span>AI Copywriter</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zeke.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Zeke</b><span>AI Creative Insight Partner</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/andiswa.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Andiswa</b><span>AI Account Coordinator</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zoey.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Zoey</b><span>AI Engagement Scribe</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/basil.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Basil</b><span>AI Photography Prompt Guru</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zola.jpg" alt="" width="64" height="64" loading="lazy"><figcaption><b>Zola</b><span>AI Video & Art Prompt Assistant</span></figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ TESTIMONIALS ============ -->
 <section class="testimonials" id="testimonials">
   <div class="wrap">
@@ -1779,6 +1858,51 @@ body.scrolled .nav-inner{height:60px}
      ============================================================ */
   var WA_NUMBER = '';
   var WA_HOLD = 'Our PSI WhatsApp line is switching on. It goes live here shortly.';
+
+  /* ============================================================
+     Team strips. Same clone-to-fit contract as the fans marquee, kept
+     separate because that one also drives the centre-wordmark highlight
+     and coupling the two would risk a component that is already working.
+     ============================================================ */
+  (function teamMarquees(){
+    var tracks = document.querySelectorAll('.team-track');
+    if(!tracks.length) return;
+
+    function build(track){
+      var marquee = track.querySelector('.marquee');
+      var seed = marquee && marquee.querySelector('.m-set');
+      if(!seed) return;
+      marquee.classList.remove('rolling');
+      marquee.style.removeProperty('--set-w');
+      Array.prototype.slice.call(marquee.querySelectorAll('.m-set'))
+        .forEach(function(set,i){ if(i) set.parentNode.removeChild(set); });
+
+      var setW = seed.getBoundingClientRect().width;
+      var trackW = track.getBoundingClientRect().width;
+      if(!setW || !trackW) return;
+      var sets = Math.max(2, Math.ceil(trackW / setW) + 1);
+      for(var i=1;i<sets;i++){
+        var clone = seed.cloneNode(true);
+        clone.setAttribute('aria-hidden','true');
+        marquee.appendChild(clone);
+      }
+      marquee.style.setProperty('--set-w', setW + 'px');
+      marquee.classList.add('rolling');
+    }
+
+    function buildAll(){ Array.prototype.forEach.call(tracks, build); }
+
+    /* the faces are lazy-loaded, so measure once they have decoded or the
+       set width is short by however many images have not painted yet */
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(buildAll);
+    window.addEventListener('load', buildAll);
+    buildAll();
+
+    var t;
+    window.addEventListener('resize', function(){
+      clearTimeout(t); t = setTimeout(buildAll, 200);
+    });
+  })();
 
   /* ============================================================
      Testimonial headshots. The initials stay until a photo actually loads,
