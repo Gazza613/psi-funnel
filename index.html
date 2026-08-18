@@ -1229,7 +1229,7 @@ body.scrolled .nav-inner{height:60px}
       <a href="#start">Getting Started</a>
     </div>
     <div class="nav-cta">
-      <a class="btn btn-wa btn-sm magnetic" href="https://wa.me/" data-wa="Hi GAS, I want to talk to PSI about our lead quality"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>Chat to us</span></a>
+      <a class="btn btn-wa btn-sm magnetic" href="https://wa.me/" data-loc="nav" data-wa="Hi GAS, I want to talk to PSI about our lead quality"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>Chat to us</span></a>
     </div>
   </div>
 </nav>
@@ -1252,7 +1252,7 @@ body.scrolled .nav-inner{height:60px}
            own: the chips above already carry the promise, so the CTA and
            its reassurance line are the whole block. -->
       <div class="wa-block wa-solo">
-        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I want to see PSI running on my funnel">
+        <a class="wa-launch magnetic" href="https://wa.me/" data-loc="hero" data-wa="Hi GAS, I want to see PSI running on my funnel">
           <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
           <span>Chat to us on WhatsApp</span>
           <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -1410,7 +1410,7 @@ body.scrolled .nav-inner{height:60px}
       <p class="q rvw">We do not widen the funnel.<br><span class="accent">We sharpen it.</span></p>
     </div>
       <div class="cta-band cta-solo rv">
-        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, can you model the PSI funnel on our numbers?">
+        <a class="wa-launch magnetic" href="https://wa.me/" data-loc="funnel_model" data-wa="Hi GAS, can you model the PSI funnel on our numbers?">
           <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
           <span>Chat to us on WhatsApp</span>
           <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -1643,7 +1643,7 @@ body.scrolled .nav-inner{height:60px}
       </div>
     </div>
       <div class="cta-band cta-solo rv">
-        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I want the PSI dashboard running on our own funnel. Where do we start?">
+        <a class="wa-launch magnetic" href="https://wa.me/" data-loc="dashboard" data-wa="Hi GAS, I want the PSI dashboard running on our own funnel. Where do we start?">
           <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
           <span>Chat to us on WhatsApp</span>
           <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -1827,7 +1827,7 @@ body.scrolled .nav-inner{height:60px}
     </div>
       <div class="cta-band rv">
         <p>Ask us what we did <span class="accent">for them.</span></p>
-        <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, I saw what you did for your clients. What could PSI do for us?">
+        <a class="wa-launch magnetic" href="https://wa.me/" data-loc="testimonials" data-wa="Hi GAS, I saw what you did for your clients. What could PSI do for us?">
           <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
           <span>Chat to us on WhatsApp</span>
           <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -1908,7 +1908,7 @@ body.scrolled .nav-inner{height:60px}
     <h2 class="rv rvw">Let's have a<br><span class="accent">Conversation that Counts.</span></h2>
     <p class="lede rv">Do not fill in a form. Send us a message instead. Tell PSI what you are spending and what your sales team is complaining about, and you will get an answer in seconds, at whatever hour you are reading this.</p>
     <div class="wa-block wa-mid rv">
-      <a class="wa-launch magnetic" href="https://wa.me/" data-wa="Hi GAS, our lead quality needs work. Where do we start?">
+      <a class="wa-launch magnetic" href="https://wa.me/" data-loc="closing" data-wa="Hi GAS, our lead quality needs work. Where do we start?">
         <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
         <span>Chat to us on WhatsApp</span>
         <svg class="ic wa-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
@@ -1966,7 +1966,7 @@ body.scrolled .nav-inner{height:60px}
     Rather just ask? Send one line about your funnel and see how PSI handles it.
     <button class="x" type="button" id="waTeaserClose" aria-label="Dismiss"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
   </div>
-  <a class="wa-fab" href="https://wa.me/" data-wa="Hi GAS, I have a question about PSI" aria-label="Chat to us on WhatsApp"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
+  <a class="wa-fab" href="https://wa.me/" data-loc="floating_bubble" data-wa="Hi GAS, I have a question about PSI" aria-label="Chat to us on WhatsApp"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
 </div>
 
 <div class="wa-toast" id="waToast" role="status" aria-live="polite"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg><span></span></div>
@@ -2078,6 +2078,29 @@ body.scrolled .nav-inner{height:60px}
       setTimeout(tick, (60 - now.getSeconds()) * 1000 + 50);
     }
     tick();
+  })();
+
+  /* ============================================================
+     Conversion signal. Every ask carries data-wa; data-loc names which one,
+     so GA4 can answer the question the audit could not: which part of the
+     argument actually converts.
+
+     The event only fires when a chat genuinely opens. While WA_NUMBER is
+     empty every ask is marked data-wa-hold and shows the holding toast
+     instead, and counting those as conversions would poison the metric from
+     the first day. One delegated listener rather than seven, so asks added
+     later are picked up without touching this.
+     ============================================================ */
+  (function trackAsks(){
+    document.addEventListener('click', function(e){
+      var el = e.target.closest ? e.target.closest('[data-wa]') : null;
+      if(!el || el.hasAttribute('data-wa-hold')) return;      /* toast, not a chat */
+      if(typeof window.gtag !== 'function') return;           /* blocked or not loaded */
+      window.gtag('event', 'whatsapp_click', {
+        location: el.getAttribute('data-loc') || 'unlabelled',
+        link_url: el.getAttribute('href') || ''
+      });
+    });
   })();
 
   /* ============================================================
