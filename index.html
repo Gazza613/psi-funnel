@@ -1185,7 +1185,6 @@ body.scrolled .nav-inner{height:60px}
      the creative scales by container width, so a narrower slot shortens it
      proportionally. Both the ad and its CTA bar survive intact. */
   .fb-meta,.fb-actions{display:none}
-  .ad-slot{max-width:72%}
   .mini-chat .bubble{font-size:12px}
   .signal-row{padding:7px 0;font-size:11.5px}
   .lane{font-size:11.5px}
@@ -1239,6 +1238,9 @@ body.scrolled .nav-inner{height:60px}
   .fd-li{padding:6px}
   .p-mail{padding:12px 0}
   .wa-teaser .x{width:36px;height:36px;top:5px;right:5px}
+  /* 36px reads better on the card than 44 does, so the hit area is grown
+     past the visible dot rather than the dot being grown to meet it */
+  .wa-teaser .x::after{content:"";position:absolute;inset:-4px;border-radius:50%}
 }
 </style>
 </head>
