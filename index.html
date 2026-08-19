@@ -435,6 +435,13 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .f-caption{font-family:var(--mono);font-size:12px;color:var(--text-3);text-align:center;margin-top:16px;letter-spacing:.08em}
 
 /* ---------- journey ---------- */
+#journey{position:relative;isolation:isolate}
+#journey::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(40% 22% at 16% 10%,rgba(91,140,255,.20),transparent 72%),
+    radial-gradient(38% 20% at 84% 42%,rgba(247,137,24,.13),transparent 74%),
+    radial-gradient(44% 24% at 40% 88%,rgba(255,106,31,.18),transparent 72%)}
+#journey > .wrap{position:relative;z-index:1}
 .j-track{position:relative;margin-top:4px}
 .j-line{position:absolute;left:27px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cold) 0%,var(--warm) 50%,var(--hot) 100%);opacity:.55}
 .j-step{display:grid;grid-template-columns:56px 1fr;gap:24px;padding:clamp(26px,3vw,38px) 0;opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
@@ -454,7 +461,15 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .j-copy h3{font-size:clamp(22px,2.4vw,30px);font-weight:800;font-stretch:88%;text-transform:uppercase;margin-bottom:10px}
 .j-copy p{color:var(--text-2);font-size:16px}
 .j-copy .j-meta{font-family:var(--mono);font-size:12px;color:var(--text-3);margin-top:14px;letter-spacing:.08em}
-.j-visual{background:var(--ink);border:1px solid var(--line);border-radius:var(--radius);padding:20px;font-size:13.5px}
+.j-visual{background:linear-gradient(158deg,rgba(255,255,255,.055),rgba(255,255,255,.016));
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:20px;font-size:13.5px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 20px 44px -30px rgba(0,0,0,.95)}
+/* without backdrop-filter these would be near-transparent and unreadable */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .j-visual{background:var(--ink-2)}
+}
 
 /* Facebook feed advert mock — sized at 85% of the column, chrome scaled to match */
 .ad-slot{max-width:85%;margin-inline:auto}
