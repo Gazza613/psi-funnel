@@ -65,6 +65,9 @@
   --text:#EEF1F8;
   --text-2:#98A2BE;
   --text-3:#616C8A;
+  /* small mono labels sit over the funnel blooms, where --text-2 falls just
+     under AA at 11-12px. This tier clears it without reaching heading white. */
+  --text-label:#B8C2DA;
   /* intent tiers ride the CI: blue, amber, orange */
   --hot:#FF6A1F;
   --warm:#FFA24D;
@@ -386,20 +389,20 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .f-stage.show{transition:opacity .6s ease,transform .6s ease,border-color .35s var(--ease),box-shadow .35s var(--ease)}
 .f-stage .fs-head{display:flex;align-items:center;gap:14px}
 .f-stage .fs-head>*{flex:0 0 auto}
-.f-stage .fs-num{font-family:var(--mono);font-size:12px;color:var(--text-3);white-space:nowrap}
+.f-stage .fs-num{font-family:var(--mono);font-size:12px;color:var(--text-label);white-space:nowrap}
 .f-stage h3{font-size:clamp(17px,2vw,22px);font-weight:800;font-stretch:90%;text-transform:uppercase;white-space:nowrap}
 /* channel marks under stage 01. Monochrome and muted, so they read as a quiet
    statement of where the media runs rather than five brand logos competing
    with the stage number and the impression count. */
 .ch-row{display:flex;align-items:center;gap:15px;margin-top:14px}
-.ch-row .ch{width:17px;height:17px;stroke-width:1.6;color:var(--text-3);
+.ch-row .ch{width:17px;height:17px;stroke-width:1.75;color:var(--text-label);
   transition:color .3s var(--ease)}
-.ch-row:hover .ch{color:var(--text-2)}
+.ch-row:hover .ch{color:var(--text)}
 .ch-row .ch:hover{color:var(--g-amber)}
 .ch-row .ch-wa:hover{color:var(--wa)}
 .f-stage p{color:var(--text-2);font-size:14.5px;margin-top:6px;max-width:480px}
 .f-stage .fs-val{font-family:var(--mono);font-size:clamp(22px,3vw,34px);font-weight:600;text-align:right;white-space:nowrap}
-.f-stage .fs-sub{font-family:var(--mono);font-size:11px;color:var(--text-3);text-align:right;letter-spacing:.1em;margin-top:2px;white-space:nowrap}
+.f-stage .fs-sub{font-family:var(--mono);font-size:11px;color:var(--text-label);text-align:right;letter-spacing:.1em;margin-top:2px;white-space:nowrap}
 .f-stage .fs-fill{position:absolute;inset:0;border-radius:14px;background:var(--g-grad-soft);opacity:0;transition:opacity .8s ease;pointer-events:none}
 .f-stage.show .fs-fill{opacity:1}
 .f-stage::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g-grad);opacity:0;transition:opacity .8s ease}
