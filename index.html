@@ -74,7 +74,7 @@
      without a legend whether the lead is worth a call. Deliberately its own
      ramp: --hot/--warm/--cold carry the site-wide tier language in the funnel,
      journey and dashboard, and recolouring those would be a far wider change. */
-  --iq-cold:#FF5C5C; --iq-warm:#FFC53D; --iq-hot:#31D97A;
+  --iq-cold:#FF5C5C; --iq-warm:#F78918; --iq-hot:#31D97A;
   --wa:#25D366;
   --wa-ink:#04240F;    /* the dark green label ink that sits on WhatsApp green */
   --wa-bubble:#16233A;
@@ -283,17 +283,17 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 @keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
 
 .score-chip{position:absolute;top:104px;right:-26px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:12px;padding:10px 13px 11px;box-shadow:0 16px 40px -20px rgba(0,0,0,.85);min-width:146px}
-.score-chip .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--text-3);text-transform:uppercase}
+.score-chip .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--text);text-transform:uppercase}
 /* one attribute on .score-chip drives the pill, the number, the tier word, the
    bar and the route dot, so they can never disagree about the tier */
 .score-chip{--iq:var(--iq-cold);--iq-soft:rgba(255,92,92,.13);--iq-line:rgba(255,92,92,.45)}
-.score-chip[data-tier="warm"]{--iq:var(--iq-warm);--iq-soft:rgba(255,197,61,.14);--iq-line:rgba(255,197,61,.48)}
+.score-chip[data-tier="warm"]{--iq:var(--iq-warm);--iq-soft:rgba(247,137,24,.16);--iq-line:rgba(247,137,24,.5)}
 .score-chip[data-tier="hot"]{--iq:var(--iq-hot);--iq-soft:rgba(49,217,122,.14);--iq-line:rgba(49,217,122,.48)}
 .score-chip .val-pill{display:inline-flex;align-items:baseline;gap:8px;margin-top:7px;
   padding:4px 12px 5px;border-radius:999px;background:var(--iq-soft);
   border:1px solid var(--iq-line);box-shadow:0 0 26px -10px var(--iq);
   transition:background .55s var(--ease),border-color .55s var(--ease),box-shadow .55s var(--ease)}
-.score-chip .val{font-family:var(--mono);font-size:25px;font-weight:600;line-height:1;
+.score-chip .val{font-family:var(--mono);font-size:22px;font-weight:600;line-height:1;
   color:var(--iq);-webkit-text-fill-color:var(--iq);font-variant-numeric:tabular-nums;
   transition:color .55s var(--ease),-webkit-text-fill-color .55s var(--ease)}
 .score-chip .tier{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--iq);
@@ -1201,13 +1201,14 @@ body.scrolled .nav-inner{height:60px}
   .wa-msg{font-size:12.8px}
   .wa-assure{font-size:12.8px}
   .visual-label{font-size:10.5px;letter-spacing:.12em;padding:8px 14px}
-  /* On a phone the chip cannot overlay the mock, and sitting below it put the
-     score 1.4 screens down — you could not watch the number move with the
-     conversation, which is the whole point of the demo. Above the phone, both
-     fit one screen. */
+  /* The chip overlays the mock here as it does on desktop, tucked into the top
+     right over the header rather than over a bubble, so the number can be
+     watched moving with the conversation without costing a screen of height. */
   .hero-visual{display:flex;flex-direction:column}
   .visual-label{order:-2}
-  .score-chip{order:-1;position:static;margin:0 auto 14px;width:max-content;max-width:100%}
+  .score-chip{position:absolute;top:164px;right:2px;left:auto;order:0;margin:0;
+    width:max-content;max-width:none;z-index:4;
+    transform:scale(.92);transform-origin:top right}
   .route-chip{position:static;margin:12px auto 0;display:block;width:max-content;max-width:100%}
   .f-conn{font-size:10.5px;letter-spacing:.08em}
   .m-set{gap:52px;padding-right:52px}
