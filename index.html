@@ -400,6 +400,10 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .ch-row:hover .ch{color:var(--text)}
 .ch-row .ch:hover{color:var(--g-amber)}
 .ch-row .ch-wa:hover{color:var(--wa)}
+/* stage 02 carries one mark where stage 01 carries five, so it is sized to hold
+   the space on its own. Stroke thins as it grows, or it gains optical weight the
+   other icons do not have. */
+.ch-row .ch-wa{width:24px;height:24px;stroke-width:1.55}
 .f-stage p{color:var(--text-2);font-size:14.5px;margin-top:6px;max-width:480px}
 .f-stage .fs-val{font-family:var(--mono);font-size:clamp(22px,3vw,34px);font-weight:600;text-align:right;white-space:nowrap}
 .f-stage .fs-sub{font-family:var(--mono);font-size:11px;color:var(--text-label);text-align:right;letter-spacing:.1em;margin-top:2px;white-space:nowrap}
@@ -1243,6 +1247,9 @@ body.scrolled .nav-inner{height:60px}
     transform:scale(.92);transform-origin:top right}
   .route-chip{position:static;margin:12px auto 0;display:block;width:max-content;max-width:100%}
   .f-conn{font-size:10.5px;letter-spacing:.08em}
+  /* the channel the funnel runs on, on the screen most of them read it on */
+  .ch-row .ch-wa{width:31px;height:31px;stroke-width:1.45}
+  .ch-row{margin-top:12px}
   .m-set{gap:52px;padding-right:52px}
   .logo-item img{height:32px}
   .logo-item b{font-size:19px}
