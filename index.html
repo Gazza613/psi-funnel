@@ -310,7 +310,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .route-chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px}
 /* the waiting state only exists where the chip sits in the flow — see the
    480px block. Above that the chip floats over the phone and leaves no gap. */
-.route-wait{display:none}
+.route-wait,.sm-only{display:none}
 @keyframes rwpulse{0%,100%{opacity:.25;transform:scale(.75)}50%{opacity:1;transform:scale(1)}}
 /* the chip states where the lead went, so its dot carries the tier that
    decided it rather than always reading hot */
@@ -1290,6 +1290,12 @@ body.scrolled .nav-inner{height:60px}
 @media (max-width:620px){
   /* the byline strands the separator on its own line at phone widths */
   .kicker .k-by,.sm-hide{display:none}
+  /* the FAQ's bottom padding and the closing panel's top padding met at 116px
+     of empty ground before a 107px logo. Both come in, and the mark with them. */
+  .faq-sec{padding-bottom:26px}
+  .faq-sec .faq{padding-bottom:0}
+  .final{padding-top:26px}
+  .final .gas-mark{width:76px;height:76px;margin-bottom:14px}
   /* Phone order: headline, paragraph, one pill, the mock, the result, then the
      ask. The copy and the visual are separate grid columns, so the CTA cannot
      sit below the mock while it is nested inside the copy column. display:
@@ -1304,7 +1310,13 @@ body.scrolled .nav-inner{height:60px}
   .hero-sub{order:3}
   .chips{order:4}
   .hero-visual{order:5;margin-top:34px}
-  .wa-block{order:6;margin-top:30px}
+  /* the CTA follows a centred mock and a centred result chip, so left aligning
+     it left the button hanging off the edge of that column. The assurance pill
+     moves up into the chip above, which is the only one shown here. */
+  .wa-block{order:6;margin-top:26px;align-items:center}
+  .wa-block .wa-assure{display:none}
+  .sm-only{display:inline}
+  .chips{display:flex;justify-content:flex-start}
   /* one pill carries the promise here — three stack into a wall the eye has to
      climb before it reaches the demo */
   .chips .chip:nth-child(n+2){display:none}
@@ -1417,7 +1429,7 @@ body.scrolled .nav-inner{height:60px}
       <h1><span class="line"><span>Intent</span></span><span class="line"><span class="h-hot">Engineered</span></span></h1>
       <p class="hero-sub">PSI is <strong style="color:var(--text)">Pre-Sales Intelligence</strong>. It qualifies every lead before your sales team sees it. <span class="hs-more">Each enquiry opens a WhatsApp chat, where PSI asks what your salespeople waste hours asking: budget, timing, intent to buy. Every lead gets a score. Ready ones reach your team. The rest stay in the funnel until their intent rises. AI qualifies. Humans close.</span></p>
       <div class="chips">
-        <span class="chip live"><i></i>Live prospecting now</span>
+        <span class="chip live"><i></i><span class="sm-hide">Live prospecting now</span><span class="sm-only">PSI On Duty 24/7</span></span>
         <span class="chip"><svg class="ic"><use href="#i-radar"/></svg>Intent scored pre-sales</span>
         <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>Replies in seconds, 24/7</span>
       </div>
@@ -2043,7 +2055,7 @@ body.scrolled .nav-inner{height:60px}
   </div>
 </section>
 
-<section>
+<section class="faq-sec">
   <div class="wrap">
     <div class="section-head rv" style="text-align:center">
       <div class="eyebrow" style="justify-content:center">Common Questions</div>
@@ -2082,7 +2094,7 @@ body.scrolled .nav-inner{height:60px}
   <div class="wrap">
     <div class="gas-mark rv" role="img" aria-label="GAS logo"></div>
     <h2 class="rv rvw">Let's have a<br><span class="accent">Conversation that Counts.</span></h2>
-    <p class="lede rv">Do not fill in a form. Send us a WhatsApp message instead. Tell our PSI agent what your sales team is complaining about, and you will get an answer in seconds, at whatever hour you are reading this.</p>
+    <p class="lede rv">Do not fill in a form. Send us a WhatsApp message instead. Tell our PSI agent what your sales team is struggling with, and you will get an answer in seconds, at whatever hour you are reading this.</p>
     <div class="wa-block wa-mid rv">
       <a class="wa-launch magnetic" href="https://wa.me/" data-loc="closing" data-wa="Hi GAS, our lead quality needs work. Where do we start?">
         <svg class="ic wa-mark" aria-hidden="true"><use href="#i-whatsapp"/></svg>
