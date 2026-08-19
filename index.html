@@ -351,6 +351,16 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
    the cards on top. Glass over a flat colour has nothing to refract. */
 .funnel-sec{background:linear-gradient(180deg,rgba(11,18,36,.62),rgba(11,18,36,.38));
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
+/* the funnel's own light. Cool at the mouth, warm at the tip, so the blur in
+   the cards has something to pick up and the colour tracks the narrative:
+   cold traffic at stage 01, hot leads at stage 05. */
+#funnel{position:relative;isolation:isolate}
+#funnel::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(42% 24% at 18% 8%,rgba(91,140,255,.22),transparent 72%),
+    radial-gradient(40% 22% at 84% 34%,rgba(247,137,24,.16),transparent 74%),
+    radial-gradient(46% 26% at 46% 74%,rgba(255,106,31,.20),transparent 72%)}
+#funnel > .wrap{position:relative;z-index:1}
 .funnel-wrap{position:relative;max-width:1120px;margin:0 auto}
 .flow-col{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);z-index:0;overflow:hidden}
 .flow-dot{position:absolute;left:-2px;width:6px;height:6px;border-radius:50%;background:var(--g-amber);opacity:0;animation:fall 3.4s linear infinite}
@@ -358,16 +368,22 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .flow-dot:nth-child(3){animation-delay:2.2s;background:var(--g-red)}
 @keyframes fall{0%{top:-4%;opacity:0}8%{opacity:.9}88%{opacity:.9}100%{top:102%;opacity:0}}
 .f-stage{position:relative;z-index:1;overflow:hidden;margin:0 auto 12px;opacity:0;transform:translateY(26px) scale(.97);transition:opacity .6s ease,transform .6s ease;background:linear-gradient(158deg,rgba(255,255,255,.058),rgba(255,255,255,.018));
-  -webkit-backdrop-filter:blur(18px) saturate(150%);
-  backdrop-filter:blur(18px) saturate(150%);
-  border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:20px 26px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 20px 44px -30px rgba(0,0,0,.95);
+  -webkit-backdrop-filter:blur(22px) saturate(190%);
+  backdrop-filter:blur(22px) saturate(190%);
+  border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:20px 26px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(255,255,255,.04),
+    0 22px 48px -28px rgba(0,0,0,.98);
   display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
 /* without backdrop-filter the cards would be near-transparent and unreadable */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .f-stage{background:var(--ink-2)}
 }
 .f-stage.show{opacity:1;transform:none}
+.f-stage::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(134deg,rgba(255,255,255,.13),rgba(255,255,255,.02) 38%,transparent 62%)}
+.f-stage:hover{border-color:rgba(255,255,255,.20);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 26px 54px -30px rgba(0,0,0,.98)}
+.f-stage.show{transition:opacity .6s ease,transform .6s ease,border-color .35s var(--ease),box-shadow .35s var(--ease)}
 .f-stage .fs-head{display:flex;align-items:center;gap:14px}
 .f-stage .fs-head>*{flex:0 0 auto}
 .f-stage .fs-num{font-family:var(--mono);font-size:12px;color:var(--text-3);white-space:nowrap}
