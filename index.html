@@ -455,8 +455,13 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
    title beside the button — it stacks, which is how the real thing renders
    on mobile anyway */
 @media (max-width:620px){
-  .fb-linkbar{flex-direction:column;align-items:stretch;gap:7px}
-  .fb-linkbar .lb-title{white-space:normal}
+  /* a row, as Facebook renders it — the title ellipsises rather than the bar
+     growing a second storey, which cost 40px of a mock that was already tall */
+  .fb-linkbar{flex-direction:row;align-items:center;gap:8px}
+  .fb-cta{font-size:9.5px;padding:6px 8px;gap:4px}
+  .fb-cta .ic{width:13px;height:13px}
+  .fb-linkbar .lb-title{font-size:11px}
+
   .fb-cta{justify-content:center}
 }
 
@@ -1188,6 +1193,12 @@ body.scrolled .nav-inner{height:60px}
      the creative scales by container width, so a narrower slot shortens it
      proportionally. Both the ad and its CTA bar survive intact. */
   .fb-meta,.fb-actions{display:none}
+  /* the three comparison cells are the least readable part of the creative on a
+     phone (their labels land near 5px) and they are what held the frame square.
+     Out they go, and the creative becomes a 4:3 that does not run down the
+     screen. Declared here, below .gas-ad's own rule, or it loses the cascade. */
+  .ga-old,.ga-foot{display:none}
+  .gas-ad{aspect-ratio:4/3}
   .mini-chat .bubble{font-size:12px}
   .signal-row{padding:7px 0;font-size:11.5px}
   .lane{font-size:11.5px}
@@ -1545,7 +1556,7 @@ body.scrolled .nav-inner{height:60px}
                 </div>
                 <div class="fb-dots">···</div>
               </div>
-              <div class="fb-text">Still paying for leads nobody wants to call? ⚡ Chat to us on WhatsApp and see how PSI scores buying intent before your sales team picks up. 👇</div>
+              <div class="fb-text">Still paying for leads nobody wants to call? ⚡ PSI scores buying intent before sales picks up. 👇</div>
               <div class="creative-frame">
                 <div class="gas-ad" role="img" aria-label="GAS advert: stop guessing, start knowing. PSI spots in-market intent instantly and verifies it, instead of counting whitepaper downloads, ad clicks and email opens.">
                   <div class="ga-top"><span class="ga-mark" aria-hidden="true"></span><span class="ga-kicker">PSI · PRE-SALES INTELLIGENCE</span></div>
@@ -1570,7 +1581,7 @@ body.scrolled .nav-inner{height:60px}
               <div class="fb-linkbar">
                 <div class="lb-l">
                   <div class="lb-url">WHATSAPP</div>
-                  <div class="lb-title">Chat to us about lead quality</div>
+                  <div class="lb-title">Fix lead quality</div>
                 </div>
                 <span class="fb-cta"><svg class="ic" style="width:15px;height:15px;stroke-width:2"><use href="#i-whatsapp"/></svg>Send message<span class="tap-hint" aria-hidden="true"></span></span>
               </div>
