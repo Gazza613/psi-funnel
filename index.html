@@ -1000,10 +1000,6 @@ body.scrolled .nav-inner{height:60px}
 .creative-frame{position:relative;border-radius:10px;overflow:hidden;background:#0A1020;container-type:inline-size}
 .creative-frame img{display:block;width:100%;height:auto;transform:scale(1.001);transition:transform 1.2s var(--ease)}
 .ad-slot:hover .creative-frame img{transform:scale(1.05)}
-.creative-frame::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.16) 48%,transparent 58%);
-  background-size:280% 100%;animation:sheen 5.5s ease-in-out infinite}
-@keyframes sheen{0%,62%{background-position:180% 0}100%{background-position:-80% 0}}
 
 /* --- 15b. the GAS creative itself, drawn in code so it stays on CI at any size --- */
 .gas-ad{position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;
@@ -2598,9 +2594,7 @@ body.scrolled .nav-inner{height:60px}
       teaserTimer = setTimeout(function(){
         if(!dock.classList.contains('on')) return;
         teaser.classList.add('on');
-        /* 11s, not 9: the nudge now carries two sentences and the first read
-           was finishing about as it disappeared */
-        teaserTimer = setTimeout(function(){ teaser.classList.remove('on'); }, 11000);
+        teaserTimer = setTimeout(function(){ teaser.classList.remove('on'); }, 9000);
       }, 2600);
     }
     if(!show && teaser) teaser.classList.remove('on');
