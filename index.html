@@ -377,17 +377,16 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .flow-dot:nth-child(2){animation-delay:1.1s;background:var(--g-orange)}
 .flow-dot:nth-child(3){animation-delay:2.2s;background:var(--g-red)}
 @keyframes fall{0%{top:-4%;opacity:0}8%{opacity:.9}88%{opacity:.9}100%{top:102%;opacity:0}}
-.f-stage{position:relative;z-index:1;overflow:hidden;margin:0 auto 12px;opacity:0;transform:translateY(26px) scale(.97);transition:opacity .6s ease,transform .6s ease;background:linear-gradient(158deg,rgba(255,255,255,.058),rgba(255,255,255,.018));
-  -webkit-backdrop-filter:blur(22px) saturate(190%);
-  backdrop-filter:blur(22px) saturate(190%);
+/* Translucent rather than backdrop-filtered. These sit over #funnel's bloom,
+   so a blur was smoothing something already smooth — and it measured 23fps on
+   this section against 57 without it. The fill is tinted and semi-opaque so
+   the bloom still reads through the card. */
+.f-stage{position:relative;z-index:1;overflow:hidden;margin:0 auto 12px;opacity:0;transform:translateY(26px) scale(.97);transition:opacity .6s ease,transform .6s ease;
+  background:linear-gradient(158deg,rgba(30,41,70,.52),rgba(14,22,44,.38));
   border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:20px 26px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(255,255,255,.04),
     0 22px 48px -28px rgba(0,0,0,.98);
   display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
-/* without backdrop-filter the cards would be near-transparent and unreadable */
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .f-stage{background:var(--ink-2)}
-}
 .f-stage.show{opacity:1;transform:none}
 .f-stage::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   background:linear-gradient(134deg,rgba(255,255,255,.13),rgba(255,255,255,.02) 38%,transparent 62%)}
@@ -464,15 +463,9 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .j-copy h3{font-size:clamp(22px,2.4vw,30px);font-weight:800;font-stretch:88%;text-transform:uppercase;margin-bottom:10px}
 .j-copy p{color:var(--text-2);font-size:16px}
 .j-copy .j-meta{font-family:var(--mono);font-size:12px;color:var(--text-3);margin-top:14px;letter-spacing:.08em}
-.j-visual{background:linear-gradient(158deg,rgba(255,255,255,.055),rgba(255,255,255,.016));
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  backdrop-filter:blur(20px) saturate(180%);
+.j-visual{background:linear-gradient(158deg,rgba(30,41,70,.60),rgba(14,22,44,.46));
   border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:20px;font-size:13.5px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 20px 44px -30px rgba(0,0,0,.95)}
-/* without backdrop-filter these would be near-transparent and unreadable */
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .j-visual{background:var(--ink-2)}
-}
 
 /* Facebook feed advert mock — sized at 85% of the column, chrome scaled to match */
 .ad-slot{max-width:85%;margin-inline:auto}
@@ -2187,8 +2180,8 @@ body.scrolled .nav-inner{height:60px}
      ============================================================ -->
 <div class="wa-dock" id="waDock">
   <div class="wa-teaser" id="waTeaser">
-    <b>PSI is listening</b>
-    Rather just ask? Send one line about your funnel and see how PSI handles it.
+    <b>Test it on us</b>
+    Tell PSI what you pay per lead. See how fast it works out whether you are worth a call.
     <button class="x" type="button" id="waTeaserClose" aria-label="Dismiss"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
   </div>
   <a class="wa-fab" href="https://wa.me/" data-loc="floating_bubble" data-wa="Hi GAS, I have a question about PSI" aria-label="Chat to us on WhatsApp"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
