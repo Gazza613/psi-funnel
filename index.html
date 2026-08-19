@@ -675,8 +675,11 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   transition:box-shadow .35s var(--ease),transform .35s var(--ease)}
 .tm:hover img{box-shadow:0 0 0 2px rgba(255,162,77,.55);transform:scale(1.05)}
 .tm b{display:block;font-size:16.5px;font-weight:600;color:var(--text)}
+/* the role is the point of the strip, so it is set off white rather than in
+   the muted label grey, which measured 3.76:1 at 10px and failed to read.
+   The name stays larger and bolder, so the hierarchy holds on weight. */
 .tm span{display:block;margin-top:3px;font-family:var(--mono);font-size:10px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+  letter-spacing:.14em;text-transform:uppercase;color:#DDE3F2}
 @media (max-width:620px){
   .team-track .m-set{gap:28px;padding-right:28px}
   .tm img{width:91px;height:91px}
@@ -1838,7 +1841,7 @@ body.scrolled .nav-inner{height:60px}
     <div class="section-head rv" style="text-align:center">
       <div class="eyebrow" style="justify-content:center">The Team</div>
       <h2 class="rvw">Human command.<br><span class="accent">AI execution.</span></h2>
-      <p class="lede" style="margin-left:auto;margin-right:auto">Thirteen strategists, twelve AI agents, on every campaign we run.<br>Real strategists at the wheel, AI under the hood.</p>
+      <p class="lede" style="margin-left:auto;margin-right:auto">Thirteen strategists, eleven AI agents, on every campaign we run.<br>Real strategists at the wheel, AI under the hood.</p>
     </div>
   </div>
   <div class="team-strip rv">
@@ -1862,22 +1865,21 @@ body.scrolled .nav-inner{height:60px}
         </div>
       </div>
     </div>
-    <p class="tm-lbl"><i class="ai" aria-hidden="true"></i>12 AI Agents</p>
+    <p class="tm-lbl"><i class="ai" aria-hidden="true"></i>11 AI Agents</p>
     <div class="team-track" aria-label="The GAS AI division">
       <div class="marquee marquee-slow marquee-rev">
         <div class="m-set">
-          <figure class="tm"><img src="assets/team/sage.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Sage</b><span>Conversational AI Super Sleuth</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/mira.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Mira</b><span>AI Response Analyst</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/shaz.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Shaz</b><span>AI Metrics & Insight Advisor</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/aura.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Aura</b><span>AI Account Strategist</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/rumi.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Rumi</b><span>AI Playbook Architect</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/nova.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Nova</b><span>AI Knowledge Base Builder</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/ciara.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Ciara</b><span>AI Copywriter</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zeke.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Zeke</b><span>AI Creative Insight Partner</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/andiswa.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Andiswa</b><span>AI Account Coordinator</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zoey.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Zoey</b><span>AI Engagement Scribe</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/basil.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Basil</b><span>AI Photography Prompt Guru</span></figcaption></figure>
-          <figure class="tm"><img src="assets/team/zola.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Zola</b><span>AI Video & Art Prompt Assistant</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/sage.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Sage</b><span>The Lead Researcher</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/mira.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Mira</b><span>The Adjudicator</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/shaz.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Shaz</b><span>The Media Planner</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/aura.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Aura</b><span>The Lead Strategist</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/rumi.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Rumi</b><span>The Brain Mapper</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/nova.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Nova</b><span>The Fact Gatherer</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/ciara.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Ciara</b><span>The Copywriter</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zeke.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Zeke</b><span>The Creative Director</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/andiswa.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Andiswa</b><span>The Proposal Expert</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/zoey.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Zoey</b><span>The Compliance Expert</span></figcaption></figure>
+          <figure class="tm"><img src="assets/team/basil.jpg" alt="" width="108" height="108" loading="lazy"><figcaption><b>Basil</b><span>The Targeting Expert</span></figcaption></figure>
         </div>
       </div>
     </div>
