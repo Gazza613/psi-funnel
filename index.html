@@ -2598,7 +2598,9 @@ body.scrolled .nav-inner{height:60px}
       teaserTimer = setTimeout(function(){
         if(!dock.classList.contains('on')) return;
         teaser.classList.add('on');
-        teaserTimer = setTimeout(function(){ teaser.classList.remove('on'); }, 9000);
+        /* 11s, not 9: the nudge now carries two sentences and the first read
+           was finishing about as it disappeared */
+        teaserTimer = setTimeout(function(){ teaser.classList.remove('on'); }, 11000);
       }, 2600);
     }
     if(!show && teaser) teaser.classList.remove('on');
