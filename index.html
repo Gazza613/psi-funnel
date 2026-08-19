@@ -1276,7 +1276,7 @@ body.scrolled .nav-inner{height:60px}
   .ch-row{margin-top:12px}
   .m-set{gap:52px;padding-right:52px}
   .logo-item img{height:32px}
-  .logo-item b{font-size:19px}
+  .logo-item b{font-size:24px}
 }
 
 /* Touch targets. A finger needs about 44px; a mouse pointer does not, so this
@@ -1290,6 +1290,24 @@ body.scrolled .nav-inner{height:60px}
 @media (max-width:620px){
   /* the byline strands the separator on its own line at phone widths */
   .kicker .k-by{display:none}
+  /* Phone order: headline, paragraph, one pill, the mock, the result, then the
+     ask. The copy and the visual are separate grid columns, so the CTA cannot
+     sit below the mock while it is nested inside the copy column. display:
+     contents dissolves that wrapper, promoting its children to flex items that
+     can be ordered against the visual. Gap is zeroed because it would then
+     apply between every one of them; the existing margins do the spacing. */
+  .hero-grid{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .hero-grid>div:first-child{display:contents}
+  .hero-grid>*{min-width:0}
+  .kicker{order:1}
+  .hero h1{order:2}
+  .hero-sub{order:3}
+  .chips{order:4}
+  .hero-visual{order:5;margin-top:34px}
+  .wa-block{order:6;margin-top:30px}
+  /* one pill carries the promise here — three stack into a wall the eye has to
+     climb before it reaches the demo */
+  .chips .chip:nth-child(n+2){display:none}
   .br-sm{display:inline}
   .br-lg{display:none}
 }
@@ -1416,7 +1434,7 @@ body.scrolled .nav-inner{height:60px}
       </div>
     </div>
     <div class="hero-visual">
-      <p class="visual-label"><i class="vl-dot" aria-hidden="true"></i><b>Live Demo</b> · How PSI Qualifies a Lead ·</p>
+      <p class="visual-label"><i class="vl-dot" aria-hidden="true"></i><b>Live Demo</b> · How PSI Qualifies a Lead</p>
       <div class="phone gborder" id="heroPhone">
         <div class="phone-screen">
           <div class="wa-header">
@@ -1451,8 +1469,8 @@ body.scrolled .nav-inner{height:60px}
      the file into assets/logos/ and give that item
      <img src="assets/logos/name.png" alt="Name"> with .noimg removed. Images
      render greyscale and reveal full colour on hover. -->
-<div class="fans" aria-label="Some of our biggest fans">
-  <p class="fans-label">Some of our biggest fans</p>
+<div class="fans" aria-label="Our biggest fans">
+  <p class="fans-label">Our Biggest Fans</p>
   <div class="fans-track">
     <div class="marquee marquee-slow">
       <div class="m-set">
