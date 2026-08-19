@@ -490,8 +490,21 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .tap-hint{position:absolute;top:50%;left:50%;width:29px;height:29px;margin:-14.5px 0 0 -14.5px;border:2px solid #fff;border-radius:50%;opacity:0;animation:tap 3.6s ease-out infinite;pointer-events:none}
 @keyframes tap{0%,55%{opacity:0;transform:scale(.4)}62%{opacity:.9;transform:scale(.55)}78%{opacity:.35;transform:scale(1.1)}92%,100%{opacity:0;transform:scale(1.5)}}
 .fb-meta{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;font-size:10.5px;color:#B0B3B8}
+/* Facebook stacks its reaction discs and overlaps them, which is the detail
+   that makes the row read as a real post rather than an emoji pair */
+.fb-reacts{display:inline-flex;align-items:center}
+.fb-reacts .rx{width:16px;height:16px;border-radius:50%;display:grid;place-items:center;
+  border:1.5px solid #242526;flex:none}
+.fb-reacts .rx svg{width:9px;height:9px;fill:#fff}
+.fb-reacts .rx-like{background:linear-gradient(180deg,#3E8BFF,#1877F2);z-index:2}
+.fb-reacts .rx-love{background:linear-gradient(180deg,#FF6A80,#E4405F);margin-left:-5px;z-index:1}
+.fb-reacts b{font-weight:400;margin-left:6px;font-variant-numeric:tabular-nums}
 .fb-actions{display:flex;border-top:1px solid #3A3B3C}
-.fb-actions span{flex:1;text-align:center;padding:8px 0;font-size:10.5px;color:#B0B3B8;font-weight:600}
+.fb-actions span{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:8px 0;font-size:10.5px;color:#B0B3B8;font-weight:600}
+.fb-actions svg{width:13px;height:13px;fill:#B0B3B8;flex:none}
+.fb-sp{display:flex;align-items:center;gap:4px}
+.fb-globe{width:10px;height:10px;flex:none;fill:none;stroke:#B0B3B8;stroke-width:1.6}
 .ad-flow{font-family:var(--mono);font-size:11.5px;color:var(--g-amber);text-align:center;margin-top:12px;letter-spacing:.12em;animation:feedglow 2.6s ease-in-out infinite}
 /* on a phone the mock is barely 200px wide, so the link bar cannot hold a
    title beside the button — it stacks, which is how the real thing renders
@@ -934,7 +947,7 @@ body.scrolled .nav-inner{height:60px}
 .dash-chrome .dots i:first-child{background:rgba(255,106,31,.7)}
 .dash-chrome .dots i:nth-child(2){background:rgba(255,162,77,.55)}
 .dash-chrome .dots i:nth-child(3){background:rgba(91,140,255,.55)}
-.dash-chrome .url{flex:1;font-family:var(--mono);font-size:11.5px;color:var(--text-3);background:rgba(0,0,0,.32);border:1px solid var(--line);border-radius:8px;padding:6px 12px;letter-spacing:.04em}
+.dash-chrome .url{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);font-size:11.5px;color:var(--text-3);background:rgba(0,0,0,.32);border:1px solid var(--line);border-radius:8px;padding:6px 12px;letter-spacing:.04em}
 .dash-chrome .url b{color:var(--text-2);font-weight:500}
 
 /* --- 11. floating chips drift, phone breathes --- */
@@ -985,8 +998,8 @@ body.scrolled .nav-inner{height:60px}
 @keyframes sheen{0%,62%{background-position:180% 0}100%{background-position:-80% 0}}
 
 /* --- 15b. the GAS creative itself, drawn in code so it stays on CI at any size --- */
-.gas-ad{position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;gap:1.8cqw;
-  padding:4.2cqw 5cqw;background:
+.gas-ad{position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;
+  padding:5.4cqw 5.6cqw;background:
     radial-gradient(90% 70% at 92% 4%,rgba(255,106,31,.26),transparent 62%),
     radial-gradient(80% 70% at 4% 100%,rgba(42,77,168,.30),transparent 66%),
     linear-gradient(165deg,#0A1226 0%,#060B18 58%,#080F22 100%);
@@ -999,32 +1012,35 @@ body.scrolled .nav-inner{height:60px}
 .gas-ad>*{position:relative}
 .ga-top{display:flex;align-items:center;gap:2.2cqw}
 .ga-mark{width:6.4cqw;height:6.4cqw;border-radius:50%;flex:none;background:#0B1224 url(assets/brand/gas-mark.png) center/cover no-repeat;box-shadow:0 0 0 .5cqw rgba(247,137,24,.22)}
-.ga-kicker{font-family:var(--mono);font-size:2.5cqw;letter-spacing:.16em;color:var(--g-amber)}
-.ga-head{font-size:8.8cqw;line-height:.94;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;margin-top:.4cqw}
-.ga-head em{font-style:normal;background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ga-rule{height:1px;background:linear-gradient(90deg,rgba(247,137,24,.55),rgba(255,162,77,.35),transparent)}
-.ga-lane{display:flex;align-items:center;gap:2cqw;font-family:var(--mono);font-size:2.6cqw;letter-spacing:.1em;color:#C8D2EC}
-.ga-tag{font-weight:700;letter-spacing:.14em;padding:.9cqw 1.8cqw;border-radius:1.2cqw;font-size:2.4cqw;
-  background:rgba(37,211,102,.13);color:#5CE58C;border:1px solid rgba(37,211,102,.35)}
-.ga-tag.old{background:rgba(255,106,31,.1);color:var(--g-amber);border-color:rgba(255,106,31,.3)}
-.ga-signal{display:flex;align-items:center;gap:2.4cqw}
-.ga-signal .ic{width:11cqw;height:11cqw;color:#5CE58C;stroke-width:1.4}
-.ga-beam{flex:1;height:.7cqw;border-radius:1cqw;background:linear-gradient(90deg,rgba(92,229,140,.05),rgba(92,229,140,.85));
-  background-size:220% 100%;animation:gabeam 2.8s linear infinite}
-@keyframes gabeam{0%{background-position:120% 0}100%{background-position:-60% 0}}
-.ga-verified{display:flex;align-items:center;gap:1.6cqw;padding:1.8cqw 2.4cqw;border-radius:1.6cqw;
-  border:1px solid rgba(92,229,140,.4);background:rgba(92,229,140,.09);font-family:var(--mono);font-size:2.5cqw;letter-spacing:.08em;color:#DDF7E6;white-space:nowrap}
-.ga-verified .ic{width:3.6cqw;height:3.6cqw;color:#5CE58C;stroke-width:2}
-.ga-win{font-size:3.5cqw;font-weight:800;line-height:1.15;letter-spacing:-.01em;color:#EAF0FF;text-transform:uppercase}
-.ga-win b{background:var(--g-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ga-old{display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;margin-top:auto}
-.ga-cell{border:1px solid rgba(140,170,255,.14);border-radius:1.8cqw;background:rgba(255,255,255,.028);
-  padding:2.2cqw 1.6cqw;display:flex;flex-direction:column;align-items:center;gap:1cqw;text-align:center}
-.ga-cell .ic{width:5.2cqw;height:5.2cqw;color:#7E8BAE;stroke-width:1.6}
-.ga-cell .n{font-family:var(--mono);font-size:3.2cqw;font-weight:600;color:var(--g-amber);line-height:1}
-.ga-cell .l{font-family:var(--body);font-size:2.2cqw;line-height:1.2;color:#9AA5C4;letter-spacing:.02em}
-.ga-foot{font-family:var(--mono);font-size:2.3cqw;letter-spacing:.14em;color:#6E7A9B;text-align:center}
-@container (max-width:220px){.ga-foot{display:none}}
+.ga-kicker{font-family:var(--mono);font-size:2.5cqw;letter-spacing:.16em;color:var(--g-amber);text-transform:uppercase}
+
+/* One claim, set at a size that cannot be scrolled past. The numerals carry the
+   whole frame, so they get the gradient and the sheen; everything else stays
+   quiet underneath them. */
+.ga-stat{margin-top:auto;display:flex;align-items:baseline;gap:2.6cqw;
+  font-weight:900;font-stretch:74%;letter-spacing:-.03em;line-height:.82}
+.ga-stat b{font-size:26cqw;background:linear-gradient(100deg,#FFC078,#F78918 52%,#FF5A1F);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.ga-stat i{font-style:normal;font-size:9cqw;font-stretch:88%;font-weight:800;color:#8291B5}
+.ga-say{font-size:6.4cqw;font-weight:800;font-stretch:88%;line-height:1.12;
+  text-transform:uppercase;margin:3.2cqw 0 0;max-width:15ch}
+.ga-note{font-family:var(--mono);font-size:2.6cqw;letter-spacing:.09em;color:#93A0C0;
+  margin-top:auto;padding-top:3.6cqw;border-top:1px solid rgba(150,175,255,.18)}
+
+/* the numerals rise as the step reveals, then a slow sheen crosses them once */
+.js .j-step .ga-stat b,.js .j-step .ga-stat i,.js .j-step .ga-say{opacity:0;transform:translateY(1.6cqw)}
+.js .j-step.show .ga-stat b,.js .j-step.show .ga-stat i,.js .j-step.show .ga-say{
+  animation:garise .7s var(--ease) forwards}
+.js .j-step.show .ga-stat b:nth-of-type(1){animation-delay:.1s}
+.js .j-step.show .ga-stat i{animation-delay:.24s}
+.js .j-step.show .ga-stat b:nth-of-type(2){animation-delay:.34s}
+.js .j-step.show .ga-say{animation-delay:.5s}
+@keyframes garise{to{opacity:1;transform:none}}
+.ga-stat::after{content:"";position:absolute;inset:-2cqw -6cqw;pointer-events:none;
+  background:linear-gradient(100deg,transparent 38%,rgba(255,255,255,.16) 50%,transparent 62%);
+  transform:translateX(-130%)}
+.j-step.show .ga-stat::after{animation:gasheen 2.6s var(--ease) 1.1s}
+@keyframes gasheen{to{transform:translateX(130%)}}
 
 /* ============================================================
    16. THE WHATSAPP LAUNCH
@@ -1237,12 +1253,11 @@ body.scrolled .nav-inner{height:60px}
      the like/comment/share row are Facebook chrome, not the argument, and
      the creative scales by container width, so a narrower slot shortens it
      proportionally. Both the ad and its CTA bar survive intact. */
-  .fb-meta,.fb-actions{display:none}
+  .fb-actions{display:none}
   /* the three comparison cells are the least readable part of the creative on a
      phone (their labels land near 5px) and they are what held the frame square.
      Out they go, and the creative becomes a 4:3 that does not run down the
      screen. Declared here, below .gas-ad's own rule, or it loses the cascade. */
-  .ga-old,.ga-foot{display:none}
   .gas-ad{aspect-ratio:4/3}
   .mini-chat .bubble{font-size:12px}
   .signal-row{padding:7px 0;font-size:11.5px}
@@ -1286,6 +1301,7 @@ body.scrolled .nav-inner{height:60px}
   .rw-dots i:nth-child(2){animation-delay:.18s}
   .rw-dots i:nth-child(3){animation-delay:.36s}
   .f-conn{font-size:10.5px;letter-spacing:.08em}
+  .dash-chrome .url{font-size:9.5px;letter-spacing:.02em;padding:6px 9px}
   /* the channel the funnel runs on, on the screen most of them read it on */
   .ch-row .ch-wa{width:31px;height:31px;stroke-width:1.45}
   .ch-row{margin-top:12px}
@@ -1650,30 +1666,17 @@ body.scrolled .nav-inner{height:60px}
                 <div class="fb-avatar" role="img" aria-label="GAS Marketing profile picture"></div>
                 <div>
                   <div class="fb-name">GAS Marketing</div>
-                  <div class="fb-sp">Sponsored · 🌐</div>
+                  <div class="fb-sp">Sponsored <span class="fb-dot">&middot;</span> <svg class="fb-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg></div>
                 </div>
                 <div class="fb-dots">···</div>
               </div>
               <div class="fb-text">Still paying for leads nobody wants to call? ⚡ PSI scores buying intent before sales picks up. 👇</div>
               <div class="creative-frame">
-                <div class="gas-ad" role="img" aria-label="GAS advert: stop guessing, start knowing. PSI spots in-market intent instantly and verifies it, instead of counting whitepaper downloads, ad clicks and email opens.">
-                  <div class="ga-top"><span class="ga-mark" aria-hidden="true"></span><span class="ga-kicker">PSI · PRE-SALES INTELLIGENCE</span></div>
-                  <h4 class="ga-head">Stop guessing.<br><em>Start knowing.</em></h4>
-                  <div class="ga-rule" aria-hidden="true"></div>
-                  <div class="ga-lane"><span class="ga-tag">NEW WAY</span> SPOT INTENT INSTANTLY</div>
-                  <div class="ga-signal">
-                    <svg class="ic" aria-hidden="true"><use href="#i-radar"/></svg>
-                    <span class="ga-beam" aria-hidden="true"></span>
-                    <span class="ga-verified"><svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg>IN-MARKET: VERIFIED</span>
-                  </div>
-                  <div class="ga-win">Shorter sales cycles.<br><b>Stronger conversations.</b></div>
-                  <div class="ga-lane"><span class="ga-tag old">OLD WAY</span> HOURS SPENT GUESSING INTENT</div>
-                  <div class="ga-old">
-                    <div class="ga-cell"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg><span class="n">20%</span><span class="l">Whitepaper download</span></div>
-                    <div class="ga-cell"><svg class="ic" aria-hidden="true"><use href="#i-tap"/></svg><span class="n">20%</span><span class="l">Ad click</span></div>
-                    <div class="ga-cell"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg><span class="n">20%</span><span class="l">Email open</span></div>
-                  </div>
-                  <div class="ga-foot">LOW SERIOUSNESS · HIGH SALES COST</div>
+                <div class="gas-ad" role="img" aria-label="GAS advert: nine in ten leads you pay for are never worth a call. PSI scores intent on WhatsApp before sales picks up.">
+                  <div class="ga-top"><span class="ga-mark" aria-hidden="true"></span><span class="ga-kicker">Pre-Sales Intelligence</span></div>
+                  <div class="ga-stat" aria-hidden="true"><b>9</b><i>in</i><b>10</b></div>
+                  <h4 class="ga-say">Leads you pay for are never worth a call.</h4>
+                  <div class="ga-note">PSI scores intent on WhatsApp, before sales picks up.</div>
                 </div>
               </div>
               <div class="fb-linkbar">
@@ -1683,8 +1686,19 @@ body.scrolled .nav-inner{height:60px}
                 </div>
                 <span class="fb-cta"><svg class="ic" style="width:15px;height:15px;stroke-width:2"><use href="#i-whatsapp"/></svg>Send message<span class="tap-hint" aria-hidden="true"></span></span>
               </div>
-              <div class="fb-meta"><span>👍❤️ 214</span><span>32 comments · 11 shares</span></div>
-              <div class="fb-actions"><span>👍 Like</span><span>💬 Comment</span><span>↗ Share</span></div>
+              <div class="fb-meta">
+                <span class="fb-reacts">
+                  <span class="rx rx-like" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.6 21H5.8A1.8 1.8 0 0 1 4 19.2v-7.4A1.8 1.8 0 0 1 5.8 10h2.8v11Zm2-11.4 3.1-6.2a1.5 1.5 0 0 1 2.8.9l-.6 4.5h4a1.9 1.9 0 0 1 1.9 2.2l-1.1 6.6A2.2 2.2 0 0 1 18.5 21h-7.9V9.6Z"/></svg></span>
+                  <span class="rx rx-love" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20.4s-7.3-4.5-9.2-8.7A5.05 5.05 0 0 1 12 6.9a5.05 5.05 0 0 1 9.2 4.8c-1.9 4.2-9.2 8.7-9.2 8.7Z"/></svg></span>
+                  <b data-count="214">0</b>
+                </span>
+                <span>32 comments &middot; 11 shares</span>
+              </div>
+              <div class="fb-actions">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 21H5.8A1.8 1.8 0 0 1 4 19.2v-7.4A1.8 1.8 0 0 1 5.8 10h2.8v11Zm2-11.4 3.1-6.2a1.5 1.5 0 0 1 2.8.9l-.6 4.5h4a1.9 1.9 0 0 1 1.9 2.2l-1.1 6.6A2.2 2.2 0 0 1 18.5 21h-7.9V9.6Z"/></svg>Like</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.1 9.1 0 0 1-2.9-.5L4 21l1.7-4.2A8.2 8.2 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3.2a8.4 8.4 0 0 1 9 8.3Z"/></svg>Comment</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 4.5 21 12l-8 7.5V15C8.6 15 5.6 16.3 3.5 19.5c.4-5.6 3.4-9 9.5-9.4V4.5Z"/></svg>Share</span>
+              </div>
             </div>
             </div>
             <p class="ad-flow">CLICK ↓ WHATSAPP OPENS ↓ PSI TAKES THE CONVERSATION</p>
@@ -1777,7 +1791,7 @@ body.scrolled .nav-inner{height:60px}
     <div class="dash-shell rv spot" role="img" aria-label="Illustrative PSI dashboard showing intent scored leads">
       <div class="dash-chrome" aria-hidden="true">
         <span class="dots"><i></i><i></i><i></i></span>
-        <span class="url">psi.gasmarketing.co.za<b>/prospecting/live</b></span>
+        <span class="url"><span class="sm-hide">psi.</span>gasmarketing.co.za<b>/live_dashboard</b></span>
       </div>
       <div class="dash-top">
         <div class="d-title"><span class="psi-mark">PSI</span> GAS PROSPECTING · CAMPAIGN VIEW</div>
