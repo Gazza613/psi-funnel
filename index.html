@@ -308,6 +308,10 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .route-chip{position:absolute;bottom:20px;left:-24px;background:var(--ink-3);border:1px solid var(--line-2);border-radius:14px;padding:12px 16px;font-family:var(--mono);font-size:12px;box-shadow:0 20px 50px -18px rgba(0,0,0,.8);opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
 .route-chip.show{opacity:1;transform:none}
 .route-chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px}
+/* the waiting state only exists where the chip sits in the flow — see the
+   480px block. Above that the chip floats over the phone and leaves no gap. */
+.route-wait{display:none}
+@keyframes rwpulse{0%,100%{opacity:.25;transform:scale(.75)}50%{opacity:1;transform:scale(1)}}
 /* the chip states where the lead went, so its dot carries the tier that
    decided it rather than always reading hot */
 .route-chip.hot .dot{background:var(--iq-hot);box-shadow:0 0 12px var(--iq-hot)}
@@ -1135,6 +1139,9 @@ body.scrolled .nav-inner{height:60px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rv,.js .rv,.j-step,.bubble,.route-chip,.f-stage{opacity:1!important;transform:none!important;filter:none!important}
+  /* the chip above is forced visible, so the waiting state would sit on top of
+     it in the same grid cell */
+  .route-wait{display:none!important}
   .js .rv .w{opacity:1!important;transform:none!important;filter:none!important}
   .ic-draw{stroke-dasharray:none!important;stroke-dashoffset:0!important}
   h1 .line span{transform:none!important}
@@ -1245,7 +1252,24 @@ body.scrolled .nav-inner{height:60px}
   .score-chip{position:absolute;top:164px;right:2px;left:auto;order:0;margin:0;
     width:max-content;max-width:none;z-index:4;
     transform:scale(.92);transform-origin:top right}
-  .route-chip{position:static;margin:12px auto 0;display:block;width:max-content;max-width:100%}
+  /* the chip is in the flow here and only arrives once the lead is scored,
+     which left an empty band under the phone for most of the conversation.
+     Both states share one grid cell, so the space always reads as working and
+     the page never jumps when the result lands. */
+  .route-chip{position:static;margin:0;display:block;width:max-content;max-width:100%}
+  .route-slot{display:grid;margin-top:12px}
+  .route-slot>*{grid-area:1/1;justify-self:center}
+  .route-wait{display:inline-flex;align-items:center;gap:10px;
+    background:var(--ink-3);border:1px solid var(--line-2);border-radius:14px;
+    padding:12px 16px;font-family:var(--mono);font-size:12px;color:var(--text-2);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.8);width:max-content;max-width:100%;
+    transition:opacity .45s ease,transform .45s ease}
+  .route-chip.show+.route-wait{opacity:0;transform:translateY(-5px);pointer-events:none}
+  .rw-dots{display:inline-flex;gap:5px;flex:none}
+  .rw-dots i{width:6px;height:6px;border-radius:50%;background:var(--g-amber);
+    animation:rwpulse 1.25s ease-in-out infinite}
+  .rw-dots i:nth-child(2){animation-delay:.18s}
+  .rw-dots i:nth-child(3){animation-delay:.36s}
   .f-conn{font-size:10.5px;letter-spacing:.08em}
   /* the channel the funnel runs on, on the screen most of them read it on */
   .ch-row .ch-wa{width:31px;height:31px;stroke-width:1.45}
@@ -1413,7 +1437,10 @@ body.scrolled .nav-inner{height:60px}
         </div>
         <div class="bar"><i id="heroBar"></i></div>
       </div>
-      <div class="route-chip hot" id="heroRoute"><span class="dot"></span><span class="rc-text">ROUTED TO THE SALES TEAM WITH FULL CONTEXT</span></div>
+      <div class="route-slot">
+        <div class="route-chip hot" id="heroRoute"><span class="dot"></span><span class="rc-text">ROUTED TO THE SALES TEAM WITH FULL CONTEXT</span></div>
+        <div class="route-wait" aria-hidden="true"><span class="rw-dots"><i></i><i></i><i></i></span><span>PSI IS SCORING THIS CONVERSATION</span></div>
+      </div>
     </div>
   </div>
 </header>
