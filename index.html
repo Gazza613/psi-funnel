@@ -341,11 +341,16 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 /* travel is exactly one set width, so the loop is seamless no matter how
    many sets the script cloned. -50% is the two-set fallback. */
 @keyframes scroll{to{transform:translate3d(calc(-1 * var(--set-w,50%)),0,0)}}
-.marquee-slow{animation-duration:48s}
-/* the team rows carry fifty photographs between them — twice the fans strip's
-   load — so they travel slower, which reads calmer and hides the odd long
-   frame a row that wide will always drop */
-.team-track .marquee-slow{animation-duration:72s}
+/* .marquee.rolling is two classes, so a single-class override never beat it —
+   this row has been running at the base 30s rather than the 48s intended.
+   Matched specificity, and set to a speed that clears a whole pixel per frame:
+   below that the row creeps in fractional steps and reads as judder however
+   high the frame rate is. */
+.marquee.marquee-slow{animation-duration:18s}
+/* The team rows travel further per cycle, so they can be slower and still
+   clear a pixel a frame. At 72s they moved 0.96px per frame and 161 frames in
+   171 fell under a whole pixel, which is what the judder was. */
+.team-track .marquee.marquee-slow{animation-duration:50s}
 .m-set{display:flex;align-items:center;gap:84px;padding-right:84px;white-space:nowrap}
 .logo-item{display:flex;align-items:center;height:46px;filter:grayscale(1) brightness(1.5);opacity:.45;transition:filter .35s ease,opacity .35s ease}
 .logo-item:hover,.logo-item.mid{filter:none;opacity:1}
