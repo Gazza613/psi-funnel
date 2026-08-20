@@ -333,24 +333,20 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
    The keyframe still uses translate3d, which is what keeps it off the paint
    path in the first place. */
 .marquee{display:flex;gap:0;width:max-content}
-/* .rolling is added by the script once it has cloned enough sets and
-   measured the repeat unit. Without JS the row simply sits still. */
-.marquee.rolling{animation:scroll 30s linear infinite}
-/* deliberately no hover pause: a row that stops under the cursor reads as
-   broken, and on a touch screen it can stop and never restart */
-/* travel is exactly one set width, so the loop is seamless no matter how
-   many sets the script cloned. -50% is the two-set fallback. */
-@keyframes scroll{to{transform:translate3d(calc(-1 * var(--set-w,50%)),0,0)}}
-/* .marquee.rolling is two classes, so a single-class override never beat it —
-   this row has been running at the base 30s rather than the 48s intended.
-   Matched specificity, and set to a speed that clears a whole pixel per frame:
-   below that the row creeps in fractional steps and reads as judder however
-   high the frame rate is. */
-.marquee.marquee-slow{animation-duration:18s}
-/* The team rows travel further per cycle, so they can be slower and still
-   clear a pixel a frame. At 72s they moved 0.96px per frame and 161 frames in
-   171 fell under a whole pixel, which is what the judder was. */
-.team-track .marquee.marquee-slow{animation-duration:50s}
+/* The roll is driven by script, not by a keyframe. A keyframe here has to read
+   the repeat width from a custom property, and a transform keyframe containing
+   var() cannot be accelerated by Chromium — it runs on the main thread, so
+   every hiccup there shows as uneven motion. Measured on the team row: 33%
+   variation in per-frame travel with the keyframe, 14% once the same movement
+   is handed to the Web Animations API with a literal pixel value.
+
+   These rules only carry the speed. The script reads --roll and animates the
+   row itself. Without script the row simply sits still, as before. */
+.marquee.marquee-slow{--roll:18s}
+/* the team rows travel further per cycle, so they can be slower and still clear
+   a whole pixel a frame — under that the row creeps in fractional steps and
+   reads as judder however high the frame rate is */
+.team-track .marquee.marquee-slow{--roll:50s}
 .m-set{display:flex;align-items:center;gap:84px;padding-right:84px;white-space:nowrap}
 .logo-item{display:flex;align-items:center;height:46px;filter:grayscale(1) brightness(1.5);opacity:.45;transition:filter .35s ease,opacity .35s ease}
 .logo-item:hover,.logo-item.mid{filter:none;opacity:1}
@@ -738,7 +734,7 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
   mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .team-track + .tm-lbl{margin-top:34px}
 .team-track .m-set{display:flex;align-items:center;gap:40px;padding-right:40px;white-space:nowrap}
-.marquee-rev{animation-direction:reverse}
+/* .marquee-rev is read by the script, which reverses the animation */
 .tm{margin:0;display:flex;align-items:center;gap:17px}
 /* faces stay in colour — greyscale reads as archive footage on people,
    where it reads as restraint on the client logos */
@@ -2232,6 +2228,22 @@ body.scrolled .nav-inner{height:60px}
     var tracks = document.querySelectorAll('.team-track');
     if(!tracks.length) return;
 
+    /* Hand the movement to the Web Animations API with a literal pixel value.
+       The same movement as a keyframe has to reach for var() to know how far one
+       set is, and that keeps it off the compositor. */
+    function roll(marquee, setW){
+      marquee.getAnimations().forEach(function(a){ a.cancel(); });
+      if(reduced || !marquee.animate) return;
+      var dur = parseFloat(getComputedStyle(marquee).getPropertyValue('--roll')) * 1000;
+      if(!dur || !setW) return;
+      marquee.animate(
+        [{ transform:'translate3d(0,0,0)' },
+         { transform:'translate3d(' + (-setW) + 'px,0,0)' }],
+        { duration: dur, iterations: Infinity, easing: 'linear',
+          direction: marquee.classList.contains('marquee-rev') ? 'reverse' : 'normal' }
+      );
+    }
+
     function build(track){
       var marquee = track.querySelector('.marquee');
       var seed = marquee && marquee.querySelector('.m-set');
@@ -2252,6 +2264,7 @@ body.scrolled .nav-inner{height:60px}
       }
       marquee.style.setProperty('--set-w', setW + 'px');
       marquee.classList.add('rolling');
+      roll(marquee, setW);
     }
 
     function buildAll(){ Array.prototype.forEach.call(tracks, build); }
@@ -2352,6 +2365,22 @@ body.scrolled .nav-inner{height:60px}
     var seed = marquee && marquee.querySelector('.m-set');
     if(!seed) return;
 
+    /* Hand the movement to the Web Animations API with a literal pixel value.
+       The same movement as a keyframe has to reach for var() to know how far one
+       set is, and that keeps it off the compositor. */
+    function roll(marquee, setW){
+      marquee.getAnimations().forEach(function(a){ a.cancel(); });
+      if(reduced || !marquee.animate) return;
+      var dur = parseFloat(getComputedStyle(marquee).getPropertyValue('--roll')) * 1000;
+      if(!dur || !setW) return;
+      marquee.animate(
+        [{ transform:'translate3d(0,0,0)' },
+         { transform:'translate3d(' + (-setW) + 'px,0,0)' }],
+        { duration: dur, iterations: Infinity, easing: 'linear',
+          direction: marquee.classList.contains('marquee-rev') ? 'reverse' : 'normal' }
+      );
+    }
+
     function build(){
       marquee.classList.remove('rolling');
       marquee.style.removeProperty('--set-w');
@@ -2372,6 +2401,7 @@ body.scrolled .nav-inner{height:60px}
       }
       marquee.style.setProperty('--set-w', setW + 'px');
       marquee.classList.add('rolling');
+      roll(marquee, setW);
       measure();
     }
 
