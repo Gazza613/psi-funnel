@@ -492,7 +492,7 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 .fb-linkbar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#18191A;padding:10px 12px;border-top:1px solid #3A3B3C}
 .fb-linkbar .lb-l{min-width:0}
 .fb-linkbar .lb-url{font-size:9.5px;color:#B0B3B8;text-transform:uppercase;letter-spacing:.04em}
-.fb-linkbar .lb-title{font-weight:600;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fb-linkbar .lb-title{font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fb-cta{position:relative;flex:none;display:inline-flex;align-items:center;gap:6px;background:var(--wa);color:#04240F;font-weight:700;font-size:11px;border-radius:7px;padding:8px 12px;animation:ctaglow 2.6s ease-in-out infinite}
 @keyframes ctaglow{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.45)}50%{box-shadow:0 0 0 8px rgba(37,211,102,0)}}
 .tap-hint{position:absolute;top:50%;left:50%;width:29px;height:29px;margin:-14.5px 0 0 -14.5px;border:2px solid #fff;border-radius:50%;opacity:0;animation:tap 3.6s ease-out infinite;pointer-events:none}
@@ -523,7 +523,9 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
   .fb-linkbar{flex-direction:row;align-items:center;gap:8px}
   .fb-cta{font-size:9.5px;padding:6px 8px;gap:4px}
   .fb-cta .ic{width:13px;height:13px}
-  .fb-linkbar .lb-title{font-size:11px}
+  /* the title is longer than the bar can hold beside the button, so it wraps
+     rather than being cut off mid-word. Link ads wrap their titles too. */
+  .fb-linkbar .lb-title{font-size:11px;white-space:normal;overflow:visible}
 
   .fb-cta{justify-content:center}
 }
@@ -963,8 +965,8 @@ body.scrolled .nav-inner{height:60px}
 .dash-chrome .dots i:first-child{background:rgba(255,106,31,.7)}
 .dash-chrome .dots i:nth-child(2){background:rgba(255,162,77,.55)}
 .dash-chrome .dots i:nth-child(3){background:rgba(91,140,255,.55)}
-.dash-chrome .url{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);font-size:11.5px;color:var(--text-3);background:rgba(0,0,0,.32);border:1px solid var(--line);border-radius:8px;padding:6px 12px;letter-spacing:.04em}
-.dash-chrome .url b{color:var(--text-2);font-weight:500}
+.dash-chrome .url{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);font-size:11.5px;color:var(--text);background:rgba(0,0,0,.32);border:1px solid var(--line);border-radius:8px;padding:6px 12px;letter-spacing:.04em}
+.dash-chrome .url b{color:inherit;font-weight:500}
 
 /* --- 11. floating chips drift, phone breathes --- */
 .hero-visual{perspective:1200px}
@@ -1262,6 +1264,12 @@ body.scrolled .nav-inner{height:60px}
      the creative scales by container width, so a narrower slot shortens it
      proportionally. Both the ad and its CTA bar survive intact. */
   .fb-actions{display:none}
+  @media (max-width:359px){
+    /* at this width the button leaves less than one word of room beside it */
+    .fb-linkbar{flex-direction:column;align-items:stretch;gap:7px}
+    .fb-linkbar .lb-title{font-size:10.5px}
+    .fb-cta{justify-content:center}
+  }
   /* the three comparison cells are the least readable part of the creative on a
      phone (their labels land near 5px) and they are what held the frame square.
      Out they go, and the creative becomes a 4:3 that does not run down the
@@ -1690,7 +1698,7 @@ body.scrolled .nav-inner{height:60px}
               <div class="fb-linkbar">
                 <div class="lb-l">
                   <div class="lb-url">WHATSAPP</div>
-                  <div class="lb-title">Fix lead quality</div>
+                  <div class="lb-title">Fix Your Lead Problems</div>
                 </div>
                 <span class="fb-cta"><svg class="ic" style="width:15px;height:15px;stroke-width:2"><use href="#i-whatsapp"/></svg>Send message<span class="tap-hint" aria-hidden="true"></span></span>
               </div>
@@ -1779,7 +1787,7 @@ body.scrolled .nav-inner{height:60px}
           <div class="j-visual">
             <div class="signal-row"><span class="s-name">Qualified leads → CRM</span><span class="s-val">SYNCED</span></div>
             <div class="signal-row"><span class="s-name">Intent tiers → Meta CAPI</span><span class="s-val">SYNCED</span></div>
-            <div class="signal-row"><span class="s-name">Full transcript to sales</span><span class="s-val">ATTACHED</span></div>
+            <div class="signal-row"><span class="s-name">Full transcript to sales</span><span class="s-val">DELIVERED</span></div>
           </div>
         </div>
       </div>
@@ -2744,35 +2752,35 @@ body.scrolled .nav-inner{height:60px}
   var conversations = [
     { name:'Naledi', avatar:'assets/leads/naledi.jpg', route:'ROUTED TO THE SALES TEAM WITH FULL CONTEXT', routeTier:'hot', script:[
       {who:'psi',  text:'Hi Naledi \u{1F44B} Thanks for tapping our PSI ad. What is going wrong with your leads at the moment?', score:12, t:'21:02'},
-      {who:'lead', text:'We pay for plenty of leads but almost none of them are worth calling', score:29, t:'21:03'},
+      {who:'lead', text:'We pay for plenty of leads but almost none of them are worth calling.', score:29, t:'21:03'},
       {who:'psi',  text:'That is the usual pattern. Roughly what are you paying per lead, and how many reach a real conversation?', score:41, t:'21:03'},
-      {who:'lead', text:'About R180 a lead. Maybe 1 in 10 is worth a call', score:69, t:'21:04'},
+      {who:'lead', text:'About R180 a lead. Maybe 1 in 10 is worth a call.', score:69, t:'21:04'},
       {who:'psi',  text:'So nine in ten are paid for and never sold to. PSI scores intent before your team picks up. Free strategy session Thursday 9am?', score:85, t:'21:04'},
-      {who:'lead', text:'Thursday 9am works, send the invite \u{1F64C}', score:94, t:'21:05'}
+      {who:'lead', text:'Thursday 9am works, send the invite. \u{1F64C}', score:94, t:'21:05'}
     ]},
     { name:'James', avatar:'assets/leads/james.jpg', route:'ROUTED TO THE SALES TEAM WITH FULL CONTEXT', routeTier:'hot', script:[
       {who:'psi',  text:'Hi James \u{1F44B} Thanks for tapping our PSI ad. What would you most want fixed in your funnel?', score:15, t:'09:12'},
-      {who:'lead', text:'Our conversion rate. Traffic is fine, enquiries are fine, sales are not', score:34, t:'09:12'},
+      {who:'lead', text:'Our conversion rate. Traffic is fine, enquiries are fine, sales are not.', score:34, t:'09:12'},
       {who:'psi',  text:'Where do people drop off, before your first reply or after it?', score:49, t:'09:13'},
-      {who:'lead', text:'After. They enquire, we reply, then it goes quiet', score:73, t:'09:13'},
+      {who:'lead', text:'After. They enquire, we reply, then it goes quiet.', score:73, t:'09:13'},
       {who:'psi',  text:'That gap is where intent dies. PSI keeps the conversation alive and scores it as it moves. Walkthrough on Tuesday?', score:81, t:'09:14'},
-      {who:'lead', text:'Tuesday morning suits, send it through', score:86, t:'09:14'}
+      {who:'lead', text:'Tuesday morning suits, send it through.', score:86, t:'09:14'}
     ]},
     { name:'Greg', avatar:'assets/leads/greg.jpg', route:'MOVED TO NURTURE · PSI FOLLOWS UP NEXT WEEK', routeTier:'warm', script:[
       {who:'psi',  text:'Hi Greg \u{1F44B} Thanks for tapping our PSI ad. What is the biggest pressure on your sales side?', score:13, t:'14:41'},
-      {who:'lead', text:'My team is drowning. Too many enquiries and they are closing fewer than before', score:31, t:'14:42'},
+      {who:'lead', text:'My team is drowning. Too many enquiries and they are closing fewer than before.', score:31, t:'14:42'},
       {who:'psi',  text:'How much of their day goes on enquiries that were never going to buy?', score:44, t:'14:42'},
-      {who:'lead', text:'Most of it. They are exhausted and the good ones slip through', score:62, t:'14:43'},
+      {who:'lead', text:'Most of it. They are exhausted and the good ones slip through.', score:62, t:'14:43'},
       {who:'psi',  text:'PSI qualifies first, so your team only speaks to buyers. Want to see it running on your enquiries?', score:71, t:'14:43'},
-      {who:'lead', text:'Maybe. Things are hectic right now, let me come back to you next week', score:65, t:'14:44'}
+      {who:'lead', text:'Maybe. Things are hectic right now, let me come back to you next week.', score:65, t:'14:44'}
     ]},
     { name:'Michelle', avatar:'assets/leads/michelle.jpg', route:'ROUTED TO THE SALES TEAM WITH FULL CONTEXT', routeTier:'hot', script:[
       {who:'psi',  text:'Hi Michelle \u{1F44B} Thanks for tapping our PSI ad. How are you managing your leads right now?', score:14, t:'10:05'},
-      {who:'lead', text:'Spreadsheets and WhatsApp. We lose track of who has been contacted', score:37, t:'10:06'},
+      {who:'lead', text:'Spreadsheets and WhatsApp. We lose track of who has been contacted.', score:37, t:'10:06'},
       {who:'psi',  text:'So there is no single place where a lead and its history live?', score:52, t:'10:06'},
-      {who:'lead', text:'No. Every rep keeps their own notes on their own phone', score:74, t:'10:07'},
+      {who:'lead', text:'No. Every rep keeps their own notes on their own phone.', score:74, t:'10:07'},
       {who:'psi',  text:'PSI holds every conversation, score and next step in one place. Free session Thursday?', score:85, t:'10:07'},
-      {who:'lead', text:'Thursday works, please send the invite', score:91, t:'10:08'}
+      {who:'lead', text:'Thursday works, please send the invite.', score:91, t:'10:08'}
     ]}
   ];
 
