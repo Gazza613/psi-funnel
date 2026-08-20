@@ -330,7 +330,8 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 /* .rolling is added by the script once it has cloned enough sets and
    measured the repeat unit. Without JS the row simply sits still. */
 .marquee.rolling{animation:scroll 30s linear infinite}
-.marquee:hover{animation-play-state:paused}
+/* deliberately no hover pause: a row that stops under the cursor reads as
+   broken, and on a touch screen it can stop and never restart */
 /* travel is exactly one set width, so the loop is seamless no matter how
    many sets the script cloned. -50% is the two-set fallback. */
 @keyframes scroll{to{transform:translate3d(calc(-1 * var(--set-w,50%)),0,0)}}
@@ -2250,8 +2251,14 @@ body.scrolled .nav-inner{height:60px}
     window.addEventListener('load', buildAll);
     buildAll();
 
-    var t;
+    var t, lastW = window.innerWidth;
     window.addEventListener('resize', function(){
+      /* a phone hiding its URL bar fires resize with the same width. Rebuilding
+         then restarts the row from its first face, which is what made it jump
+         back to the start mid-scroll. Only a width change can alter how many
+         clones are needed. */
+      if(window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
       clearTimeout(t); t = setTimeout(buildAll, 200);
     });
   })();
@@ -2407,8 +2414,14 @@ body.scrolled .nav-inner{height:60px}
     if(document.fonts && document.fonts.ready) document.fonts.ready.then(build);
     build();
 
-    var t;
+    var t, lastW = window.innerWidth;
     window.addEventListener('resize', function(){
+      /* a phone hiding its URL bar fires resize with the same width. Rebuilding
+         then restarts the row from its first face, which is what made it jump
+         back to the start mid-scroll. Only a width change can alter how many
+         clones are needed. */
+      if(window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
       clearTimeout(t); t = setTimeout(build, 200);
     });
   })();
