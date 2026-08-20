@@ -850,7 +850,10 @@ footer .p-mail{font-size:13px}
 /* the reach line opens the section rather than sitting in a column under the
    clocks — it is the only place on the page that states the footprint */
 .f-head{text-align:center;padding-bottom:34px}
-.f-head h2{font-size:clamp(23px,3.3vw,38px);line-height:1.06}
+/* 32px is the ceiling on a phone: at 34 the line breaks to four at 320px.
+   The forced break holds it to two everywhere below 620, and above that the
+   line runs whole. */
+.f-head h2{font-size:clamp(32px,3.3vw,38px);line-height:1.06}
 .f-head p{margin:12px auto 0;max-width:52ch;font-size:15.5px;color:var(--text-2)}
 @media (max-width:620px){ .f-head{padding-bottom:26px} .f-head p{font-size:14.5px} }
 footer .office-list li{padding:9px 0;font-size:15px;color:var(--text-2)}
