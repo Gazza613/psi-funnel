@@ -847,7 +847,12 @@ footer address{font-style:normal;font-size:15px;line-height:1.7;color:var(--text
 footer .p-lbl{margin-bottom:12px}
 footer .p-links{padding-top:16px;gap:8px 22px}
 footer .p-mail{font-size:13px}
-.f-spread{margin-top:16px;font-size:13px;line-height:1.6;color:var(--text-3);max-width:44ch}
+/* the reach line opens the section rather than sitting in a column under the
+   clocks — it is the only place on the page that states the footprint */
+.f-head{text-align:center;padding-bottom:34px}
+.f-head h2{font-size:clamp(23px,3.3vw,38px);line-height:1.06}
+.f-head p{margin:12px auto 0;max-width:52ch;font-size:15.5px;color:var(--text-2)}
+@media (max-width:620px){ .f-head{padding-bottom:26px} .f-head p{font-size:14.5px} }
 footer .office-list li{padding:9px 0;font-size:15px;color:var(--text-2)}
 footer .o-time{font-size:13.5px}
 @media (max-width:720px){ .f-cols{grid-template-columns:1fr;gap:26px} }
@@ -2152,6 +2157,10 @@ body.scrolled .nav-inner{height:60px}
 </section>
 
 <footer class="presence">
+  <div class="wrap f-head">
+    <h2 class="rvw">Four locations,<br class="br-sm"> <span class="accent">two time zones.</span></h2>
+    <p>The working day starts in Johannesburg and finishes in Lisbon.</p>
+  </div>
   <div class="wrap f-cols">
     <div class="f-col">
       <div class="p-lbl">Head Office</div>
@@ -2173,7 +2182,6 @@ body.scrolled .nav-inner{height:60px}
         <li data-tz="Africa/Johannesburg"><i aria-hidden="true"></i>Cape Town<span class="o-time">--:--</span></li>
         <li data-tz="Europe/Lisbon"><i aria-hidden="true"></i>Portugal<span class="o-time">--:--</span></li>
       </ul>
-        <p class="f-spread">Four locations, two time zones. The working day starts in Johannesburg and finishes in Lisbon.</p>
     </div>
   </div>
   <div class="wrap f-row">
@@ -2240,16 +2248,31 @@ body.scrolled .nav-inner{height:60px}
        The same movement as a keyframe has to reach for var() to know how far one
        set is, and that keeps it off the compositor. */
     function roll(marquee, setW){
+      /* buildAll runs three times on load — immediately, on fonts.ready and on
+         load — because the repeat width genuinely changes as the webfont and
+         the photographs settle. Those rebuilds are needed; restarting the row
+         at its first face each time is not, and it snapped back up to eight
+         times in the first second. Carry the progress across instead. */
+      var prev = marquee.getAnimations()[0], carry = 0;
+      if(prev && prev.effect){
+        var pd = prev.effect.getTiming().duration;
+        if(pd) carry = (prev.currentTime % pd) / pd;
+        prev.cancel();
+      }
       marquee.getAnimations().forEach(function(a){ a.cancel(); });
       if(reduced || !marquee.animate) return;
       var dur = parseFloat(getComputedStyle(marquee).getPropertyValue('--roll')) * 1000;
       if(!dur || !setW) return;
-      marquee.animate(
-        [{ transform:'translate3d(0,0,0)' },
-         { transform:'translate3d(' + (-setW) + 'px,0,0)' }],
-        { duration: dur, iterations: Infinity, easing: 'linear',
-          direction: marquee.classList.contains('marquee-rev') ? 'reverse' : 'normal' }
-      );
+      /* the reverse row travels the other way through its own keyframes rather
+         than through direction:'reverse'. Under reverse, currentTime counts
+         from the far end, so carrying a progress fraction across a rebuild
+         lands the row on the mirrored position — a jump of most of a set. */
+      var rev = marquee.classList.contains('marquee-rev');
+      var from = rev ? 'translate3d(' + (-setW) + 'px,0,0)' : 'translate3d(0,0,0)';
+      var to   = rev ? 'translate3d(0,0,0)' : 'translate3d(' + (-setW) + 'px,0,0)';
+      var anim = marquee.animate([{ transform: from }, { transform: to }],
+        { duration: dur, iterations: Infinity, easing: 'linear' });
+      if(carry) anim.currentTime = carry * dur;
     }
 
     function build(track){
@@ -2377,16 +2400,31 @@ body.scrolled .nav-inner{height:60px}
        The same movement as a keyframe has to reach for var() to know how far one
        set is, and that keeps it off the compositor. */
     function roll(marquee, setW){
+      /* buildAll runs three times on load — immediately, on fonts.ready and on
+         load — because the repeat width genuinely changes as the webfont and
+         the photographs settle. Those rebuilds are needed; restarting the row
+         at its first face each time is not, and it snapped back up to eight
+         times in the first second. Carry the progress across instead. */
+      var prev = marquee.getAnimations()[0], carry = 0;
+      if(prev && prev.effect){
+        var pd = prev.effect.getTiming().duration;
+        if(pd) carry = (prev.currentTime % pd) / pd;
+        prev.cancel();
+      }
       marquee.getAnimations().forEach(function(a){ a.cancel(); });
       if(reduced || !marquee.animate) return;
       var dur = parseFloat(getComputedStyle(marquee).getPropertyValue('--roll')) * 1000;
       if(!dur || !setW) return;
-      marquee.animate(
-        [{ transform:'translate3d(0,0,0)' },
-         { transform:'translate3d(' + (-setW) + 'px,0,0)' }],
-        { duration: dur, iterations: Infinity, easing: 'linear',
-          direction: marquee.classList.contains('marquee-rev') ? 'reverse' : 'normal' }
-      );
+      /* the reverse row travels the other way through its own keyframes rather
+         than through direction:'reverse'. Under reverse, currentTime counts
+         from the far end, so carrying a progress fraction across a rebuild
+         lands the row on the mirrored position — a jump of most of a set. */
+      var rev = marquee.classList.contains('marquee-rev');
+      var from = rev ? 'translate3d(' + (-setW) + 'px,0,0)' : 'translate3d(0,0,0)';
+      var to   = rev ? 'translate3d(0,0,0)' : 'translate3d(' + (-setW) + 'px,0,0)';
+      var anim = marquee.animate([{ transform: from }, { transform: to }],
+        { duration: dur, iterations: Infinity, easing: 'linear' });
+      if(carry) anim.currentTime = carry * dur;
     }
 
     function build(){
