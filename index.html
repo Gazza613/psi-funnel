@@ -659,27 +659,30 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
    pixels on a phone. */
 .nudge{margin-top:26px;border:1px solid var(--line);border-radius:var(--radius);
   background:rgba(255,255,255,.02);padding:22px 22px 24px}
-.nudge-lbl{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--text-label)}
-.nudge-lbl i{width:7px;height:7px;border-radius:50%;background:var(--warm);flex:none;
-  box-shadow:0 0 10px rgba(255,162,77,.75)}
+.nudge-lbl{display:flex;align-items:center;gap:11px;font-family:var(--disp);
+  font-size:clamp(17px,2vw,21px);font-weight:800;font-stretch:90%;letter-spacing:.01em;
+  text-transform:uppercase;color:var(--text);line-height:1.15}
+.nudge-lbl i{width:9px;height:9px;border-radius:50%;background:var(--warm);flex:none;
+  box-shadow:0 0 12px rgba(255,162,77,.8)}
 .nudge-intro{margin:12px 0 20px;font-size:15.5px;line-height:1.6;color:var(--text-2);max-width:74ch}
 .nudge-rail{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.nd{margin:0;display:flex;flex-direction:column;gap:10px}
+.nd{margin:0;display:grid;grid-template-rows:auto 1fr auto;gap:10px}
+.nd-phone,.nd-mail{height:100%}
 .nd-when{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--text-3)}
 .nd-when span{color:var(--g-amber)}
-.nd-why{margin:0;font-size:13px;line-height:1.45;color:var(--text-3)}
+.nd-why{margin:0;font-size:13px;line-height:1.45;color:var(--text-3);min-height:2.9em}
 
 /* the handset */
-.nd-phone{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0A1526}
+.nd-phone{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0A1526;
+  display:flex;flex-direction:column}
 .nd-bar{display:flex;align-items:center;gap:8px;padding:9px 11px;background:rgba(255,255,255,.05);
   border-bottom:1px solid var(--line)}
 .nd-av{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;
   background:linear-gradient(150deg,#3A4870,#1B2440);font-family:var(--mono);font-size:9.5px;
   color:var(--text-2)}
 .nd-nm{font-size:12px;font-weight:600;color:var(--text)}
-.nd-body{padding:11px;display:flex;flex-direction:column;gap:7px;
+.nd-body{padding:11px;display:flex;flex-direction:column;gap:7px;flex:1;
   background-image:linear-gradient(rgba(140,170,255,.045) 1px,transparent 1px);
   background-size:100% 22px}
 .nd-msg{position:relative;max-width:92%;padding:8px 10px 15px;border-radius:10px;font-size:12.5px;
