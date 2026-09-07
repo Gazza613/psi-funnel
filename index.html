@@ -653,6 +653,33 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 /* Both sections close on a centred single line rather than a block of content,
    so the standard section padding underneath it read as a hole. Half of it is
    enough once the footnote's own air is counted. */
+/* the re-engagement the section argues for, shown rather than asserted:
+   two WhatsApp nudges and an email across three months, ending in the tier
+   the lead comes back as */
+.nudge{margin-top:26px;border:1px solid var(--line);border-radius:var(--radius);
+  background:rgba(255,255,255,.02);padding:20px 20px 22px}
+.nudge-lbl{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--text-label);margin-bottom:16px}
+.nudge-lbl i{width:7px;height:7px;border-radius:50%;background:var(--warm);flex:none;
+  box-shadow:0 0 10px rgba(255,162,77,.75)}
+.nudge-rail{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.nu{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:var(--ink-2);
+  display:flex;flex-direction:column;gap:8px}
+.nu-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.nu-day{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-3)}
+.nu-ch{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--wa)}
+.nu-ch.mail{color:var(--cold)}
+.nu-ch .ic{width:12px;height:12px;stroke-width:2}
+.nu p{margin:0;font-size:13px;line-height:1.45;color:var(--text-2)}
+.nu.back{border-color:rgba(49,217,122,.42);background:rgba(49,217,122,.07)}
+.nu-score{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--iq-hot);
+  font-variant-numeric:tabular-nums}
+.nu-score b{font-size:9.5px;letter-spacing:.14em;font-weight:500;margin-left:3px}
+@media (max-width:900px){ .nudge-rail{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .nudge-rail{grid-template-columns:1fr} .nudge{padding:16px 16px 18px} }
+
 #harvest,#compound{padding-bottom:calc(var(--sec) * .5)}
 
 /* ---------- faq ---------- */
@@ -1706,7 +1733,7 @@ body.scrolled .nav-inner{height:60px}
       <div class="mo hot rv">
         <div class="mo-n">309</div>
         <div class="mo-t">Ready now</div>
-        <p>Handed to sales with the transcript and the score attached. This is the part every funnel counts, and the only part most of them keep.</p>
+        <p>Handed to sales with the transcript and the score attached, ready to call. This is the part every funnel counts, and the only part most keep.</p>
       </div>
       <div class="mo warm rv">
         <div class="mo-n">643</div>
@@ -1717,6 +1744,27 @@ body.scrolled .nav-inner{height:60px}
         <div class="mo-n">1,323</div>
         <div class="mo-t">Not now</div>
         <p>Cold today is not cold forever. Budgets unlock, contracts end, people change roles. Every one of them stays scored and stays watched.</p>
+      </div>
+    </div>
+    <div class="nudge rv">
+      <div class="nudge-lbl"><i aria-hidden="true"></i>How the other 1,966 come back</div>
+      <div class="nudge-rail">
+        <div class="nu">
+          <div class="nu-top"><span class="nu-day">Day 21</span><span class="nu-ch"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</span></div>
+          <p>&ldquo;Still worth running your numbers? Takes two minutes.&rdquo;</p>
+        </div>
+        <div class="nu">
+          <div class="nu-top"><span class="nu-day">Day 48</span><span class="nu-ch mail"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Email</span></div>
+          <p>Quarterly cost-per-lead benchmark for their category.</p>
+        </div>
+        <div class="nu">
+          <div class="nu-top"><span class="nu-day">Day 96</span><span class="nu-ch"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</span></div>
+          <p>&ldquo;New budget cycle just opened. Worth fifteen minutes?&rdquo;</p>
+        </div>
+        <div class="nu back">
+          <div class="nu-top"><span class="nu-day">Reply</span><span class="nu-score">82 <b>HOT</b></span></div>
+          <p>Re-scored on the answer and handed to sales, same as day one.</p>
+        </div>
       </div>
     </div>
     <p class="mo-foot rv"><b>1,966 conversations</b> bought with the same media as the 309. A funnel that stops at the handover is throwing away the larger half of what it paid for.</p>
@@ -1959,7 +2007,7 @@ body.scrolled .nav-inner{height:60px}
   <div class="wrap">
     <div class="section-head rv" style="text-align:center">
       <div class="eyebrow" style="justify-content:center">Built On Your Data</div>
-      <h2 class="rvw">Month one it scores.<br> <span class="accent">Month six it predicts.</span></h2>
+      <h2 class="rvw">Month one it scores.<br> <span class="accent">Month three it predicts.</span></h2>
       <p class="lede" style="margin-left:auto;margin-right:auto">PSI does not arrive knowing your market. It builds the scorecard on your own conversations, and every deal your team closes teaches it what a real buyer sounded like three weeks earlier.</p>
     </div>
     <div class="mo-grid">
@@ -1969,12 +2017,12 @@ body.scrolled .nav-inner{height:60px}
         <p>Your offer, your price points, the objections that actually come up in your market. The first month is calibration, against a scoring model built for your funnel rather than a generic one.</p>
       </div>
       <div class="mo rv">
-        <div class="mo-s">Month 03</div>
+        <div class="mo-s">Month 02</div>
         <div class="mo-t">Patterns surface</div>
         <p>Thousands of conversations in, the tells separate. Which questions precede a booking, which phrases precede a stall, which channel sends people who buy rather than people who browse.</p>
       </div>
       <div class="mo rv">
-        <div class="mo-s">Month 06</div>
+        <div class="mo-s">Month 03</div>
         <div class="mo-t">It predicts</div>
         <p>Sales outcomes feed back, so the score stops describing interest and starts anticipating it. The same spend reaches the same market and returns more, because the qualification underneath it got sharper.</p>
       </div>
