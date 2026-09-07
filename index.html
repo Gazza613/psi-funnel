@@ -653,6 +653,43 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 /* Both sections close on a centred single line rather than a block of content,
    so the standard section padding underneath it read as a hole. Half of it is
    enough once the footnote's own air is counted. */
+/* The scorecard, as a macro view rather than one lead's arithmetic: the profile
+   three months of outcomes produced, and the changes PSI made to its own
+   questions as a result. The second column is the part a generic agent cannot
+   have, because it never learns which of its questions predicted a sale. */
+.scard{margin-top:26px;border:1px solid var(--line);border-radius:var(--radius);
+  background:rgba(255,255,255,.02);padding:24px 24px 22px}
+.scard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;
+  flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.scard-title{font-family:var(--disp);font-size:clamp(17px,2vw,21px);font-weight:800;
+  font-stretch:90%;text-transform:uppercase;letter-spacing:.01em;line-height:1.15}
+.scard-meta{margin-top:7px;font-size:14.5px;line-height:1.55;color:var(--text-2);max-width:62ch}
+.scard-meta em{font-style:normal;color:var(--text)}
+.scard-ver{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-label);border:1px solid var(--line-2);border-radius:99px;padding:7px 13px;
+  white-space:nowrap}
+.scard-ver span{color:var(--g-amber)}
+
+.scard-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px);margin-top:20px}
+.scard-ct{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:12px}
+.scard-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+.scard-list li{display:flex;gap:11px;font-size:14.5px;line-height:1.5;color:var(--text-2)}
+.scard-list li span{flex:1;min-width:0}
+.scard-list li b{color:var(--text);font-weight:600}
+.scard-list .ic{width:15px;height:15px;flex:none;margin-top:3px;stroke-width:2.4}
+.scard-list.find .ic{color:var(--iq-hot)}
+.scard-list.did .ic{color:var(--g-amber)}
+.scard-foot{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line);
+  font-size:14.5px;line-height:1.6;color:var(--text-2);max-width:82ch}
+.scard-foot b{color:var(--text);font-weight:600}
+
+@media (max-width:760px){ .scard-cols{grid-template-columns:1fr;gap:24px} }
+@media (max-width:620px){
+  .scard{padding:18px 16px}
+  .scard-meta,.scard-list li,.scard-foot{font-size:13.5px}
+}
+
 /* The re-engagement, shown in the surfaces it actually happens in rather than
    as three abstract cards. Sizes here are fixed px, not container units — the
    ad mock taught us that cqw-scaled type inside a small frame lands at four
@@ -2098,6 +2135,43 @@ body.scrolled .nav-inner{height:60px}
         <p>Sales outcomes feed back, so the score stops describing interest and starts anticipating it. The same spend reaches the same market and returns more on sharper qualification.</p>
       </div>
     </div>
+    <div class="scard rv">
+      <div class="scard-head">
+        <div>
+          <div class="scard-title">Your prospecting scorecard</div>
+          <div class="scard-meta">What a high-intent lead looks like on <em>your</em> funnel, learned from 6,825 of your own conversations. It does not transfer to anyone else.</div>
+        </div>
+        <span class="scard-ver">Version 3 <span>&middot;</span> Month 03</span>
+      </div>
+
+      <div class="scard-cols">
+        <div class="scard-col">
+          <div class="scard-ct">The profile it found</div>
+          <ul class="scard-list find">
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Already spending on paid media, and says so unprompted</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Names lead <b>quality</b> rather than lead volume as the problem</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Answers the cost-per-lead question instead of deflecting it</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Replies inside the hour, in full sentences</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Asks how it works before asking what it costs</span></li>
+          </ul>
+        </div>
+
+        <div class="scard-col">
+          <div class="scard-ct">What PSI changed because of it</div>
+          <ul class="scard-list did">
+            <li><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg><span>Cost per lead moved to the second message. It separates buyers fastest.</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg><span>Company size dropped entirely. Three months of outcomes showed no link to closing.</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg><span>A slot is offered on the third reply once four of the five match.</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg><span>Price is held back until they ask. The ones who ask first are the ones who buy.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="scard-foot"><b>This is version three.</b> Every conversation updates it, so the model your
+        funnel runs next quarter is not the one it runs today, and it is not a version anyone else
+        can buy. The scorecard is the asset; the conversations are how it is paid for.</p>
+    </div>
+
     <p class="mo-foot rv">A scorecard trained on your funnel is not portable and not generic. It is the asset the engagement builds, and it compounds for as long as it runs.</p>
   </div>
 </section>
