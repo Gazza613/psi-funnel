@@ -653,36 +653,77 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 /* Both sections close on a centred single line rather than a block of content,
    so the standard section padding underneath it read as a hole. Half of it is
    enough once the footnote's own air is counted. */
-/* the re-engagement the section argues for, shown rather than asserted:
-   two WhatsApp nudges and an email across three months, ending in the tier
-   the lead comes back as */
+/* The re-engagement, shown in the surfaces it actually happens in rather than
+   as three abstract cards. Sizes here are fixed px, not container units — the
+   ad mock taught us that cqw-scaled type inside a small frame lands at four
+   pixels on a phone. */
 .nudge{margin-top:26px;border:1px solid var(--line);border-radius:var(--radius);
-  background:rgba(255,255,255,.02);padding:20px 20px 22px}
+  background:rgba(255,255,255,.02);padding:22px 22px 24px}
 .nudge-lbl{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--text-label);margin-bottom:16px}
+  letter-spacing:.18em;text-transform:uppercase;color:var(--text-label)}
 .nudge-lbl i{width:7px;height:7px;border-radius:50%;background:var(--warm);flex:none;
   box-shadow:0 0 10px rgba(255,162,77,.75)}
-.nudge-rail{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.nu{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:var(--ink-2);
-  display:flex;flex-direction:column;gap:8px}
-.nu-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.nu-day{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+.nudge-intro{margin:12px 0 20px;font-size:15.5px;line-height:1.6;color:var(--text-2);max-width:74ch}
+.nudge-rail{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.nd{margin:0;display:flex;flex-direction:column;gap:10px}
+.nd-when{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--text-3)}
-.nu-ch{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9.5px;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--wa)}
-.nu-ch.mail{color:var(--cold)}
-.nu-ch .ic{width:12px;height:12px;stroke-width:2}
-.nu p{margin:0;font-size:13px;line-height:1.45;color:var(--text-2)}
-.nu.back{border-color:rgba(49,217,122,.42);background:rgba(49,217,122,.07)}
-.nu-score{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--iq-hot);
-  font-variant-numeric:tabular-nums}
-.nu-score b{font-size:9.5px;letter-spacing:.14em;font-weight:500;margin-left:3px}
-@media (max-width:900px){ .nudge-rail{grid-template-columns:1fr 1fr} }
-@media (max-width:520px){ .nudge-rail{grid-template-columns:1fr} .nudge{padding:16px 16px 18px} }
+.nd-when span{color:var(--g-amber)}
+.nd-why{margin:0;font-size:13px;line-height:1.45;color:var(--text-3)}
 
-/* Both sections open under a panelled section and close on a centred single
-   line, so a full section padding at either end read as a hole. Half at both,
-   which also makes the two boundaries symmetric: 132px above and below. */
+/* the handset */
+.nd-phone{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0A1526}
+.nd-bar{display:flex;align-items:center;gap:8px;padding:9px 11px;background:rgba(255,255,255,.05);
+  border-bottom:1px solid var(--line)}
+.nd-av{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:linear-gradient(150deg,#3A4870,#1B2440);font-family:var(--mono);font-size:9.5px;
+  color:var(--text-2)}
+.nd-nm{font-size:12px;font-weight:600;color:var(--text)}
+.nd-body{padding:11px;display:flex;flex-direction:column;gap:7px;
+  background-image:linear-gradient(rgba(140,170,255,.045) 1px,transparent 1px);
+  background-size:100% 22px}
+.nd-msg{position:relative;max-width:92%;padding:8px 10px 15px;border-radius:10px;font-size:12.5px;
+  line-height:1.42;color:var(--text)}
+.nd-msg.out{align-self:flex-end;background:#12463A;border-bottom-right-radius:3px}
+.nd-msg.in{align-self:flex-start;background:#1A2440;border-bottom-left-radius:3px}
+.nd-t{position:absolute;right:9px;bottom:4px;font-family:var(--mono);font-size:8.5px;
+  color:var(--text-3)}
+
+/* the inbox */
+.nd-mail{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0C1220;
+  padding:12px 13px;display:flex;flex-direction:column;gap:7px}
+.nd-from{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-2)}
+.nd-from b{display:block;color:var(--text);font-weight:600;font-size:12px}
+.nd-from em{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;color:var(--text-3)}
+.nd-mav{width:22px;height:22px;border-radius:6px;flex:none;display:grid;place-items:center;
+  background:var(--g-grad);font-family:var(--disp);font-weight:900;font-stretch:78%;
+  font-size:8.5px;color:#2B0A02}
+.nd-subj{font-size:13px;font-weight:600;color:var(--text);line-height:1.35;
+  padding-top:7px;border-top:1px solid var(--line)}
+.nd-prev{font-size:12.5px;line-height:1.45;color:var(--text-3)}
+
+/* the outcome */
+.nudge-out{display:flex;align-items:center;gap:12px;margin-top:18px;padding:13px 16px;
+  border-radius:12px;border:1px solid rgba(49,217,122,.4);background:rgba(49,217,122,.07);
+  flex-wrap:wrap}
+.no-score{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--iq-hot);line-height:1;
+  font-variant-numeric:tabular-nums}
+.no-tier{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--iq-hot);
+  border:1px solid rgba(49,217,122,.45);border-radius:99px;padding:3px 9px}
+.no-txt{font-size:14.5px;color:var(--text-2);flex:1;min-width:min(100%,260px)}
+
+/* Just above the three-column breakpoint the cards are at their narrowest, and
+   one paragraph wrapped a line longer than its neighbours. Twelve pixels of
+   text column recovers it without dropping to two columns or leaving a card
+   orphaned on its own row. */
+@media (min-width:981px) and (max-width:1080px){ .mo{padding:24px 18px} }
+@media (max-width:900px){ .nudge-rail{grid-template-columns:1fr;gap:20px} }
+@media (max-width:620px){
+  .nudge{padding:18px 16px 20px}
+  .nudge-intro{font-size:14.5px;margin-bottom:16px}
+  .no-txt{font-size:13.5px}
+}
+
 #harvest,#compound{padding-top:calc(var(--sec) * .5);padding-bottom:calc(var(--sec) * .5)}
 
 /* ---------- faq ---------- */
@@ -1751,23 +1792,47 @@ body.scrolled .nav-inner{height:60px}
     </div>
     <div class="nudge rv">
       <div class="nudge-lbl"><i aria-hidden="true"></i>How the other 1,966 come back</div>
+      <p class="nudge-intro">PSI remembers what they told it. If someone says the budget opens in January, it does not chase them in February. It waits, keeps the thread warm, and comes back the week before.</p>
+
       <div class="nudge-rail">
-        <div class="nu">
-          <div class="nu-top"><span class="nu-day">Day 21</span><span class="nu-ch"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</span></div>
-          <p>&ldquo;Still worth running your numbers? Takes two minutes.&rdquo;</p>
-        </div>
-        <div class="nu">
-          <div class="nu-top"><span class="nu-day">Day 48</span><span class="nu-ch mail"><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>Email</span></div>
-          <p>Quarterly cost-per-lead benchmark for their category.</p>
-        </div>
-        <div class="nu">
-          <div class="nu-top"><span class="nu-day">Day 96</span><span class="nu-ch"><svg class="ic" aria-hidden="true"><use href="#i-whatsapp"/></svg>WhatsApp</span></div>
-          <p>&ldquo;New budget cycle just opened. Worth fifteen minutes?&rdquo;</p>
-        </div>
-        <div class="nu back">
-          <div class="nu-top"><span class="nu-day">Reply</span><span class="nu-score">82 <b>HOT</b></span></div>
-          <p>Re-scored on the answer and handed to sales, same as day one.</p>
-        </div>
+        <figure class="nd">
+          <figcaption class="nd-when">Day 21 <span>&middot;</span> WhatsApp</figcaption>
+          <div class="nd-phone">
+            <div class="nd-bar"><span class="nd-av">N</span><span class="nd-nm">Naledi M.</span></div>
+            <div class="nd-body">
+              <div class="nd-msg out">No rush at all. You said budget opens in the new year, so I will check in closer to then.<span class="nd-t">09:14</span></div>
+            </div>
+          </div>
+          <p class="nd-why">Keeps the thread alive without asking for anything.</p>
+        </figure>
+
+        <figure class="nd">
+          <figcaption class="nd-when">Day 48 <span>&middot;</span> Email</figcaption>
+          <div class="nd-mail">
+            <div class="nd-from"><span class="nd-mav">GAS</span><span><b>GAS Marketing</b><em>to Naledi</em></span></div>
+            <div class="nd-subj">What your category paid per lead this quarter</div>
+            <div class="nd-prev">Thought this would be useful before your budget conversation. Nothing needed from you.</div>
+          </div>
+          <p class="nd-why">Gives something useful, so the next message is welcome.</p>
+        </figure>
+
+        <figure class="nd">
+          <figcaption class="nd-when">Day 96 <span>&middot;</span> WhatsApp</figcaption>
+          <div class="nd-phone">
+            <div class="nd-bar"><span class="nd-av">N</span><span class="nd-nm">Naledi M.</span></div>
+            <div class="nd-body">
+              <div class="nd-msg out">Morning Naledi. You mentioned January and it starts Monday. Worth fifteen minutes on your numbers?<span class="nd-t">08:02</span></div>
+              <div class="nd-msg in">Yes, budget landed. Send me a time.<span class="nd-t">08:19</span></div>
+            </div>
+          </div>
+          <p class="nd-why">Timed to the month they named, not to a drip schedule.</p>
+        </figure>
+      </div>
+
+      <div class="nudge-out">
+        <span class="no-score">82</span>
+        <span class="no-tier">HOT</span>
+        <span class="no-txt">Re-scored on the reply and handed to sales, ninety-six days after the media was bought.</span>
       </div>
     </div>
     <p class="mo-foot rv"><b>1,966 conversations</b> bought with the same media as the 309. A funnel that stops at the handover is throwing away the larger half of what it paid for.</p>
@@ -2027,7 +2092,7 @@ body.scrolled .nav-inner{height:60px}
       <div class="mo rv">
         <div class="mo-s">Month 03</div>
         <div class="mo-t">It predicts</div>
-        <p>Sales outcomes feed back, so the score stops describing interest and starts anticipating it. The same spend reaches the same market and returns more, because the qualification underneath it got sharper.</p>
+        <p>Sales outcomes feed back, so the score stops describing interest and starts anticipating it. The same spend reaches the same market and returns more, because the qualification got sharper.</p>
       </div>
     </div>
     <p class="mo-foot rv">A scorecard trained on your funnel is not portable and not generic. It is the asset the engagement builds, and it compounds for as long as it runs.</p>
