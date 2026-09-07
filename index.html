@@ -670,24 +670,51 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
   white-space:nowrap}
 .scard-ver span{color:var(--g-amber)}
 
-.scard-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px);margin-top:20px}
-.scard-ct{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--text-3);margin-bottom:12px}
-.scard-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
-.scard-list li{display:flex;gap:11px;font-size:14.5px;line-height:1.5;color:var(--text-2)}
-.scard-list li span{flex:1;min-width:0}
-.scard-list li b{color:var(--text);font-weight:600}
-.scard-list .ic{width:15px;height:15px;flex:none;margin-top:3px;stroke-width:2.4}
-.scard-list.find .ic{color:var(--iq-hot)}
-.scard-list.did .ic{color:var(--g-amber)}
-.scard-foot{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line);
-  font-size:14.5px;line-height:1.6;color:var(--text-2);max-width:82ch}
-.scard-foot b{color:var(--text);font-weight:600}
+.scard-body{display:grid;grid-template-columns:minmax(0,352px) minmax(0,1fr);
+  gap:clamp(22px,4vw,48px);align-items:center;margin-top:22px}
 
-@media (max-width:760px){ .scard-cols{grid-template-columns:1fr;gap:24px} }
+/* the radar. Two shapes: the month one guess as an outline, and what three
+   months of outcomes pulled it into. */
+.radar{margin:0;display:flex;flex-direction:column;gap:12px}
+.radar svg{width:100%;height:auto;overflow:visible}
+.rd-grid polygon{fill:none;stroke:rgba(150,175,255,.16);stroke-width:1}
+.rd-grid line{stroke:rgba(150,175,255,.12);stroke-width:1}
+.rd-was{fill:rgba(150,175,255,.07);stroke:rgba(150,175,255,.45);stroke-width:1.5;
+  stroke-dasharray:4 4}
+.rd-now{fill:rgba(247,137,24,.20);stroke:var(--g-orange);stroke-width:2;
+  stroke-linejoin:round}
+.rd-lbl text{fill:var(--text-3);font-family:var(--mono);font-size:9px;letter-spacing:.14em}
+.rd-key{display:flex;justify-content:center;gap:20px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.rd-key span{display:inline-flex;align-items:center;gap:7px}
+.rd-key i{width:14px;height:0;border-top:2px dashed rgba(150,175,255,.6)}
+.rd-key i.k-now{border-top:2px solid var(--g-orange)}
+
+/* the six dimensions, each showing where it started and where it sits now */
+.dims{display:grid;grid-template-columns:1fr 1fr;gap:18px 26px}
+.dim-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.dim-n{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-label)}
+.dim-w{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--g-amber);
+  font-variant-numeric:tabular-nums}
+.dim-w.down{color:var(--text-3)}
+.dim-bar{position:relative;display:block;height:5px;border-radius:99px;
+  background:rgba(255,255,255,.07);margin:8px 0 7px;overflow:hidden}
+.dim-bar i{position:absolute;inset:0 auto 0 0;background:rgba(150,175,255,.28);border-radius:99px}
+.dim-bar b{position:absolute;inset:0 auto 0 0;background:var(--g-grad);border-radius:99px}
+.dim-bar b.dn{background:rgba(150,175,255,.55)}
+.dim p{margin:0;font-size:13px;line-height:1.45;color:var(--text-3)}
+
+.scard-foot{margin:26px 0 0;padding-top:20px;border-top:1px solid var(--line);
+  font-size:14.5px;line-height:1.6;color:var(--text-2)}
+.scard-foot b{color:var(--text);font-weight:700}
+
+@media (max-width:980px){ .scard-body{grid-template-columns:1fr;gap:26px}
+  .radar{max-width:380px;width:100%;justify-self:center;margin:0} }
+@media (max-width:560px){ .dims{grid-template-columns:1fr;gap:16px} }
 @media (max-width:620px){
   .scard{padding:18px 16px}
-  .scard-meta,.scard-list li,.scard-foot{font-size:13.5px}
+  .scard-meta,.scard-foot,.dim p{font-size:13.5px}
 }
 
 /* The re-engagement, shown in the surfaces it actually happens in rather than
@@ -2139,37 +2166,70 @@ body.scrolled .nav-inner{height:60px}
       <div class="scard-head">
         <div>
           <div class="scard-title">Your prospecting scorecard</div>
-          <div class="scard-meta">What a high-intent lead looks like on <em>your</em> funnel, learned from 6,825 of your own conversations. It does not transfer to anyone else.</div>
+          <div class="scard-meta">Six things every buyer reveals in conversation. PSI learns how much each one is worth <em>on your funnel</em>, then weights the next conversation accordingly.</div>
         </div>
         <span class="scard-ver">Version 3 <span>&middot;</span> Month 03</span>
       </div>
 
-      <div class="scard-cols">
-        <div class="scard-col">
-          <div class="scard-ct">The profile it found</div>
-          <ul class="scard-list find">
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Already spending on paid media, and says so unprompted</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Names lead <b>quality</b> rather than lead volume as the problem</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Answers the cost-per-lead question instead of deflecting it</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Replies inside the hour, in full sentences</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Asks how it works before asking what it costs</span></li>
-          </ul>
-        </div>
+      <div class="scard-body">
+        <figure class="radar">
+          <svg viewBox="-52 -4 368 264" role="img" aria-label="Radar chart comparing the month one scoring model with the current one across six dimensions">
+            <g class="rd-grid">
+              <polygon points="132.0,94.3 156.0,108.1 156.0,135.9 132.0,149.7 108.0,135.9 108.0,108.1"/>
+              <polygon points="132.0,66.6 180.0,94.3 180.0,149.7 132.0,177.4 84.0,149.7 84.0,94.3"/>
+              <polygon points="132.0,38.0 204.7,80.0 204.7,164.0 132.0,206.0 59.3,164.0 59.3,80.0"/>
+              <line x1="132" y1="122" x2="132.0" y2="38.0"/><line x1="132" y1="122" x2="204.7" y2="80.0"/><line x1="132" y1="122" x2="204.7" y2="164.0"/><line x1="132" y1="122" x2="132.0" y2="206.0"/><line x1="132" y1="122" x2="59.3" y2="164.0"/><line x1="132" y1="122" x2="59.3" y2="80.0"/>
+            </g>
+            <polygon class="rd-was" points="132.0,75.8 161.1,105.2 177.1,148.0 132.0,187.5 84.0,149.7 110.2,109.4"/>
+            <polygon class="rd-now" points="132.0,44.7 194.6,85.9 188.7,154.8 132.0,165.7 73.8,155.6 79.6,91.8"/>
+            <g class="rd-lbl">
+              <text x="132.0" y="14.0" text-anchor="middle">INTENT</text><text x="222.9" y="66.5" text-anchor="start">BUDGET</text><text x="222.9" y="185.5" text-anchor="start">TIMING</text><text x="132.0" y="238.0" text-anchor="middle">AUTHORITY</text><text x="41.1" y="185.5" text-anchor="end">NEED</text><text x="41.1" y="66.5" text-anchor="end">ENGAGEMENT</text>
+            </g>
+          </svg>
+          <figcaption class="rd-key">
+            <span><i class="k-was"></i>Month 01</span>
+            <span><i class="k-now"></i>Now</span>
+          </figcaption>
+        </figure>
 
-        <div class="scard-col">
-          <div class="scard-ct">What PSI changed because of it</div>
-          <ul class="scard-list did">
-            <li><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg><span>Cost per lead moved to the second message. It separates buyers fastest.</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg><span>Company size dropped entirely. Three months of outcomes showed no link to closing.</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg><span>A slot is offered on the third reply once four of the five match.</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg><span>Price is held back until they ask. The ones who ask first are the ones who buy.</span></li>
-          </ul>
+        <div class="dims">
+          <div class="dim">
+            <div class="dim-top"><span class="dim-n">Intent</span><span class="dim-w">92</span></div>
+            <span class="dim-bar"><i style="width:55%"></i><b style="width:92%"></b></span>
+            <p>Are they solving this now, or reading around it?</p>
+          </div>
+          <div class="dim">
+            <div class="dim-top"><span class="dim-n">Budget</span><span class="dim-w">86</span></div>
+            <span class="dim-bar"><i style="width:40%"></i><b style="width:86%"></b></span>
+            <p>Already spending, and willing to say how much.</p>
+          </div>
+          <div class="dim">
+            <div class="dim-top"><span class="dim-n">Timing</span><span class="dim-w">78</span></div>
+            <span class="dim-bar"><i style="width:62%"></i><b style="width:78%"></b></span>
+            <p>This quarter, next quarter, or one day.</p>
+          </div>
+          <div class="dim">
+            <div class="dim-top"><span class="dim-n">Authority</span><span class="dim-w down">52</span></div>
+            <span class="dim-bar"><i style="width:78%"></i><b class="dn" style="width:52%"></b></span>
+            <p>Weighted down: seniority predicted less than it promised.</p>
+          </div>
+          <div class="dim">
+            <div class="dim-top"><span class="dim-n">Need</span><span class="dim-w">80</span></div>
+            <span class="dim-bar"><i style="width:66%"></i><b style="width:80%"></b></span>
+            <p>How much the problem is costing them already.</p>
+          </div>
+          <div class="dim">
+            <div class="dim-top"><span class="dim-n">Engagement</span><span class="dim-w">72</span></div>
+            <span class="dim-bar"><i style="width:30%"></i><b style="width:72%"></b></span>
+            <p>Reply speed and answer depth, the quietest tell.</p>
+          </div>
         </div>
       </div>
 
-      <p class="scard-foot"><b>This is version three.</b> Every conversation updates it, so the model your
-        funnel runs next quarter is not the one it runs today, and it is not a version anyone else
-        can buy. The scorecard is the asset; the conversations are how it is paid for.</p>
+      <p class="scard-foot"><b>Nobody starts with this shape.</b> Month one is a reasonable guess, and
+        every conversation since has pulled it toward what actually closed on your funnel. It is
+        version three today. It will not be version three next quarter, and it is not a shape anyone
+        else can buy.</p>
     </div>
 
     <p class="mo-foot rv">A scorecard trained on your funnel is not portable and not generic. It is the asset the engagement builds, and it compounds for as long as it runs.</p>
