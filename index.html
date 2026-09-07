@@ -680,7 +680,10 @@ h1 .line:nth-child(2) span{animation-delay:.14s}
 @media (max-width:900px){ .nudge-rail{grid-template-columns:1fr 1fr} }
 @media (max-width:520px){ .nudge-rail{grid-template-columns:1fr} .nudge{padding:16px 16px 18px} }
 
-#harvest,#compound{padding-bottom:calc(var(--sec) * .5)}
+/* Both sections open under a panelled section and close on a centred single
+   line, so a full section padding at either end read as a hole. Half at both,
+   which also makes the two boundaries symmetric: 132px above and below. */
+#harvest,#compound{padding-top:calc(var(--sec) * .5);padding-bottom:calc(var(--sec) * .5)}
 
 /* ---------- faq ---------- */
 .faq{max-width:820px;margin:0 auto}
