@@ -4,15 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Google tag (gtag.js) — placed high in the head so the pageview fires before
-     the fonts and the rest of the head resolve -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6T6WY4PSJ"></script>
+<!-- ============================================================
+     Measurement. Order in this block is load-bearing:
+       1. Consent Mode defaults, BEFORE gtag.js is requested. Set them after
+          and the first pageview has already gone under whatever the tag
+          assumed.
+       2. gtag.js   3. Meta Pixel   4. Clarity
+
+     Every host below is also named in the Content-Security-Policy in
+     vercel.json. Add a tag here without adding its origin there and the
+     browser refuses the script silently — indistinguishable, from the page,
+     from a tag that was never installed. Change one, change both.
+     ============================================================ -->
+
+<!-- Consent Mode v2. Denied for the EEA, the UK and Switzerland, where prior
+     consent is required; granted elsewhere, which is where this funnel's
+     traffic is. No banner yet, so EEA visitors stay on cookieless pings
+     until one ships and calls psiConsent.grant(). -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-B6T6WY4PSJ');
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500,
+    region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU',
+             'IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES',
+             'SE','IS','LI','NO','GB','CH']
+  });
+  gtag('consent', 'default', {
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted',
+    analytics_storage: 'granted'
+  });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FXRVT8S19R"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-FXRVT8S19R');
+</script>
+
+<!-- Meta Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '723945832022970');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=723945832022970&amp;ev=PageView&amp;noscript=1"></noscript>
+
+<!-- Microsoft Clarity -->
+<script>
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "oxge8a8u4c");
+</script>
+
+<!-- One entry point for the banner when it lands, so it never has to know
+     which vendors are installed. -->
+<script>
+  window.psiConsent = {
+    grant: function(){
+      gtag('consent', 'update', {
+        ad_storage: 'granted', ad_user_data: 'granted',
+        ad_personalization: 'granted', analytics_storage: 'granted'
+      });
+      if(window.fbq) fbq('consent', 'grant');
+      if(window.clarity) clarity('consent');
+    },
+    revoke: function(){
+      gtag('consent', 'update', {
+        ad_storage: 'denied', ad_user_data: 'denied',
+        ad_personalization: 'denied', analytics_storage: 'denied'
+      });
+      if(window.fbq) fbq('consent', 'revoke');
+      if(window.clarity) clarity('consent', false);
+    }
+  };
 </script>
 <title>GAS Marketing PSI Chat</title>
 <meta name="description" content="PSI routes your paid media through WhatsApp conversations that qualify every lead before it reaches your sales team. Intent scored. Sales ready. Engineered by GAS.">
@@ -2715,15 +2797,43 @@ body.scrolled .nav-inner{height:60px}
      later are picked up without touching this.
      ============================================================ */
   (function trackAsks(){
+    /* One id per click, sent to GA4 as a parameter and to Meta as eventID.
+       When the WhatsApp webhook later reports the same contact server-side,
+       matching ids let Meta collapse the pair instead of counting two. */
+    function newId(){
+      try{ return crypto.randomUUID(); }
+      catch(e){ return 'e' + Date.now().toString(36) + Math.random().toString(36).slice(2,10); }
+    }
     document.addEventListener('click', function(e){
       var el = e.target.closest ? e.target.closest('[data-wa]') : null;
       if(!el || el.hasAttribute('data-wa-hold')) return;      /* toast, not a chat */
-      if(typeof window.gtag !== 'function') return;           /* blocked or not loaded */
-      window.gtag('event', 'whatsapp_click', {
-        location: el.getAttribute('data-loc') || 'unlabelled',
-        link_url: el.getAttribute('href') || ''
-      });
+      var where = el.getAttribute('data-loc') || 'unlabelled';
+      var id = newId();
+
+      if(typeof window.gtag === 'function'){                  /* blocked or not loaded */
+        window.gtag('event', 'whatsapp_click', {
+          funnel_name: 'psi',
+          button_location: where,
+          destination: 'whatsapp',
+          event_id: id,
+          link_url: el.getAttribute('href') || ''
+        });
+      }
+      if(typeof window.fbq === 'function'){
+        window.fbq('track', 'Contact', {
+          content_name: 'PSI WhatsApp Funnel',
+          content_category: 'PSI',
+          button_location: where
+        }, { eventID: id });
+      }
     });
+  })();
+
+  /* A funnel-scoped companion to page_view, so the funnel can be counted
+     without depending on which page_view rows belong to this subdomain. */
+  (function viewFunnel(){
+    if(typeof window.gtag !== 'function') return;
+    window.gtag('event', 'view_psi_funnel', { funnel_name: 'psi' });
   })();
 
   /* ============================================================
