@@ -983,6 +983,8 @@ details p{color:var(--text-2);margin-top:12px;max-width:700px;font-size:16px}
 .team-track{-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
   mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .team-track + .tm-lbl{margin-top:34px}
+.tm-swarm{margin:30px auto 0;width:max-content;max-width:calc(100% - 32px);padding:10px 18px;border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--cold) 40%,transparent);background:color-mix(in srgb,var(--cold) 10%,transparent);color:var(--text-2,var(--text-3));text-align:center}
 .team-track .m-set{display:flex;align-items:center;gap:40px;padding-right:40px;white-space:nowrap}
 /* .marquee-rev is read by the script, which reverses the animation */
 .tm{margin:0;display:flex;align-items:center;gap:17px}
@@ -2410,7 +2412,7 @@ body.scrolled .nav-inner{height:60px}
     <div class="section-head rv" style="text-align:center">
       <div class="eyebrow" style="justify-content:center">The Team</div>
       <h2 class="rvw">Human command.<br><span class="accent">AI execution.</span></h2>
-      <p class="lede" style="margin-left:auto;margin-right:auto">Thirteen strategists, eleven AI agents, on every campaign we run.<br class="br-lg"> Real strategists at the wheel, AI under the hood.</p>
+      <p class="lede" style="margin-left:auto;margin-right:auto">Thirteen strategists and eleven AI agents on every campaign we run, backed by a swarm of 93 specialist agents in our Agency of NOW platform.<br class="br-lg"> Real strategists at the wheel, AI under the hood.</p>
     </div>
   </div>
   <div class="team-strip rv">
@@ -2452,6 +2454,9 @@ body.scrolled .nav-inner{height:60px}
         </div>
       </div>
     </div>
+    <!-- THE SWARM (Gary, 31 October 2026): the full count of specialist agents working inside The Agency of NOW
+         platform. Keep in step with lib/pod-agents.ts in influencers-on-gas (the dashboard's "AI agents" flex). -->
+    <p class="tm-lbl tm-swarm"><i class="ai" aria-hidden="true"></i>Backed by a 93-agent swarm in The Agency of NOW</p>
   </div>
 </section>
 
